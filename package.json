@@ -1,25 +1,26 @@
 {
-  "name": "wifi-hotspot",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "axios": "^1.7.3",
-    "bkash-payment-gateway": "^2.0.1",
-    "next": "14.2.5",
-    "react": "^18",
-    "react-dom": "^18",
-    "uuid": "^10.0.0"
-  },
-  "devDependencies": {
-    "eslint": "^8",
-    "eslint-config-next": "14.2.5",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1"
-  }
+    "name": "wifi-hotspot",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "axios": "^1.7.3",
+        "next": "14.2.5",
+        "node-routeros": "^1.6.9",
+        "react": "^18",
+        "react-dom": "^18",
+        "source-map-support": "^0.5.21",
+        "uuid": "^10.0.0"
+    },
+    "devDependencies": {
+        "eslint": "^8",
+        "eslint-config-next": "14.2.5",
+        "postcss": "^8",
+        "tailwindcss": "^3.4.1"
+    }
 }
