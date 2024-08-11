@@ -4,9 +4,9 @@ export const dynamic = 'force-dynamic';
 
 export default function Home() {
     return (
-        <main className='flex items-center justify-center h-screen'>
+        <div>
             {/* <PaymentButton /> */}
             <CreateUser />
-        </main>
+        </div>
     );
 }
