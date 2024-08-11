@@ -24,10 +24,10 @@ export const createNewUser = async (formData) => {
 
         conn.close();
 
-        console.log({results, loginResponse});
+        console.log(results,loginResponse);
         
 
-        return { success: true, results, loginResponse };
+        return { success: true, results,loginResponse };
     } catch (error) {
         throw new Error(error)
     }

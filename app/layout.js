@@ -1,8 +1,6 @@
-import { Inter } from 'next/font/google';
-import './globals.css';
-import { Toaster } from 'sonner';
 
-const inter = Inter({ subsets: ['latin'] });
+import './globals.css';
+import { Toaster } from 'sonner'
 
 export const metadata = {
     title: 'Wifi Hotspot',
@@ -12,8 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang='en'>
-            <body className={inter.className}>{children}</body>
-            <Toaster />
+            <body>
+                {children}
+                <Toaster />
+            </body>
         </html>
     );
 }
