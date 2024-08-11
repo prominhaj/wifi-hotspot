@@ -1,6 +1,6 @@
-
+import ThemeProvider from '@/Providers/ThemeProvider';
 import './globals.css';
-import { Toaster } from 'sonner'
+import { Toaster } from 'sonner';
 
 export const metadata = {
     title: 'Wifi Hotspot',
@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang='en'>
             <body>
-                {children}
+                <ThemeProvider>{children}</ThemeProvider>
                 <Toaster />
             </body>
         </html>
