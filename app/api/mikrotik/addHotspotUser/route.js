@@ -15,6 +15,12 @@ export const POST = async (req) => {
             `=email=hellobello@gmail.com`
         ]);
 
+// Automatically log in the user after creation
+    const loginResponse = await conn.write('/ip/hotspot/active/login', [
+      `=user=${username}`,
+      `=password=${password}`,
+    ]);
+
         conn.close();
 
         return NextResponse.json({ success: true, results });
