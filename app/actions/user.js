@@ -34,7 +34,7 @@ export const createAccount = async (data) => {
             return {
                 success: true,
                 message: 'User Created SuccessFull',
-                user: JSON.stringify(JSON.parse(createdUser))
+                user: createdUser
             };
         } else {
             throw new Error('Failed to send OTP');
@@ -44,12 +44,15 @@ export const createAccount = async (data) => {
     }
 };
 
-export const verifyOtp = async (otp) => {
+export const verifyOtp = async (otp, id) => {
     try {
         const sentOtp = cookies().get('otp').value;
         const verify = await bcrypt.compare(otp, sentOtp);
         if (verify) {
-            await updateUserInfo();
+            await updateUserInfo(id, {
+                verified: true
+            });
+            cookies().delete('otp');
             return { success: true, message: 'OTP Verified Successfully' };
         }
         return { success: false, message: 'Invalid OTP' };

@@ -11,8 +11,9 @@ import { toast } from "sonner";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import { cn } from "@/lib/utils";
 import { verifyOtp } from "@/app/actions/user";
+import { redirectPath } from "@/app/actions";
 
-const VerifyOTP = () => {
+const VerifyOTP = ({ id }) => {
     const [otp, setOtp] = useState('');
     const [error, setError] = useState('');
 
@@ -37,9 +38,10 @@ const VerifyOTP = () => {
         }
 
         try {
-            const verify = await verifyOtp(otp);
+            const verify = await verifyOtp(otp, id);
             if (verify.success) {
                 toast.success('OTP verified successfully!');
+                await redirectPath("/")
             }
             else {
                 toast.error(verify.message)

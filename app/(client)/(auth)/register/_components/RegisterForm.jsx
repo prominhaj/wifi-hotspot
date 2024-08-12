@@ -15,26 +15,6 @@ import { redirectPath } from "@/app/actions";
 const RegisterForm = () => {
     const [errors, setErrors] = useState(null);
 
-    const sendOtp = async (phoneNumber) => {
-        const number = parseInt(phoneNumber)
-        const otp = Math.floor(1000 + Math.random() * 9000);
-        const message = `Your Shakib Electronics OTP is ${otp}`;
-
-        const apiUrl = `https://bulksmsbd.net/api/smsapi?api_key=${process.env.SMS_API_KEY}&type=text&number=${number}&senderid=8809617613576&message=${message}`;
-
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-            if (data?.success_message) {
-                toast.success('OTP sent successfully!');
-            }
-
-        } catch (error) {
-            toast.error('An error occurred while sending OTP.');
-            console.error('Error:', error);
-        }
-    };
-
     const registerFormAction = async (formData) => {
         setErrors(null);
         try {
@@ -47,7 +27,7 @@ const RegisterForm = () => {
                 const result = await createAccount(singUp.data);
                 if (result?.success) {
                     toast.success(result.message);
-                    await redirectPath("/register/verify")
+                    await redirectPath(`/register/verify?id=${result?.user?._id}`)
                 }
                 else {
                     toast.error("Something went wrong")
@@ -60,7 +40,6 @@ const RegisterForm = () => {
 
     return (
         <div>
-            <button onClick={bcryptTest}>Test</button>
             <h4 className="text-xl font-[600] tracking-wider text-center">রেজিস্টার</h4>
             <form className="pt-5" action={registerFormAction}>
                 <div className="space-y-4">
