@@ -9,6 +9,9 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { userValidation } from "@/lib/validations/user";
 import { useState } from "react";
+import bcrypt from 'bcryptjs';
+import { createAccount } from "@/app/actions/user";
+import { redirectPath } from "@/app/actions";
 
 const RegisterForm = () => {
     const [errors, setErrors] = useState(null);
@@ -18,7 +21,7 @@ const RegisterForm = () => {
         const otp = Math.floor(1000 + Math.random() * 9000);
         const message = `Your Shakib Electronics OTP is ${otp}`;
 
-        const apiUrl = `https://bulksmsbd.net/api/smsapi?api_key=${process.env.NEXT_PUBLIC_SMS_API_KEY}&type=text&number=${number}&senderid=8809617613576&message=${message}`;
+        const apiUrl = `https://bulksmsbd.net/api/smsapi?api_key=${process.env.SMS_API_KEY}&type=text&number=${number}&senderid=8809617613576&message=${message}`;
 
         try {
             const response = await fetch(apiUrl);
@@ -42,15 +45,30 @@ const RegisterForm = () => {
                 return;
             }
             if (singUp?.success) {
-                console.log(singUp.data);
+                const result = await createAccount(singUp.data);
+                if (result?.success) {
+                    toast.success(result.message);
+                    await redirectPath("/register/verify")
+                }
+                else {
+                    toast.error("Something went wrong")
+                }
             }
         } catch (error) {
             toast.error(error.message)
         }
     };
 
+    const bcryptTest = async () => {
+        const code = await bcrypt.hash("4564", 4);
+        console.log(code);
+        const com = await bcrypt.compare("4564", code)
+        console.log(com);
+    }
+
     return (
         <div>
+            <button onClick={bcryptTest}>Test</button>
             <h4 className="text-xl font-[600] tracking-wider text-center">রেজিস্টার</h4>
             <form className="pt-5" action={registerFormAction}>
                 <div className="space-y-4">

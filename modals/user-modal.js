@@ -15,6 +15,11 @@ const userSchema = new Schema(
             type: String,
             required: true
         },
+        verified: {
+            type: Boolean,
+            required: true,
+            default: false
+        },
         profilePhoto: {
             url: {
                 type: String,
