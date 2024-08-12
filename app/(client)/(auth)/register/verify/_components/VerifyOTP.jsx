@@ -24,7 +24,7 @@ const VerifyOTP = ({ id }) => {
         }
     };
 
-    const handleOtpAction = async (formData) => {
+    const handleOtpAction = async (_formData) => {
 
         // Validate OTP
         if (otp.length !== 4) {

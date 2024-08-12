@@ -1,17 +1,67 @@
 "use client";
 
+import { redirectPath } from "@/app/actions";
 import FormControl from "@/components/globals/FormControl/FormControl";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import { buttonVariants } from "@/components/ui/button";
+import useAuth from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 import { KeyRound, Phone } from "lucide-react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const LoginForm = () => {
+    const [error, setError] = useState({});
+    const [loading, setLoading] = useState(false);
+    const { user, status } = useAuth();
+    console.log(user);
+
+
+    const handleUserLogin = async (e) => {
+        e.preventDefault();
+        setError({});
+        setLoading(true);
+
+        const phone = e.target.phone.value;
+        const password = e.target.password.value;
+
+        try {
+            const result = await signIn("credentials", {
+                redirect: false,
+                phone,
+                password,
+            });
+
+            if (result.error) {
+                toast.error(result.error);
+                setError({ [result.error.includes("Password") ? "password" : "phone"]: result.error });
+
+                if (result.error === "Password does not match") {
+                    e.target.password.value = "";
+                } else if (result.error === "Phone Number Not Found") {
+                    e.target.reset();
+                }
+                return;
+            }
+
+            if (result.ok) {
+                await redirectPath("/")
+                toast.success("Your account has been Login successful");
+            }
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
     return (
         <div>
             <h4 className="text-xl font-[600] tracking-wider text-center">লগইন</h4>
-            <form className="pt-5" action="">
+            <form className="pt-5" onSubmit={handleUserLogin}>
                 <div className="space-y-4">
                     <FormControl
                         name="phone"
@@ -23,7 +73,10 @@ const LoginForm = () => {
                         title="Please enter a valid 11-digit phone number"
                         icon={<Phone className="w-4 h-4" />}
                         placeHolder="01786XXXXXX"
-                    />
+                        error={error?.phone}
+                    >
+                        {error.phone && <p className="text-red-500"><small>{error.phone}</small></p>}
+                    </FormControl>
                     <FormControl
                         name="password"
                         label="পাসওয়ার্ড"
@@ -32,8 +85,12 @@ const LoginForm = () => {
                         minLength={4}
                         icon={<KeyRound className="w-4 h-4" />}
                         placeHolder="********"
-                    />
+                        error={error?.password}
+                    >
+                        {error.password && <p className="text-red-500"><small>{error.password}</small></p>}
+                    </FormControl>
                     <SubmitButton
+                        loading={loading}
                         variant="primary"
                         className="w-full tracking-wider rounded-lg"
                     >

@@ -1,5 +1,9 @@
+import { getServerSession } from 'next-auth';
+
 export const dynamic = 'force-dynamic';
 
-export default function Home() {
+const HomePage = async () => {
     return <div></div>;
-}
+};
+
+export default HomePage;
