@@ -6,7 +6,17 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
 const FormControl = ({
-    label, name, className, type = "text", required = true, placeHolder, icon, defaultValue, ...props
+    label,
+    name,
+    className,
+    type = "text",
+    required = false,
+    placeHolder,
+    icon,
+    defaultValue,
+    error,
+    children,
+    ...props
 }) => {
     const [showPassword, setShowPassword] = useState(false);
     const handleTogglePassword = () => setShowPassword(!showPassword);
@@ -20,7 +30,7 @@ const FormControl = ({
             </Label>
             <div className="relative">
                 <Input
-                    className={cn(className, "text-base")}
+                    className={cn(className, error && "border-red-500", "text-base")}
                     type={inputType}
                     id={name}
                     name={name}
@@ -34,6 +44,7 @@ const FormControl = ({
                         {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
                 )}
+                {children}
             </div>
         </div>
     );

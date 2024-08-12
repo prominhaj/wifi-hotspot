@@ -10,13 +10,12 @@ const SubmitButton = ({ className, variant, size, children }) => {
     return (
         <Button
             type="submit"
+            disabled={pending}
             size={size}
             variant={variant}
-            className={cn(className)}>
+            className={cn(className, "text-center")}>
             {pending ? (
-                <div className="flex items-center gap-1">
-                    <Spinner size={size === "sm" ? false : true} /> Loading...
-                </div>
+                <Spinner size={size === "sm" ? false : true} />
             ) : children}
         </Button>
     );

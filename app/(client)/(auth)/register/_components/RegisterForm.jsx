@@ -7,8 +7,11 @@ import { cn } from "@/lib/utils";
 import { KeyRound, Phone, UserPen } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { userValidation } from "@/lib/validations/user";
+import { useState } from "react";
 
 const RegisterForm = () => {
+    const [errors, setErrors] = useState(null);
 
     const sendOtp = async (phoneNumber) => {
         const number = parseInt(phoneNumber)
@@ -30,29 +33,68 @@ const RegisterForm = () => {
         }
     };
 
+    const registerFormAction = async (formData) => {
+        setErrors(null);
+        try {
+            const singUp = await userValidation(formData);
+            if (singUp.errors) {
+                setErrors(singUp.errors);
+                return;
+            }
+            if (singUp?.success) {
+                console.log(singUp.data);
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    };
+
     return (
         <div>
-            <button onClick={() => sendOtp("01720232223")}>Sent OTP</button>
             <h4 className="text-xl font-[600] tracking-wider text-center">রেজিস্টার</h4>
-            <form className="pt-5" action="">
+            <form className="pt-5" action={registerFormAction}>
                 <div className="space-y-4">
                     <FormControl
                         name="name"
                         label="আপনার নাম"
                         icon={<UserPen className="w-4 h-4" />}
                         placeHolder="Shakibul Islam"
-                    />
+                        error={errors?.name}
+                    >
+                        {errors?.name && (
+                            <p className="flex flex-col items-start justify-start gap-0.5 text-red-500">
+                                {
+                                    errors.name.map((mess, i) => (
+                                        <small key={i}>
+                                            {mess}
+                                        </small>
+                                    ))
+                                }
+                            </p>
+                        )}
+                    </FormControl>
                     <FormControl
                         name="phone"
                         label="ফোন নাম্বার"
                         type="tel"
                         maxLength={11}
                         minLength={11}
-                        pattern="\d{11}"
-                        title="Please enter a valid 11-digit phone number"
                         icon={<Phone className="w-4 h-4" />}
                         placeHolder="01786XXXXXX"
-                    />
+                        error={errors?.phone}
+                    >
+                        {errors?.phone && (
+                            <p className="flex flex-col items-start justify-start gap-0.5 text-red-500">
+                                {
+                                    errors.phone.map((mess, i) => (
+                                        <small key={i}>
+                                            {mess}
+                                        </small>
+                                    ))
+                                }
+                            </p>
+                        )}
+                    </FormControl>
                     <FormControl
                         name="password"
                         label="পাসওয়ার্ড দিন"
@@ -61,7 +103,20 @@ const RegisterForm = () => {
                         minLength={4}
                         icon={<KeyRound className="w-4 h-4" />}
                         placeHolder="********"
-                    />
+                        error={errors?.password}
+                    >
+                        {errors?.password && (
+                            <p className="flex flex-col items-start justify-start gap-0.5 text-red-500">
+                                {
+                                    errors.password.map((mess, i) => (
+                                        <small key={i}>
+                                            {mess}
+                                        </small>
+                                    ))
+                                }
+                            </p>
+                        )}
+                    </FormControl>
                     <FormControl
                         name="confirmPassword"
                         label="আবার পাসওয়ার্ড দিন"
@@ -70,7 +125,20 @@ const RegisterForm = () => {
                         minLength={4}
                         icon={<KeyRound className="w-4 h-4" />}
                         placeHolder="********"
-                    />
+                        error={errors?.confirmPassword}
+                    >
+                        {errors?.confirmPassword && (
+                            <p className="flex flex-col items-start justify-start gap-0.5 text-red-500">
+                                {
+                                    errors.confirmPassword.map((mess, i) => (
+                                        <small key={i}>
+                                            {mess}
+                                        </small>
+                                    ))
+                                }
+                            </p>
+                        )}
+                    </FormControl>
                     <SubmitButton
                         variant="primary"
                         className="w-full tracking-wider rounded-lg"
