@@ -6,10 +6,33 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { KeyRound, Phone, UserPen } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 const RegisterForm = () => {
+
+    const sendOtp = async (phoneNumber) => {
+        const number = parseInt(phoneNumber)
+        const otp = Math.floor(1000 + Math.random() * 9000);
+        const message = `Your Shakib Electronics OTP is ${otp}`;
+
+        const apiUrl = `https://bulksmsbd.net/api/smsapi?api_key=${process.env.NEXT_PUBLIC_SMS_API_KEY}&type=text&number=${number}&senderid=8809617613576&message=${message}`;
+
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            if (data?.success_message) {
+                toast.success('OTP sent successfully!');
+            }
+
+        } catch (error) {
+            toast.error('An error occurred while sending OTP.');
+            console.error('Error:', error);
+        }
+    };
+
     return (
         <div>
+            <button onClick={() => sendOtp("01720232223")}>Sent OTP</button>
             <h4 className="text-xl font-[600] tracking-wider text-center">রেজিস্টার</h4>
             <form className="pt-5" action="">
                 <div className="space-y-4">
