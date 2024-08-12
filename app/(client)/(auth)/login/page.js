@@ -1,9 +1,9 @@
 import LoginForm from './_components/LoginForm';
 
-const LoginPage = () => {
+const LoginPage = ({ searchParams: { redirectUrl } }) => {
     return (
         <div>
-            <LoginForm />
+            <LoginForm redirectUrl={redirectUrl} />
         </div>
     );
 };

@@ -1,23 +1,20 @@
 "use client";
 
-import { redirectPath } from "@/app/actions";
 import FormControl from "@/components/globals/FormControl/FormControl";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import { buttonVariants } from "@/components/ui/button";
-import useAuth from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 import { KeyRound, Phone } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const LoginForm = () => {
+const LoginForm = ({ redirectUrl }) => {
     const [error, setError] = useState({});
     const [loading, setLoading] = useState(false);
-    const { user, status } = useAuth();
-    console.log(user);
-
+    const router = useRouter();
 
     const handleUserLogin = async (e) => {
         e.preventDefault();
@@ -47,7 +44,11 @@ const LoginForm = () => {
             }
 
             if (result.ok) {
-                await redirectPath("/")
+                if (redirectUrl) {
+                    router.push(redirectUrl);
+                } else {
+                    router.push("/");
+                }
                 toast.success("Your account has been Login successful");
             }
         } catch (error) {
