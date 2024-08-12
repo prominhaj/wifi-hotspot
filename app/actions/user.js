@@ -4,10 +4,17 @@ import { sendSMS } from '@/lib/sms';
 import { cookies } from 'next/headers';
 import bcrypt from 'bcryptjs';
 import User from '@/modals/user-modal';
+import { updateUserInfo } from '@/queries/user';
 
 export const createAccount = async (data) => {
     try {
         const { name, phone, password } = data;
+        // Check if user already exists
+        const userExists = await User.exists({ phone });
+        if (userExists) {
+            throw new Error('User already exists');
+        }
+
         // Sent OTP Code
         const number = parseInt(phone);
         const otp = Math.floor(1000 + Math.random() * 9000);
@@ -22,12 +29,30 @@ export const createAccount = async (data) => {
             // Store other user details in DataBase
             const hashedPassword = await bcrypt.hash(password, 10);
             // Create new user in DataBase
-            await User.create({ name, phone, password: hashedPassword });
+            const createdUser = await User.create({ name, phone, password: hashedPassword });
 
-            return { success: true, message: 'User Created SuccessFull' };
+            return {
+                success: true,
+                message: 'User Created SuccessFull',
+                user: JSON.stringify(JSON.parse(createdUser))
+            };
         } else {
             throw new Error('Failed to send OTP');
         }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const verifyOtp = async (otp) => {
+    try {
+        const sentOtp = cookies().get('otp').value;
+        const verify = await bcrypt.compare(otp, sentOtp);
+        if (verify) {
+            await updateUserInfo();
+            return { success: true, message: 'OTP Verified Successfully' };
+        }
+        return { success: false, message: 'Invalid OTP' };
     } catch (error) {
         throw new Error(error);
     }

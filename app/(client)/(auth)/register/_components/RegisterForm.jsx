@@ -9,7 +9,6 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { userValidation } from "@/lib/validations/user";
 import { useState } from "react";
-import bcrypt from 'bcryptjs';
 import { createAccount } from "@/app/actions/user";
 import { redirectPath } from "@/app/actions";
 
@@ -58,13 +57,6 @@ const RegisterForm = () => {
             toast.error(error.message)
         }
     };
-
-    const bcryptTest = async () => {
-        const code = await bcrypt.hash("4564", 4);
-        console.log(code);
-        const com = await bcrypt.compare("4564", code)
-        console.log(com);
-    }
 
     return (
         <div>
