@@ -5,17 +5,22 @@ import { cookies } from 'next/headers';
 import bcrypt from 'bcryptjs';
 import User from '@/modals/user-modal';
 import { updateUserInfo } from '@/queries/user';
+import { replaceMongoIdInObject } from '@/lib/convertData';
 
 export const createAccount = async (data) => {
     try {
         const { name, phone, password } = data;
+
         // Check if user already exists
         const userExists = await User.exists({ phone });
         if (userExists) {
-            throw new Error('User already exists');
+            return {
+                success: false,
+                message: 'User already exists'
+            };
         }
 
-        // Sent OTP Code
+        // Send OTP Code
         const number = parseInt(phone);
         const otp = Math.floor(1000 + Math.random() * 9000);
         const message = `Your Shakib Electronics OTP is ${otp}`;
@@ -27,13 +32,11 @@ export const createAccount = async (data) => {
             cookies().set('otp', hashOtp);
 
             // Store other user details in DataBase
-            const hashedPassword = await bcrypt.hash(password, 10);
-            // Create new user in DataBase
-            const createdUser = await User.create({ name, phone, password: hashedPassword });
+            const createdUser = await User.create({ name, phone, password });
 
             return {
                 success: true,
-                message: 'User Created SuccessFull',
+                message: 'User Created Successfully and Logged in',
                 user: createdUser
             };
         } else {
@@ -46,16 +49,42 @@ export const createAccount = async (data) => {
 
 export const verifyOtp = async (otp, id) => {
     try {
-        const sentOtp = cookies().get('otp').value;
-        const verify = await bcrypt.compare(otp, sentOtp);
+        const saveOtp = cookies().get('otp')?.value;
+
+        if (!saveOtp) {
+            throw new Error('OTP not found');
+        }
+
+        const verify = await bcrypt.compare(otp, saveOtp);
+
         if (verify) {
-            await updateUserInfo(id, {
+            const userUpdated = await updateUserInfo(id, {
                 verified: true
             });
-            cookies().delete('otp');
-            return { success: true, message: 'OTP Verified Successfully' };
+            if (userUpdated) {
+                cookies().delete('otp');
+                return { success: true, message: 'OTP Verified Successfully' };
+            }
         }
         return { success: false, message: 'Invalid OTP' };
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const getUserByPhone = async (phone) => {
+    try {
+        const user = await User.findOne({ phone }).select('-password').lean();
+        return replaceMongoIdInObject(user);
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const getUserById = async (id) => {
+    try {
+        const user = await User.findById(id).lean();
+        return replaceMongoIdInObject(user);
     } catch (error) {
         throw new Error(error);
     }

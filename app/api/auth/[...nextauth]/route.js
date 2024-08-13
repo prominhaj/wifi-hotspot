@@ -27,9 +27,7 @@ const options = NextAuth({
                     throw new Error('Phone Not Found');
                 }
 
-                const isPasswordMatched = await bcrypt.compare(password, user.password);
-
-                if (!isPasswordMatched) {
+                if (password !== user.password) {
                     throw new Error('Password does not match');
                 }
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { getUserByPhone } from "@/app/actions/user";
 import FormControl from "@/components/globals/FormControl/FormControl";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import { buttonVariants } from "@/components/ui/button";
@@ -25,6 +26,14 @@ const LoginForm = ({ redirectUrl }) => {
         const password = e.target.password.value;
 
         try {
+            // Check if user already exists
+            const user = await getUserByPhone(phone);
+            if (!user?.verified) {
+                toast.error("Please verify your phone number first");
+                router.push(`/register/verify?id=${user?.id}`);
+                return;
+            }
+
             const result = await signIn("credentials", {
                 redirect: false,
                 phone,

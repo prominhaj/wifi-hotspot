@@ -10,12 +10,14 @@ import {
 import { toast } from "sonner";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import { cn } from "@/lib/utils";
-import { verifyOtp } from "@/app/actions/user";
-import { redirectPath } from "@/app/actions";
+import { getUserById, verifyOtp } from "@/app/actions/user";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const VerifyOTP = ({ id }) => {
     const [otp, setOtp] = useState('');
     const [error, setError] = useState('');
+    const router = useRouter();
 
     const handleOtpChange = (newOtp) => {
         if (/^\d{0,4}$/.test(newOtp)) {
@@ -39,15 +41,28 @@ const VerifyOTP = ({ id }) => {
 
         try {
             const verify = await verifyOtp(otp, id);
+            const user = await getUserById(id);
+
             if (verify.success) {
                 toast.success('OTP verified successfully!');
-                await redirectPath("/")
+                // Auto login the user
+                const loginResponse = await signIn('credentials', {
+                    redirect: false,
+                    phone: user?.phone,
+                    password: user?.password,
+                });
+
+                if (loginResponse?.error) {
+                    throw new Error(loginResponse.error);
+                }
+
+                router.push('/');
             }
             else {
                 toast.error(verify.message)
             }
         } catch (error) {
-            toast.error('An error occurred during OTP verification.');
+            toast.error(error.message);
         }
     };
 

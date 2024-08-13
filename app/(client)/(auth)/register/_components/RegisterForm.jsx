@@ -30,7 +30,7 @@ const RegisterForm = () => {
                     await redirectPath(`/register/verify?id=${result?.user?._id}`)
                 }
                 else {
-                    toast.error("Something went wrong")
+                    toast.error(result?.message || "Something went wrong")
                 }
             }
         } catch (error) {
