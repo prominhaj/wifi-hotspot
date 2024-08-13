@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs';
 import User from '@/modals/user-modal';
 import { updateUserInfo } from '@/queries/user';
 import { replaceMongoIdInObject } from '@/lib/convertData';
+import { generateOTP } from '@/lib/otp';
 
 export const createAccount = async (data) => {
     try {
@@ -21,16 +22,8 @@ export const createAccount = async (data) => {
         }
 
         // Send OTP Code
-        const number = parseInt(phone);
-        const otp = Math.floor(1000 + Math.random() * 9000);
-        const message = `Your Shakib Electronics OTP is ${otp}`;
-        const sentOTP = await sendSMS(number, message);
-
-        if (sentOTP.success) {
-            // Store OTP Code in cookies
-            const hashOtp = await bcrypt.hash(otp.toString(), 4);
-            cookies().set('otp', hashOtp);
-
+        const sendOTP = await generateOTP(phone);
+        if (sendOTP.success) {
             // Store other user details in DataBase
             const createdUser = await User.create({ name, phone, password });
 
@@ -42,7 +35,7 @@ export const createAccount = async (data) => {
         } else {
             return {
                 success: false,
-                message: sentOTP.message,
+                message: sendOTP.message,
                 phone: true
             };
         }

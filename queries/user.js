@@ -1,3 +1,4 @@
+import { replaceMongoIdInObject } from '@/lib/convertData';
 import User from '@/modals/user-modal';
 
 export const getUserByPhone = async (phone) => {
@@ -14,6 +15,15 @@ export const updateUserInfo = async (id, updateData) => {
     try {
         const user = await User.findByIdAndUpdate(id, updateData);
         return user;
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const getUserById = async (id) => {
+    try {
+        const user = await User.findById(id).select('-password').lean();
+        return replaceMongoIdInObject(user);
     } catch (error) {
         throw new Error(error);
     }

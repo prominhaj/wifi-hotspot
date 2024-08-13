@@ -67,7 +67,7 @@ const VerifyOTP = ({ id }) => {
     };
 
     return (
-        <form action={handleOtpAction} className="flex flex-col items-center justify-center py-8">
+        <form action={handleOtpAction} className="flex flex-col items-center justify-center py-5">
             <InputOTP
                 value={otp}
                 onChange={(otp) => handleOtpChange(otp)}
