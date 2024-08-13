@@ -29,6 +29,12 @@ const RegisterForm = () => {
                     toast.success(result.message);
                     await redirectPath(`/register/verify?id=${result?.user?._id}`)
                 }
+                else if (result?.phone) {
+                    setErrors({
+                        phone: [result.message]
+                    })
+                    toast.error(result?.message)
+                }
                 else {
                     toast.error(result?.message || "Something went wrong")
                 }

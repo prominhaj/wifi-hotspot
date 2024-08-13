@@ -26,7 +26,7 @@ export const createAccount = async (data) => {
         const message = `Your Shakib Electronics OTP is ${otp}`;
         const sentOTP = await sendSMS(number, message);
 
-        if (sentOTP) {
+        if (sentOTP.success) {
             // Store OTP Code in cookies
             const hashOtp = await bcrypt.hash(otp.toString(), 4);
             cookies().set('otp', hashOtp);
@@ -36,11 +36,15 @@ export const createAccount = async (data) => {
 
             return {
                 success: true,
-                message: 'User Created Successfully and Logged in',
+                message: 'Please verify your OTP code',
                 user: createdUser
             };
         } else {
-            throw new Error('Failed to send OTP');
+            return {
+                success: false,
+                message: sentOTP.message,
+                phone: true
+            };
         }
     } catch (error) {
         throw new Error(error);
