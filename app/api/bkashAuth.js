@@ -3,17 +3,17 @@ import axios from 'axios';
 export const bkashAuth = async (req, res) => {
     try {
         const { data } = await axios.post(
-            process.env.bkash_grant_token_url,
+            process.env.BKASH_GRANT_TOKEN_URL,
             {
-                app_key: process.env.bkash_api_key,
-                app_secret: process.env.bkash_secret_key
+                app_key: process.env.BKASH_API_KEY,
+                app_secret: process.env.BKASH_SECRET_KEY
             },
             {
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
-                    username: process.env.bkash_username,
-                    password: process.env.bkash_password
+                    username: process.env.BKASH_USERNAME,
+                    password: process.env.BKASH_PASSWORD
                 }
             }
         );

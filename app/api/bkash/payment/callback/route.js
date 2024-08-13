@@ -21,14 +21,14 @@ export async function GET(req) {
 
         try {
             const { data } = await axios.post(
-                process.env.bkash_execute_payment_url,
+                process.env.BKASH_EXECUTE_PAYMENT_URL,
                 { paymentID },
                 {
                     headers: {
                         'Content-Type': 'application/json',
                         Accept: 'application/json',
                         authorization: req.id_token,
-                        'x-app-key': process.env.bkash_api_key
+                        'x-app-key': process.env.BKASH_API_KEY
                     }
                 }
             );

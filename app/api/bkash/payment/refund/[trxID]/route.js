@@ -17,7 +17,7 @@ export async function POST(req, { params }) {
         }
 
         const { data } = await axios.post(
-            process.env.bkash_refund_transaction_url,
+            process.env.BKASH_REFUND_TRANSACTION_URL,
             {
                 paymentID: payment.paymentID,
                 amount: payment.amount,
@@ -30,7 +30,7 @@ export async function POST(req, { params }) {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
                     authorization: req.id_token,
-                    'x-app-key': process.env.bkash_api_key
+                    'x-app-key': process.env.BKASH_API_KEY
                 }
             }
         );

@@ -12,7 +12,7 @@ export async function POST(req) {
 
     try {
         const { data } = await axios.post(
-            process.env.bkash_create_payment_url,
+            process.env.BKASH_CREATE_PAYMENT_URL,
             {
                 mode: '0011',
                 payerReference: ' ',
@@ -27,7 +27,7 @@ export async function POST(req) {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
                     authorization: req.id_token,
-                    'x-app-key': process.env.bkash_api_key
+                    'x-app-key': process.env.BKASH_API_KEY
                 }
             }
         );
