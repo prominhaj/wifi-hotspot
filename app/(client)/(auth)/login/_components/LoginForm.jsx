@@ -56,7 +56,7 @@ const LoginForm = ({ redirectUrl }) => {
                 if (redirectUrl) {
                     router.push(redirectUrl);
                 } else {
-                    router.push("/");
+                    router.push("/dashboard");
                 }
                 toast.success("Your account has been Login successful");
             }

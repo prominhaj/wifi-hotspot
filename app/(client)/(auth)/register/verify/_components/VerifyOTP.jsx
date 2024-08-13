@@ -56,7 +56,7 @@ const VerifyOTP = ({ id }) => {
                     throw new Error(loginResponse.error);
                 }
 
-                router.push('/');
+                router.push('/dashboard');
             }
             else {
                 toast.error(verify.message)
