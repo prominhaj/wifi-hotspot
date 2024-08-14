@@ -17,7 +17,7 @@ export async function POST(req) {
             {
                 mode: '0011',
                 payerReference: ' ',
-                callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL}/api/bkash/payment/callback?userId=${userId}`,
+                callbackURL: `${process.env.BASE_URL}/api/bkash/payment/callback?userId=${userId}`,
                 amount,
                 userId,
                 currency: 'BDT',

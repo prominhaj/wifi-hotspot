@@ -9,7 +9,7 @@ export async function GET(req) {
     const userId = searchParams.get('userId');
 
     if (status === 'cancel' || status === 'failure') {
-        return Response.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?message=${status}`);
+        return Response.redirect(`${process.env.BASE_URL}/dashboard?message=${status}`);
     }
 
     if (status === 'success') {
@@ -41,7 +41,7 @@ export async function GET(req) {
 
                 // Create New user in mikrotik
                 const createdUserInMikrotik = await fetch(
-                    `${process.env.NEXT_PUBLIC_BASE_URL}/api/mikrotik/addHotspotUser`,
+                    `${process.env.BASE_URL}/api/mikrotik/addHotspotUser`,
                     {
                         method: 'POST',
                         headers: {
@@ -57,20 +57,17 @@ export async function GET(req) {
                 const mikrotikResponse = await createdUserInMikrotik.json();
 
                 return Response.redirect(
-                    `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?success=${
-                        mikrotikResponse?.success
-                    }${mikrotikResponse?.error && `&error=${mikrotikResponse?.error}`}`
+                    `${process.env.BASE_URL}/dashboard?success=${mikrotikResponse?.success}${
+                        mikrotikResponse?.error && `&error=${mikrotikResponse?.error}`
+                    }`
                 );
             } else {
                 return Response.redirect(
-                    `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?message=${data.statusMessage}`
+                    `${process.env.BASE_URL}/dashboard?message=${data.statusMessage}`
                 );
             }
         } catch (error) {
-            console.log(error);
-            return Response.redirect(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?message=${error.message}`
-            );
+            return Response.redirect(`${process.env.BASE_URL}/dashboard?message=${error.message}`);
         }
     }
 }
