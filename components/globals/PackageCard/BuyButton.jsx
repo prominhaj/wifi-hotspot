@@ -3,11 +3,10 @@
 import { toast } from "sonner";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import useAuth from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
+import { redirectPath } from "@/app/actions";
 
 const BuyButton = ({ amount }) => {
     const { user } = useAuth();
-    const router = useRouter();
 
     const packagePaymentAction = async () => {
         try {
@@ -24,8 +23,9 @@ const BuyButton = ({ amount }) => {
                 return;
             }
             if (result?.bkashURL) {
-                router.push(result?.bkashURL);
+                await redirectPath(result?.bkashURL)
                 toast.success("Payment successful! Redirecting to payment gateway...");
+                return;
             }
         } catch (error) {
             toast.error(error.message)
