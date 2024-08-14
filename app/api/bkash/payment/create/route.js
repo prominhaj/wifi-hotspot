@@ -38,8 +38,7 @@ export async function POST(req) {
 
         return NextResponse.json({
             success: true,
-            bkashURL: data.bkashURL,
-            bello: true,
+            paymentURL: data?.bkashURL,
             status: 200
         });
     } catch (error) {

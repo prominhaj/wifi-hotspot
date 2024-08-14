@@ -21,9 +21,9 @@ const BuyButton = ({ amount }) => {
                 toast.error(result?.error);
                 return;
             }
-            toast.success(result?.bkashURL);
-            if (result?.bkashURL) {
-                window.location.href = result?.bkashURL;
+            toast.success(result?.paymentURL);
+            if (result?.paymentURL) {
+                window.location.href = result?.paymentURL;
                 return;
             }
         } catch (error) {
