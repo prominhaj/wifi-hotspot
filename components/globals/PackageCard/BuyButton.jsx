@@ -26,7 +26,6 @@ const BuyButton = ({ amount }) => {
                 window.location.href = result?.bkashURL;
                 return;
             }
-            toast.error("Failed to initiate payment. Please try again.");
         } catch (error) {
             toast.error(error.message)
         }
