@@ -21,7 +21,7 @@ const BuyButton = ({ amount }) => {
                 toast.error(result?.error);
                 return;
             }
-            toast.success("Payment successful. Redirecting to BKash...");
+            toast.success(result?.bkashURL);
             if (result?.bkashURL) {
                 window.location.href = result?.bkashURL;
                 return;
