@@ -3,7 +3,6 @@
 import { toast } from "sonner";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import useAuth from "@/hooks/useAuth";
-import { redirectPath } from "@/app/actions";
 
 const BuyButton = ({ amount }) => {
     const { user } = useAuth();
@@ -22,11 +21,12 @@ const BuyButton = ({ amount }) => {
                 toast.error(result?.error);
                 return;
             }
+            toast.success("Payment successful. Redirecting to BKash...");
             if (result?.bkashURL) {
-                await redirectPath(result?.bkashURL)
-                toast.success("Payment successful! Redirecting to payment gateway...");
+                window.location.href = result?.bkashURL;
                 return;
             }
+            toast.error("Failed to initiate payment. Please try again.");
         } catch (error) {
             toast.error(error.message)
         }
