@@ -1,6 +1,5 @@
 'use server';
 
-import { sendSMS } from '@/lib/sms';
 import { cookies } from 'next/headers';
 import bcrypt from 'bcryptjs';
 import User from '@/modals/user-modal';

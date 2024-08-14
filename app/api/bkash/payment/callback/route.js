@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { bkashAuth } from '@/app/api/bkashAuth';
-import { getUserById } from '@/queries/user';
 import { NextResponse } from 'next/server';
+import { getUserById } from '@/app/actions/user';
 
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
@@ -34,6 +34,8 @@ export async function GET(req) {
                 }
             );
 
+            console.log(data);
+
             if (data && data.statusCode === '0000') {
                 // Get UserId to UserIf
                 const user = await getUserById(userId);
@@ -57,17 +59,17 @@ export async function GET(req) {
 
                 return NextResponse.redirect(
                     `${process.env.BASE_URL}/dashboard?success=${mikrotikResponse?.success}${
-                        mikrotikResponse?.error && `&error=${mikrotikResponse?.error}`
+                        mikrotikResponse?.error && `&error=${decodeURI(mikrotikResponse?.error)}`
                     }`
                 );
             } else {
                 return NextResponse.redirect(
-                    `${process.env.BASE_URL}/dashboard?message=${data.statusMessage}`
+                    `${process.env.BASE_URL}/dashboard?message=${decodeURI(data.statusMessage)}`
                 );
             }
         } catch (error) {
             return NextResponse.redirect(
-                `${process.env.BASE_URL}/dashboard?message=${error.message}`
+                `${process.env.BASE_URL}/dashboard?message=${decodeURI(error.message)}`
             );
         }
     }
