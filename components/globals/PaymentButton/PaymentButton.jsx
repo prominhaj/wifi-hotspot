@@ -30,7 +30,7 @@ const PaymentButton = () => {
     };
 
     return (
-        <button className="px-3 py-1 text-white bg-red-500 border rounded" onClick={handlePayment} disabled={loading}>
+        <button className="px-3 py-1 text-white bg-red-500 border m-0 rounded" onClick={handlePayment} disabled={loading}>
             {loading ? 'Processing...' : 'Pay with bKash'}
         </button>
     );
