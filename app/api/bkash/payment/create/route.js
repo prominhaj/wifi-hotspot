@@ -14,6 +14,7 @@ export async function POST(req) {
         const response = await fetch(process.env.BKASH_CREATE_PAYMENT_URL, {
             method: 'POST',
             headers: {
+                Host: process.env.NEXT_PUBLIC_BASE_URL,
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
                 authorization: req.id_token,
@@ -22,7 +23,7 @@ export async function POST(req) {
             body: JSON.stringify({
                 mode: '0011',
                 payerReference: ' ',
-                callbackURL: `${process.env.BASE_URL}/api/bkash/payment/callback?userId=${userId}`,
+                callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL}/api/bkash/payment/callback?userId=${userId}`,
                 amount,
                 currency: 'BDT',
                 intent: 'sale',
