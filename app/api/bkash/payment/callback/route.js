@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { bkashAuth } from '@/app/api/bkashAuth';
+import { getUserById } from '@/queries/user';
 
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const paymentID = searchParams.get('paymentID');
     const status = searchParams.get('status');
+    const userId = searchParams.get('userId');
 
     if (status === 'cancel' || status === 'failure') {
-        return Response.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/error?message=${status}`);
+        return Response.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?message=${status}`);
     }
 
     if (status === 'success') {
@@ -33,19 +35,41 @@ export async function GET(req) {
                 }
             );
 
-            console.log({ data });
-
             if (data && data.statusCode === '0000') {
-                return Response.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/success`);
+                // Get UserId to UserIf
+                const user = await getUserById(userId);
+
+                // Create New user in mikrotik
+                const createdUserInMikrotik = await fetch(
+                    `${process.env.NEXT_PUBLIC_BASE_URL}/api/mikrotik/addHotspotUser`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Accept: 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: user?.phone,
+                            password: user?.phone
+                        })
+                    }
+                );
+                const mikrotikResponse = await createdUserInMikrotik.json();
+
+                return Response.redirect(
+                    `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?success=${
+                        mikrotikResponse?.success
+                    }${mikrotikResponse?.error && `&error=${mikrotikResponse?.error}`}`
+                );
             } else {
                 return Response.redirect(
-                    `${process.env.NEXT_PUBLIC_BASE_URL}/error?message=${data.statusMessage}`
+                    `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?message=${data.statusMessage}`
                 );
             }
         } catch (error) {
             console.log(error);
             return Response.redirect(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/error?message=${error.message}`
+                `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?message=${error.message}`
             );
         }
     }

@@ -1,13 +1,14 @@
 import { bkashAuth } from '@/app/api/bkashAuth';
 import axios from 'axios';
+import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(req) {
-    const { amount = 1, userId } = await req.json();
+    const { amount, userId } = await req.json();
     const authSuccess = await bkashAuth(req);
 
     if (!authSuccess) {
-        return new Response(JSON.stringify({ error: 'Authentication failed' }), { status: 401 });
+        return NextResponse.json({ error: 'Authentication failed', status: 401 });
     }
 
     try {
@@ -16,8 +17,9 @@ export async function POST(req) {
             {
                 mode: '0011',
                 payerReference: ' ',
-                callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL}/api/bkash/payment/callback`,
+                callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL}/api/bkash/payment/callback?userId=${userId}`,
                 amount,
+                userId,
                 currency: 'BDT',
                 intent: 'sale',
                 merchantInvoiceNumber: 'Inv' + uuidv4().substring(0, 5)
@@ -32,10 +34,8 @@ export async function POST(req) {
             }
         );
 
-        console.log({ data });
-
-        return new Response(JSON.stringify({ bkashURL: data.bkashURL }), { status: 200 });
+        return NextResponse.json({ bkashURL: data.bkashURL, status: 200 });
     } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), { status: 401 });
+        return NextResponse.error({ error: error.message, status: 401 });
     }
 }

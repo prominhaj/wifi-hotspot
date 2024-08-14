@@ -1,5 +1,4 @@
 
-import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
@@ -10,10 +9,13 @@ import {
 import { Wifi } from "lucide-react";
 import takaIcon from "@/assets/taka-icon.png";
 import Image from "next/image";
+import BuyButton from "./BuyButton";
 
 const PackageCard = () => {
+    const amount = 1;
+
     return (
-        <Card className="w-full">
+        <Card className="w-full text-white bg-red-400">
             <CardHeader className="p-5">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -38,9 +40,7 @@ const PackageCard = () => {
                 </div>
             </CardContent>
             <CardFooter className="p-5 pt-0">
-                <Button className="w-full h-10 text-lg text-green-500 border-green-500" variant="outline">
-                    Buy
-                </Button>
+                <BuyButton amount={amount} />
             </CardFooter>
         </Card>
     )
