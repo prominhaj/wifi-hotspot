@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
 const protectedRoutes = ['/dashboard'];
-const publicRoutes = ['/login', '/register', '/register/verify'];
+const publicRoutes = ['/', '/login', '/register', '/register/verify'];
 
 export default async function middleware(req) {
     const token = await getToken({ req });
@@ -15,7 +15,7 @@ export default async function middleware(req) {
     }
 
     if (isPublicRoute && token) {
-        return NextResponse.redirect(new URL('/', req.nextUrl));
+        return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
     }
 
     return NextResponse.next();
