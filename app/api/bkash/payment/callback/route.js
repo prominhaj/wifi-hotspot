@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { bkashAuth } from '@/app/api/bkashAuth';
 import { getUserById } from '@/queries/user';
+import { NextResponse } from 'next/server';
 
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
@@ -9,16 +10,14 @@ export async function GET(req) {
     const userId = searchParams.get('userId');
 
     if (status === 'cancel' || status === 'failure') {
-        return Response.redirect(`${process.env.BASE_URL}/dashboard?message=${status}`);
+        return NextResponse.redirect(`${process.env.BASE_URL}/dashboard?message=${status}`);
     }
 
     if (status === 'success') {
         const authSuccess = await bkashAuth(req);
 
         if (!authSuccess) {
-            return new Response(JSON.stringify({ error: 'Authentication failed' }), {
-                status: 401
-            });
+            return NextResponse.json({ error: 'Authentication failed', status: 401 });
         }
 
         try {
@@ -56,18 +55,20 @@ export async function GET(req) {
                 );
                 const mikrotikResponse = await createdUserInMikrotik.json();
 
-                return Response.redirect(
+                return NextResponse.redirect(
                     `${process.env.BASE_URL}/dashboard?success=${mikrotikResponse?.success}${
                         mikrotikResponse?.error && `&error=${mikrotikResponse?.error}`
                     }`
                 );
             } else {
-                return Response.redirect(
+                return NextResponse.redirect(
                     `${process.env.BASE_URL}/dashboard?message=${data.statusMessage}`
                 );
             }
         } catch (error) {
-            return Response.redirect(`${process.env.BASE_URL}/dashboard?message=${error.message}`);
+            return NextResponse.redirect(
+                `${process.env.BASE_URL}/dashboard?message=${error.message}`
+            );
         }
     }
 }
