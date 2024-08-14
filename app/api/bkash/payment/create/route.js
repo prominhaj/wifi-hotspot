@@ -22,7 +22,7 @@ export async function POST(req) {
             body: JSON.stringify({
                 mode: '0011',
                 payerReference: ' ',
-                callbackURL: `${process.env.BASE_URL}/api/bkash/payment/callback`,
+                callbackURL: `${process.env.BASE_URL}/api/bkash/payment/callback?userId=${userId}`,
                 amount,
                 currency: 'BDT',
                 intent: 'sale',
