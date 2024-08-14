@@ -14,7 +14,7 @@ export async function POST(req) {
         const response = await fetch(process.env.BKASH_CREATE_PAYMENT_URL, {
             method: 'POST',
             headers: {
-                Host: process.env.NEXT_PUBLIC_BASE_URL,
+                // Host: process.env.NEXT_PUBLIC_BASE_URL,
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
                 authorization: req.id_token,

@@ -21,7 +21,6 @@ const BuyButton = ({ amount }) => {
                 toast.error(result?.error);
                 return;
             }
-            toast.success(result?.paymentUrl);
             if (result?.paymentUrl) {
                 window.location.href = result?.paymentUrl;
                 return;
