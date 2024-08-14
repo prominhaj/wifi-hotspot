@@ -1,5 +1,6 @@
 'use server';
 import connectToRouter from '@/lib/mikrotik';
+import axios from 'axios';
 import { RouterOSAPI } from 'node-routeros';
 
 export const createNewUser = async (formData) => {
@@ -17,17 +18,14 @@ export const createNewUser = async (formData) => {
             `=email=hellobello@gmail.com`
         ]);
 
-        // Automatically log in the user after creation
-        const loginResponse = await conn.write('/ip/hotspot/active/login', [
-            `=user=${username}`,
-            `=password=${password}`
-        ]);
+        const response = await axios.post('http://10.5.50.1/login', {
+            username: username,
+            password: password
+        });
 
         conn.close();
 
-        console.log(results, loginResponse);
-
-        return { success: true, results, loginResponse };
+        return { success: true, results, response };
     } catch (error) {
         throw new Error(error);
     }
