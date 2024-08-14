@@ -1,6 +1,5 @@
 'use server';
 import connectToRouter from '@/lib/mikrotik';
-import axios from 'axios';
 import { RouterOSAPI } from 'node-routeros';
 
 export const createNewUser = async (formData) => {
@@ -18,14 +17,13 @@ export const createNewUser = async (formData) => {
             `=email=hellobello@gmail.com`
         ]);
 
-        const response = await axios.post('http://10.5.50.1/login', {
-            username: username,
-            password: password
-        });
+        if (results[0]?.ret) {
+            await autoLoginUser(username, password);
+        }
 
         conn.close();
 
-        return { success: true, results, response };
+        return { success: true, results };
     } catch (error) {
         throw new Error(error);
     }
@@ -51,3 +49,32 @@ export const connectRouter = async ({ ip, user, password, port }) => {
         throw new Error(error);
     }
 };
+
+// Function to perform auto-login
+async function autoLoginUser(username, password) {
+    try {
+        const loginURL = `http://10.5.50.1/login`;
+
+        const response = await axios.post(
+            loginURL,
+            new URLSearchParams({
+                username: username,
+                password: password
+            }),
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+        );
+
+        if (response.data.includes('Login successful')) {
+            return { message: 'Login successful' };
+        } else {
+            return { error: 'Login failed' };
+        }
+    } catch (error) {
+        console.error('Login Error:', error);
+        return { error: 'Failed to login' };
+    }
+}

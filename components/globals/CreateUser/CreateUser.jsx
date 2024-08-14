@@ -7,10 +7,10 @@ import { toast } from "sonner";
 
 const CreateUser = () => {
 
-    const handleCreateUser = async(formData) => {
+    const handleCreateUser = async (formData) => {
         try {
             const result = await createNewUser(formData);
-            if(result.success) {
+            if (result?.success) {
                 toast.success("User Create SuccessFull")
             }
         } catch (error) {
