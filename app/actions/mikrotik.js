@@ -1,6 +1,5 @@
 'use server';
 import connectToRouter from '@/lib/mikrotik';
-import axios from 'axios';
 import { RouterOSAPI } from 'node-routeros';
 
 export const createNewUser = async (formData) => {
@@ -14,29 +13,17 @@ export const createNewUser = async (formData) => {
             `=name=${username}`,
             `=password=${password}`,
             `=profile=${profile}`,
-            `=server=hotspot1`,
-            `=email=hellobello@gmail.com`
+            `=server=hotspot1`
         ]);
 
         if (results[0]?.ret) {
-            const loginURL = `http://10.5.50.1/login`;
+            const loginURL = `http://10.5.50.1/login?username=${username}&password=${password}`;
 
-            const response = await axios.post(
-                loginURL,
-                new URLSearchParams({
-                    username: username,
-                    password: password
-                }),
-                {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                }
-            );
+            await fetch(loginURL);
 
             conn.close();
 
-            return { success: true, results, message: response };
+            return { success: true, results };
         }
     } catch (error) {
         throw new Error(error);
