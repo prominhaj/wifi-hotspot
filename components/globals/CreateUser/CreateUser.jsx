@@ -19,7 +19,7 @@ const CreateUser = () => {
     }
 
     return (
-        <form action={handleCreateUser} className="border p-5 rounded max-w-sm w-full">
+        <form action={handleCreateUser} className="border p-5 bello rounded max-w-sm w-full">
             <h2 className="font-semibold text-2xl test text-center">Create New User</h2>
             <div className="mt-3 space-y-2.5">
                 <div className="flex flex-col gap-1">
