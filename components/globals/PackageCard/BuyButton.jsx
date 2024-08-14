@@ -18,9 +18,13 @@ const BuyButton = ({ amount }) => {
                 },
                 body: JSON.stringify({ amount, userId: user?.id })
             });
-            const { bkashURL } = await response.json();
-            if (bkashURL) {
-                router.push(bkashURL);
+            const result = await response.json();
+            if (!result?.success) {
+                toast.error(result?.error);
+                return;
+            }
+            if (result?.bkashURL) {
+                router.push(result?.bkashURL);
                 toast.success("Payment successful! Redirecting to payment gateway...");
             }
         } catch (error) {

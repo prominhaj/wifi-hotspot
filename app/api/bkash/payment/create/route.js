@@ -8,7 +8,7 @@ export async function POST(req) {
     const authSuccess = await bkashAuth(req);
 
     if (!authSuccess) {
-        return NextResponse.json({ error: 'Authentication failed', status: 401 });
+        return NextResponse.json({ success: false, error: 'Authentication failed', status: 401 });
     }
 
     try {
@@ -34,8 +34,8 @@ export async function POST(req) {
             }
         );
 
-        return NextResponse.json({ bkashURL: data.bkashURL, status: 200 });
+        return NextResponse.json({ success: true, bkashURL: data.bkashURL, status: 200 });
     } catch (error) {
-        return NextResponse.error({ error: error.message, status: 401 });
+        return NextResponse.error({ success: false, error: error.message, status: 401 });
     }
 }
