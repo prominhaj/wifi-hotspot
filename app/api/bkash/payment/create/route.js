@@ -34,12 +34,12 @@ export async function POST(req) {
             throw new Error(`Payment creation failed: ${response.statusText}`);
         }
 
-        const data = await response.json();
+        const { bkashURL } = await response.json();
 
         return NextResponse.json({
             success: true,
-            paymentURL: data?.bkashURL,
-            status: 200
+            status: 200,
+            paymentUrl: bkashURL || 'bello'
         });
     } catch (error) {
         return NextResponse.json({ success: false, error: error.message, status: 401 });
