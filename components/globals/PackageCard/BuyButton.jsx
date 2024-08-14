@@ -12,9 +12,16 @@ const BuyButton = ({ amount }) => {
 
     const packagePaymentAction = async () => {
         try {
-            const url = await packagePayment(amount, user?.id);
-            if (url) {
-                router.push(url);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/bkash/payment/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ amount, userId: user?.id })
+            });
+            const { bkashURL } = await response.json();
+            if (bkashURL) {
+                router.push(bkashURL);
                 toast.success("Payment successful! Redirecting to payment gateway...");
             }
         } catch (error) {
