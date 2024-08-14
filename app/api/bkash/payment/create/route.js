@@ -36,7 +36,12 @@ export async function POST(req) {
 
         const data = await response.json();
 
-        return NextResponse.json({ success: true, bkashURL: data.bkashURL, status: 200 });
+        return NextResponse.json({
+            success: true,
+            bkashURL: data.bkashURL,
+            bello: true,
+            status: 200
+        });
     } catch (error) {
         return NextResponse.json({ success: false, error: error.message, status: 401 });
     }
