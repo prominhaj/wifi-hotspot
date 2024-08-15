@@ -33,7 +33,7 @@ jobs:
                   echo "SMS_API_KEY=${{ secrets.SMS_API_KEY }}" >> .env
                   echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
                   echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" >> .env
-                  echo "NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP=${{ secrets.MIKROTIK_LOGIN_DNS_IP }}" >> .env
+                  echo "NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP=${{ secrets.NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP }}" >> .env
 
             - name: Archive .env file
               run: tar -czf env.tar.gz .env
