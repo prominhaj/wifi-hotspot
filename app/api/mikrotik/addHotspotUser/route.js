@@ -15,7 +15,7 @@ export const POST = async (req) => {
             `=password=${user?.phone}`,
             `=profile=${getPackage?.profileType}`,
             `=server=${getPackage?.server || 'hotspot1'}`,
-            `=comment=${user?.name}`
+            `=comment=up-`
         ]);
 
         conn.close();
