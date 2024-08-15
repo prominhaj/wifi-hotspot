@@ -11,8 +11,8 @@ import { toast } from "sonner";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import { cn } from "@/lib/utils";
 import { getUserById, verifyOtp } from "@/app/actions/user";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { signIn } from "@/auth";
 
 const VerifyOTP = ({ id }) => {
     const [otp, setOtp] = useState('');
@@ -43,7 +43,7 @@ const VerifyOTP = ({ id }) => {
             const verify = await verifyOtp(otp, id);
             const user = await getUserById(id);
 
-            if (verify.success) {
+            if (verify?.success) {
                 toast.success('OTP verified successfully!');
                 // Auto login the user
                 const loginResponse = await signIn('credentials', {

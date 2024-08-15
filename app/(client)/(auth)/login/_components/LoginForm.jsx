@@ -1,77 +1,59 @@
 "use client";
 
+import { loginUser } from "@/app/actions/auth";
 import { getUserByPhone } from "@/app/actions/user";
 import FormControl from "@/components/globals/FormControl/FormControl";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { KeyRound, Phone } from "lucide-react";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const LoginForm = ({ redirectUrl }) => {
-    const [error, setError] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
     const router = useRouter();
 
-    const handleUserLogin = async (e) => {
-        e.preventDefault();
-        setError({});
-        setLoading(true);
-
-        const phone = e.target.phone.value;
-        const password = e.target.password.value;
+    const handleUserLogin = async (formData) => {
+        setErrors({});
+        const phone = formData.get("phone");
+        const password = formData.get("password");
 
         try {
-            // Check if user already exists
             const user = await getUserByPhone(phone);
-            if (!user?.verified) {
-                toast.error("Please verify your phone number first");
-                router.push(`/register/verify?id=${user?.id}`);
-                return;
+            const result = await loginUser(phone, password);
+
+            if (result?.success) {
+                toast.success(result.message);
+                router.push(redirectUrl || "/dashboard");
+            } else {
+                handleErrors(result, user);
             }
-
-            const result = await signIn("credentials", {
-                redirect: false,
-                phone,
-                password,
-            });
-
-            if (result.error) {
-                toast.error(result.error);
-                setError({ [result.error.includes("Password") ? "password" : "phone"]: result.error });
-
-                if (result.error === "Password does not match") {
-                    e.target.password.value = "";
-                } else if (result.error === "Phone Number Not Found") {
-                    e.target.reset();
-                }
-                return;
-            }
-
-            if (result.ok) {
-                if (redirectUrl) {
-                    router.push(redirectUrl);
-                } else {
-                    router.push("/dashboard");
-                }
-                toast.success("Your account has been Login successful");
-            }
-        } catch (error) {
-            toast.error(error.message);
-        } finally {
-            setLoading(false);
+        } catch (err) {
+            toast.error("An unexpected error occurred. Please try again.");
+            console.error("Login error:", err);
         }
     };
 
+    const handleErrors = (result, user) => {
+        if (result.phone || result.password) {
+            setErrors({
+                phone: result.phone ? [result.message] : undefined,
+                password: result.password ? [result.message] : undefined,
+            });
+        } else if (result.verified) {
+            router.push(`/register/verify?id=${user?.id}`);
+        }
+
+        toast.error(result.message);
+    };
 
     return (
         <div>
-            <h4 className="text-xl font-[600] tracking-wider text-center">লগইন</h4>
-            <form className="pt-5" onSubmit={handleUserLogin}>
+            <h4 className="text-xl font-semibold tracking-wider text-center">লগইন</h4>
+            <form className="pt-5" action={handleUserLogin}>
                 <div className="space-y-4">
                     <FormControl
                         name="phone"
@@ -83,10 +65,8 @@ const LoginForm = ({ redirectUrl }) => {
                         title="Please enter a valid 11-digit phone number"
                         icon={<Phone className="w-4 h-4" />}
                         placeHolder="01786XXXXXX"
-                        error={error?.phone}
-                    >
-                        {error.phone && <p className="text-red-500"><small>{error.phone}</small></p>}
-                    </FormControl>
+                        error={errors.phone}
+                    />
                     <FormControl
                         name="password"
                         label="পাসওয়ার্ড"
@@ -95,12 +75,9 @@ const LoginForm = ({ redirectUrl }) => {
                         minLength={4}
                         icon={<KeyRound className="w-4 h-4" />}
                         placeHolder="********"
-                        error={error?.password}
-                    >
-                        {error.password && <p className="text-red-500"><small>{error.password}</small></p>}
-                    </FormControl>
+                        error={errors.password}
+                    />
                     <SubmitButton
-                        loading={loading}
                         variant="primary"
                         className="w-full tracking-wider rounded-lg"
                     >
@@ -109,14 +86,18 @@ const LoginForm = ({ redirectUrl }) => {
                 </div>
             </form>
             <div className="w-3/4 mx-auto mt-5 mb-3 border-t-2 border-gray-300 dark:border-gray-600"></div>
-            <div>
-                <p className="mb-2 text-base text-center">নতুন অ্যাকাউন্ট তৈরি করুন</p>
-                <Link className={cn(buttonVariants({ variant: "destructive" }), "w-full font-semibold tracking-wider rounded-lg dark:bg-purple-500/75")} href="/register">
-                    রেজিস্টার
-                </Link>
-            </div>
+            <p className="mb-2 text-base text-center">নতুন অ্যাকাউন্ট তৈরি করুন</p>
+            <Link
+                className={cn(
+                    buttonVariants({ variant: "destructive" }),
+                    "w-full font-semibold tracking-wider rounded-lg dark:bg-purple-500/75"
+                )}
+                href="/register"
+            >
+                রেজিস্টার
+            </Link>
         </div>
-    )
+    );
 };
 
 export default LoginForm;

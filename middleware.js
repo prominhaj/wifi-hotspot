@@ -1,23 +1,26 @@
 import { NextResponse, userAgent } from 'next/server';
-import { getToken } from 'next-auth/jwt';
+import { cookies } from 'next/headers';
+import { decrypt } from './lib/session';
 
 const protectedRoutes = ['/dashboard'];
-const publicRoutes = ['/', '/login', '/register', '/register/verify'];
+const publicRoutes = ['/login', '/register', '/register/verify', '/'];
 
 export default async function middleware(req) {
-    const token = await getToken({ req });
     const path = req.nextUrl.pathname;
+    const isProtectedRoute = protectedRoutes.includes(path);
+    const isPublicRoute = publicRoutes.includes(path);
+
     const { device } = userAgent(req);
     const viewport = device.type === 'mobile' ? 'mobile' : 'desktop';
 
-    const isPublicRoute = publicRoutes.includes(path);
-    const isProtectedRoute = protectedRoutes.includes(path);
+    const cookie = cookies().get('session')?.value;
+    const session = await decrypt(cookie);
 
-    if (isProtectedRoute && !token) {
+    if (isProtectedRoute && !session?.userId) {
         return NextResponse.redirect(new URL(`/login?redirectUrl=${path}`, req.nextUrl));
     }
 
-    if (isPublicRoute && token) {
+    if (isPublicRoute && session?.userId && !req.nextUrl.pathname.startsWith('/dashboard')) {
         return NextResponse.redirect(new URL(`/dashboard?device=${viewport}`, req.nextUrl));
     }
 
@@ -25,5 +28,5 @@ export default async function middleware(req) {
 }
 
 export const config = {
-    matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)']
+    matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)']
 };

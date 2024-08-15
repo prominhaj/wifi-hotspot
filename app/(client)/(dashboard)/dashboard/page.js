@@ -1,12 +1,14 @@
 import PackageCard from '@/components/globals/PackageCard/PackageCard';
-import ConnectMikrotikForm from './_components/ConnectMikrotikForm';
-import CreateUser from '@/components/globals/CreateUser/CreateUser';
+import DashboardPage from './_components/DashboardPage';
+import { auth } from '@/auth';
 
-const Dashboard = () => {
+const Dashboard = async () => {
+    const user = await auth();
+    console.log(user);
+
     return (
         <div className='pt-5'>
-            {/* <ConnectMikrotikForm /> */}
-            <CreateUser />
+            <DashboardPage />
             <PackageCard />
         </div>
     );

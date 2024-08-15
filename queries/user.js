@@ -4,7 +4,6 @@ import User from '@/modals/user-modal';
 export const getUserByPhone = async (phone) => {
     try {
         const getUser = await User.findOne({ phone }).lean();
-        console.log(getUser);
         return getUser;
     } catch (error) {
         throw new Error(error);

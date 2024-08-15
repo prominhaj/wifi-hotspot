@@ -15,7 +15,7 @@ const PackageCard = () => {
     const amount = 1;
 
     return (
-        <Card className="w-full text-white bg-red-400">
+        <Card className="w-full">
             <CardHeader className="p-5">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">

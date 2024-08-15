@@ -11,7 +11,7 @@ const NavLink = ({ item }) => {
             href={item.path}
             key={item.name}
         >
-            <span className='text-2xl'>{item.icon}</span>
+            <span>{item.icon}</span>
         </Link>
     );
 };

@@ -70,7 +70,10 @@ export const verifyOtp = async (otp, id) => {
 
 export const getUserByPhone = async (phone) => {
     try {
-        const user = await User.findOne({ phone }).select('-password').lean();
+        const user = await User.findOne({ phone }).lean();
+        if (!user) {
+            throw new Error('User not found');
+        }
         return replaceMongoIdInObject(user);
     } catch (error) {
         throw new Error(error);

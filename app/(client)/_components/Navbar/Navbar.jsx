@@ -5,31 +5,30 @@ import NavLink from "./NavLink";
 const headerModeItems = [
     {
         name: "Dashboard",
-        icon: <LayoutDashboard />,
+        icon: <LayoutDashboard className="w-7 h-7" />,
         path: "/dashboard"
     },
     {
         name: "Packages",
-        icon: <ArrowDownUp />,
+        icon: <ArrowDownUp className="w-7 h-7" />,
         path: "/packages"
     },
     {
         name: "Payment History",
-        icon: <CircleDollarSign />,
+        icon: <CircleDollarSign className="w-7 h-7" />,
         path: "/payment-history"
     },
     {
         name: "Profile",
-        icon: <User />,
+        icon: <User className="w-7 h-7" />,
         path: "/user"
     },
 ]
 
 const Navbar = () => {
 
-
     return (
-        <div className='fixed bottom-0 z-50 max-w-[30rem] mx-auto left-0 right-0 px-3 py-2 sm:px-5 bg-gray-300 text-black dark:bg-gray-800 dark:text-white'>
+        <div className='fixed bottom-0 z-50 max-w-[30rem] mx-auto left-0 bg-white dark:bg-black border-t right-0 px-5 py-3'>
             <div className='flex items-center justify-between w-full gap-3 sm:gap-0'>
                 {
                     headerModeItems.map((item, index) => <NavLink key={index} item={item} />)
