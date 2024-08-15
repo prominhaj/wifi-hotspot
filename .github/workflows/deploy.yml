@@ -32,6 +32,7 @@ jobs:
                   echo "NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}" >> .env
                   echo "SMS_API_KEY=${{ secrets.SMS_API_KEY }}" >> .env
                   echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
+                  echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" >> .env
 
             - name: Archive .env file
               run: tar -czf env.tar.gz .env

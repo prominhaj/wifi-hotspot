@@ -66,7 +66,19 @@ const LoginForm = ({ redirectUrl }) => {
                         icon={<Phone className="w-4 h-4" />}
                         placeHolder="01786XXXXXX"
                         error={errors.phone}
-                    />
+                    >
+                        {errors?.phone && (
+                            <p className="flex flex-col items-start justify-start gap-0.5 text-red-500">
+                                {
+                                    errors?.phone.map((mess, i) => (
+                                        <small key={i}>
+                                            {mess}
+                                        </small>
+                                    ))
+                                }
+                            </p>
+                        )}
+                    </FormControl>
                     <FormControl
                         name="password"
                         label="পাসওয়ার্ড"
@@ -76,7 +88,19 @@ const LoginForm = ({ redirectUrl }) => {
                         icon={<KeyRound className="w-4 h-4" />}
                         placeHolder="********"
                         error={errors.password}
-                    />
+                    >
+                        {errors?.password && (
+                            <p className="flex flex-col items-start justify-start gap-0.5 text-red-500">
+                                {
+                                    errors?.password.map((mess, i) => (
+                                        <small key={i}>
+                                            {mess}
+                                        </small>
+                                    ))
+                                }
+                            </p>
+                        )}
+                    </FormControl>
                     <SubmitButton
                         variant="primary"
                         className="w-full tracking-wider rounded-lg"

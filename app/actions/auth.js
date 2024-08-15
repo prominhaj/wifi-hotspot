@@ -6,13 +6,12 @@ import { getUserByPhone } from './user';
 export const loginUser = async (phone, password) => {
     try {
         const user = await getUserByPhone(phone);
-        console.log(user);
 
         if (!user) {
             return {
                 success: false,
                 phone: true,
-                message: 'Phone number not found'
+                message: 'Phone number not valid'
             };
         }
         if (user?.password !== password) {
