@@ -34,6 +34,8 @@ export async function GET(req) {
                 }
             );
 
+            console.log(data);
+
             if (data && data.statusCode === '0000') {
                 // Create New user in mikrotik
                 const createdUserInMikrotik = await fetch(
@@ -46,17 +48,21 @@ export async function GET(req) {
                         },
                         body: JSON.stringify({
                             packageId,
-                            userId
+                            userId,
+                            data
                         })
                     }
                 );
+
                 const mikrotikResponse = await createdUserInMikrotik.json();
 
-                return NextResponse.redirect(
-                    `${process.env.BASE_URL}/dashboard?success=${mikrotikResponse?.success}${
-                        mikrotikResponse?.error && `&error=${decodeURI(mikrotikResponse?.error)}`
-                    }`
-                );
+                const redirectUrl = `${process.env.BASE_URL}/payment?success=${
+                    mikrotikResponse?.success
+                }&trxID=${
+                    mikrotikResponse?.createPayment?.transactionId
+                }&paymentId=${mikrotikResponse?.createPayment?._id.toString()}`;
+
+                return NextResponse.redirect(redirectUrl);
             } else {
                 return NextResponse.redirect(
                     `${process.env.BASE_URL}/dashboard?message=${decodeURI(data.statusMessage)}`

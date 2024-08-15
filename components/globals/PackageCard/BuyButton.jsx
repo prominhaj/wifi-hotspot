@@ -28,12 +28,18 @@ const BuyButton = ({ amount, user, packageId }) => {
         }
     }
 
+    const redirectUrl = async () => {
+        fetch(`${process.env.BASE_URL}/test`);
+    };
+
     return (
-        <form action={packagePaymentAction} className="w-full">
-            <SubmitButton className="w-full h-10 text-lg text-green-500 border-green-500" variant="outline">
-                Buy
-            </SubmitButton>
-        </form>
+        <>
+            <form action={packagePaymentAction} className="w-full">
+                <SubmitButton className="w-full h-10 text-lg text-green-500 border-green-500" variant="outline">
+                    Buy
+                </SubmitButton>
+            </form>
+        </>
     );
 };
 
