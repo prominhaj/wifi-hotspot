@@ -8,9 +8,12 @@ import { toast } from "sonner";
 const CreateUser = () => {
 
     const handleCreateUser = async (formData) => {
+        const username = formData.get('username');
+        const password = formData.get('password');
         try {
             const result = await createNewUser(formData);
             if (result?.success) {
+                window.location.href = `http://10.5.50.1/login?username=${username}&password=${password}`;
                 toast.success("User Create SuccessFull")
             }
         } catch (error) {
