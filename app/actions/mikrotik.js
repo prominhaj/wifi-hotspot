@@ -17,9 +17,8 @@ export const createNewUser = async (formData) => {
         ]);
 
         if (results[0]?.ret) {
-            const loginURL = `http://10.5.50.1/login?username=${username}&password=${password}`;
 
-            await fetch(loginURL);
+            window.location.href = `http://10.5.50.1/login?username=${username}&password=${password}`;
 
             conn.close();
 
