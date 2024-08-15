@@ -2,6 +2,7 @@ import axios from 'axios';
 import { bkashAuth } from '@/app/api/bkashAuth';
 import { NextResponse } from 'next/server';
 import { getUserById } from '@/app/actions/user';
+import { dbConnect } from '@/lib/mongo';
 
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
@@ -37,6 +38,7 @@ export async function GET(req) {
             console.log(data);
 
             if (data && data.statusCode === '0000') {
+                await dbConnect();
                 // Get UserId to UserIf
                 const user = await getUserById(userId);
 

@@ -20,11 +20,11 @@ export const createNewUser = async (formData) => {
             const loginURL = `http://10.5.50.1/login?username=${username}&password=${password}`;
 
             await fetch(loginURL);
-
-            conn.close();
-
-            return { success: true, results };
         }
+
+        conn.close();
+
+        return { success: true, results };
     } catch (error) {
         throw new Error(error);
     }
