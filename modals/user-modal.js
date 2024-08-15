@@ -23,7 +23,8 @@ const userSchema = new Schema(
         profilePhoto: {
             url: {
                 type: String,
-                required: false
+                required: true,
+                default: ''
             },
             public_id: {
                 type: String,

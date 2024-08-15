@@ -1,64 +1,21 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
 
-const DashboardPage = () => {
+import { Button } from "@/components/ui/button"
+import { getSessionUser } from "@/lib/dal"
+import ProfileSection from "./ProfileSection";
+import ActivePackageSection from "./ActivePackageSection";
+
+const DashboardPage = async () => {
+    const user = await getSessionUser();
+    console.log(user);
+
     return (
         <div className="max-w-md mx-auto">
-            <div className="relative p-4 text-white dark:from-purple-400 dark:to-purple-400 bg-gradient-to-b from-green-400 to-green-500 rounded-xl">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                        <Avatar className="w-12 h-12">
-                            <AvatarImage src="/placeholder-user.jpg" alt="User" />
-                            <AvatarFallback>H</AvatarFallback>
-                        </Avatar>
-                        <div>
-                            <div className="font-semibold">Hidaytama</div>
-                            <div className="text-sm">+682112235328</div>
-                        </div>
-                    </div>
-                    <Badge variant="secondary">prepaid</Badge>
-                </div>
-                <div className="mt-4">
-                    <div className="text-lg">credit</div>
-                    <div className="text-3xl font-bold">Rp234.364</div>
-                    <div className="text-sm">ACTIVE TO 27/09/23</div>
-                </div>
-                <Button variant="default" className="absolute text-white bg-black top-4 right-4">
-                    <PlusIcon className="w-4 h-4" /> Top up
-                </Button>
+            <div className="relative">
+                <ProfileSection user={user} />
+                <ActivePackageSection />
             </div>
-            <div className="p-4 mt-4 bg-white shadow rounded-xl">
-                <div className="flex items-center justify-between">
-                    <div className="font-semibold">Internet</div>
-                    <div className="text-sm text-muted-foreground">active until 14/09/23</div>
-                </div>
-                <div className="mt-2">
-                    <Progress value={52.35} className="w-full h-2 bg-gray-200" />
-                    <div className="flex justify-between mt-2 text-sm">
-                        <div>8.9 GB</div>
-                        <div>17 GB</div>
-                    </div>
-                </div>
-                <div className="grid grid-cols-3 gap-4 mt-4 text-center">
-                    <div>
-                        <VideoIcon className="w-6 h-6 mx-auto" />
-                        <div className="mt-1 text-sm">Streaming</div>
-                        <div className="text-xs text-muted-foreground">0.95 MB/7 GB</div>
-                    </div>
-                    <div>
-                        <Music2Icon className="w-6 h-6 mx-auto" />
-                        <div className="mt-1 text-sm">TikTok</div>
-                        <div className="text-xs text-muted-foreground">2.95 GB/5 GB</div>
-                    </div>
-                    <div>
-                        <MessageSquareIcon className="w-6 h-6 mx-auto" />
-                        <div className="mt-1 text-sm">Messages</div>
-                        <div className="text-xs text-muted-foreground">5 GB/5 GB</div>
-                    </div>
-                </div>
-            </div>
+
+
             <div className="grid grid-cols-4 gap-4 mt-4 text-center">
                 <div>
                     <GlobeIcon className="w-8 h-8 mx-auto text-orange-500" />
