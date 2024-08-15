@@ -1,12 +1,12 @@
 import BDTIcon from "@/components/globals/BDTIcon/BDTIcon";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { PlusIcon } from "lucide-react";
 
-const ProfileSection = ({ user }) => {
+const ProfileSection = ({ user, isActive }) => {
     return (
-        <div className="relative h-72 p-4 text-white bg-gradient-to-b from-[#0FB981] to-[#78D397] rounded-xl">
+        <div className={cn(isActive ? "h-72" : "h-48", "relative p-4 text-white bg-gradient-to-b from-[#0FB981] to-[#78D397] rounded-xl")}>
             <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center space-x-4">
                     <Avatar className="w-12 h-12">
@@ -22,18 +22,27 @@ const ProfileSection = ({ user }) => {
                     <PlusIcon className="w-4 h-4" /> Top up
                 </Button>
             </div>
-            <div className="mt-4">
-                <div className="text-base font-medium">
-                    Current Pack
-                </div>
-                <div className="flex items-center gap-1 text-3xl font-bold">
-                    <BDTIcon width="30px" height="30px" />
-                    <span>
-                        75 TK
-                    </span>
-                </div>
-                <div className="text-sm font-medium">ACTIVE TO 27/09/23</div>
-            </div>
+            {
+                isActive && (
+                    <div className="flex flex-wrap items-center justify-between gap-2 mt-4">
+                        <div>
+                            <div className="text-base font-medium">
+                                Current Pack
+                            </div>
+                            <div className="flex items-center gap-1 text-3xl font-bold">
+                                <BDTIcon width="30px" height="30px" />
+                                <span>
+                                    75 TK
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <h6 className="text-lg font-medium tracking-wider text-white">Monthly Pack</h6>
+                            <div className="text-sm font-medium">ACTIVE TO 27/09/23</div>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     );
 };

@@ -8,11 +8,13 @@ const DashboardPage = async () => {
     const user = await getSessionUser();
     console.log(user);
 
+    const isActive = false;
+
     return (
         <div className="max-w-md mx-auto">
             <div className="relative">
-                <ProfileSection user={user} />
-                <ActivePackageSection />
+                <ProfileSection user={user} isActive={isActive} />
+                <ActivePackageSection isActive={isActive} />
             </div>
 
 
