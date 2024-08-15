@@ -3,6 +3,8 @@
 import { CircleCheck } from "lucide-react";
 
 const CheckPayment = ({ user }) => {
+    console.log(process.env.NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP);
+
     const loginUrl = `${process.env.NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP}/login?username=${user?.phone}&password=${user?.phone}`;
 
     window.location.href = loginUrl;
