@@ -1,9 +1,9 @@
 import PackageCard from '@/components/globals/PackageCard/PackageCard';
 import DashboardPage from './_components/DashboardPage';
-import { auth } from '@/auth';
+import { getSessionUser } from '@/lib/dal';
 
 const Dashboard = async () => {
-    const user = await auth();
+    const user = await getSessionUser();
     console.log(user);
 
     return (

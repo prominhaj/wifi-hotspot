@@ -10,9 +10,8 @@ import {
 import { toast } from "sonner";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import { cn } from "@/lib/utils";
-import { getUserById, verifyOtp } from "@/app/actions/user";
+import { verifyOtp } from "@/app/actions/user";
 import { useRouter } from "next/navigation";
-import { signIn } from "@/auth";
 
 const VerifyOTP = ({ id }) => {
     const [otp, setOtp] = useState('');
@@ -41,21 +40,9 @@ const VerifyOTP = ({ id }) => {
 
         try {
             const verify = await verifyOtp(otp, id);
-            const user = await getUserById(id);
 
             if (verify?.success) {
-                toast.success('OTP verified successfully!');
-                // Auto login the user
-                const loginResponse = await signIn('credentials', {
-                    redirect: false,
-                    phone: user?.phone,
-                    password: user?.password,
-                });
-
-                if (loginResponse?.error) {
-                    throw new Error(loginResponse.error);
-                }
-
+                toast.success(verify.message);
                 router.push('/dashboard');
             }
             else {

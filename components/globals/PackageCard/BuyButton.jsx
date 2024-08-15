@@ -2,10 +2,8 @@
 
 import { toast } from "sonner";
 import SubmitButton from "../SubmitButton/SubmitButton";
-import useAuth from "@/hooks/useAuth";
 
-const BuyButton = ({ amount }) => {
-    const { user } = useAuth();
+const BuyButton = ({ amount, user }) => {
 
     const packagePaymentAction = async () => {
         try {

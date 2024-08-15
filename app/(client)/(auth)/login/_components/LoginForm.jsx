@@ -32,8 +32,7 @@ const LoginForm = ({ redirectUrl }) => {
                 handleErrors(result, user);
             }
         } catch (err) {
-            toast.error("An unexpected error occurred. Please try again.");
-            console.error("Login error:", err);
+            toast.error(err.message);
         }
     };
 

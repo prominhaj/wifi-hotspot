@@ -1,8 +1,7 @@
-import ThemeProvider from '@/Providers/ThemeProvider';
 import './globals.css';
+import ThemeProvider from '@/Providers/ThemeProvider';
 import { Toaster } from 'sonner';
 import { dbConnect } from '@/lib/mongo';
-import SessionProvider from '@/Providers/SessionProvider';
 
 export const metadata = {
     title: 'Wifi Hotspot',
@@ -15,9 +14,7 @@ export default async function RootLayout({ children }) {
     return (
         <html lang='en'>
             <body>
-                <ThemeProvider>
-                    <SessionProvider>{children}</SessionProvider>
-                </ThemeProvider>
+                <ThemeProvider>{children}</ThemeProvider>
                 <Toaster richColors position='top-center' duration={3000} />
             </body>
         </html>

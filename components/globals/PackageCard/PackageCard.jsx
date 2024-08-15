@@ -10,8 +10,10 @@ import { Wifi } from "lucide-react";
 import takaIcon from "@/assets/taka-icon.png";
 import Image from "next/image";
 import BuyButton from "./BuyButton";
+import { getSessionUser } from "@/lib/dal";
 
-const PackageCard = () => {
+const PackageCard = async () => {
+    const user = await getSessionUser();
     const amount = 1;
 
     return (
@@ -40,7 +42,7 @@ const PackageCard = () => {
                 </div>
             </CardContent>
             <CardFooter className="p-5 pt-0">
-                <BuyButton amount={amount} />
+                <BuyButton user={user} amount={amount} />
             </CardFooter>
         </Card>
     )

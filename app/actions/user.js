@@ -6,6 +6,7 @@ import User from '@/modals/user-modal';
 import { updateUserInfo } from '@/queries/user';
 import { replaceMongoIdInObject } from '@/lib/convertData';
 import { generateOTP } from '@/lib/otp';
+import { loginUser } from './auth';
 
 export const createAccount = async (data) => {
     try {
@@ -59,7 +60,11 @@ export const verifyOtp = async (otp, id) => {
             });
             if (userUpdated) {
                 cookies().delete('otp');
-                return { success: true, message: 'OTP Verified Successfully' };
+                const user = await getUserById(id);
+                const login = await loginUser(user?.phone, user?.password);
+                if (login.success) {
+                    return { success: true, message: 'OTP Verified Successfully' };
+                }
             }
         }
         return { success: false, message: 'Invalid OTP' };
