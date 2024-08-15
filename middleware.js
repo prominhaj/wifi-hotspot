@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, userAgent } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
 const protectedRoutes = ['/dashboard'];
@@ -7,6 +7,9 @@ const publicRoutes = ['/', '/login', '/register', '/register/verify'];
 export default async function middleware(req) {
     const token = await getToken({ req });
     const path = req.nextUrl.pathname;
+    const { device } = userAgent(req);
+    const viewport = device.type === 'mobile' ? 'mobile' : 'desktop';
+
     const isPublicRoute = publicRoutes.includes(path);
     const isProtectedRoute = protectedRoutes.includes(path);
 
@@ -15,7 +18,7 @@ export default async function middleware(req) {
     }
 
     if (isPublicRoute && token) {
-        return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
+        return NextResponse.redirect(new URL(`/dashboard?device=${viewport}`, req.nextUrl));
     }
 
     return NextResponse.next();
