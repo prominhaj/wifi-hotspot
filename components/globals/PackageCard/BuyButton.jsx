@@ -3,7 +3,7 @@
 import { toast } from "sonner";
 import SubmitButton from "../SubmitButton/SubmitButton";
 
-const BuyButton = ({ amount, user }) => {
+const BuyButton = ({ amount, user, packageId }) => {
 
     const packagePaymentAction = async () => {
         try {
@@ -12,7 +12,7 @@ const BuyButton = ({ amount, user }) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ amount, userId: user?.id })
+                body: JSON.stringify({ amount, userId: user?.id, packageId })
             });
             const result = await response.json();
             if (!result?.success) {

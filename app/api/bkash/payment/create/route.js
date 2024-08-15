@@ -3,12 +3,14 @@ import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(req) {
-    const { amount, userId } = await req.json();
+    const { amount, userId, packageId } = await req.json();
     const authSuccess = await bkashAuth(req);
 
     if (!authSuccess) {
         return NextResponse.json({ success: false, error: 'Authentication failed', status: 401 });
     }
+
+    const bkashCallBackUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/bkash/payment/callback?userId=${userId}&packageId=${packageId}`;
 
     try {
         const response = await fetch(process.env.BKASH_CREATE_PAYMENT_URL, {
@@ -23,7 +25,7 @@ export async function POST(req) {
             body: JSON.stringify({
                 mode: '0011',
                 payerReference: ' ',
-                callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL}/api/bkash/payment/callback?userId=${userId}`,
+                callbackURL: bkashCallBackUrl,
                 amount,
                 currency: 'BDT',
                 intent: 'sale',
@@ -40,7 +42,7 @@ export async function POST(req) {
         return NextResponse.json({
             success: true,
             status: 200,
-            paymentUrl: bkashURL || 'bello'
+            paymentUrl: bkashURL
         });
     } catch (error) {
         return NextResponse.json({ success: false, error: error.message, status: 401 });
