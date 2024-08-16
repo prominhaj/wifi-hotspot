@@ -1,4 +1,4 @@
-import { getPaymentById } from '@/queries/payment';
+import { getPaymentById, updatePaymentInfo } from '@/queries/payment';
 import CheckPayment from './_components/CheckPayment';
 import { CircleX } from 'lucide-react';
 
@@ -12,6 +12,9 @@ const PaymentPage = async ({ searchParams: { success, trxID, paymentId } }) => {
                 getPayment.status === 'pending';
 
             if (matches) {
+                await updatePaymentInfo(paymentId, {
+                    status: 'paid'
+                });
                 return <CheckPayment user={getPayment?.userId} />;
             } else {
                 return (

@@ -15,3 +15,12 @@ export const getPaymentById = async (id) => {
         throw new Error(error);
     }
 };
+
+export const updatePaymentInfo = async (paymentId, updatedInfo) => {
+    try {
+        const updatePayment = await Payment.findByIdAndUpdate(paymentId, updatedInfo);
+        return updatePayment;
+    } catch (error) {
+        throw new Error(error);
+    }
+};
