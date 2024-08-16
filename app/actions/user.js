@@ -17,7 +17,8 @@ export const createAccount = async (data) => {
         if (userExists) {
             return {
                 success: false,
-                message: 'User already exists'
+                message: 'Phone is already exists',
+                phone: true
             };
         }
 
@@ -60,6 +61,7 @@ export const verifyOtp = async (otp, id) => {
             });
             if (userUpdated) {
                 cookies().delete('otp');
+                cookies().delete('otpExpiresAt');
                 const user = await getUserById(id);
                 const login = await loginUser(user?.phone, user?.password);
                 if (login.success) {
@@ -67,7 +69,7 @@ export const verifyOtp = async (otp, id) => {
                 }
             }
         }
-        return { success: false, message: 'Invalid OTP' };
+        return { success: false, otpVerify: false, message: 'OTP is not valid' };
     } catch (error) {
         throw new Error(error);
     }
