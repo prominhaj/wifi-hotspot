@@ -39,36 +39,10 @@ export const POST = async (req) => {
             conn.close();
 
             if (results[0]?.ret) {
-                const createdHotspotUserResponse = await fetch(
-                    `${process.env.BASE_URL}/api/mikrotik/hotspot/getUserById?id=${results[0]?.ret}`
-                );
-                const createdHotspotUser = await createdHotspotUserResponse.json();
-
-                if (createdHotspotUser?.success) {
-                    // Save hotspot user to your database
-                    const newHotspotUserData = {
-                        userId,
-                        paymentId: createPayment?._id,
-                        hotspotUserId: results[0]?.ret,
-                        username: createdHotspotUser?.user?.name,
-                        password: createdHotspotUser?.user?.password,
-                        hotspotProfile: createdHotspotUser?.user?.profile,
-                        hotspotSever: createdHotspotUser?.user?.server
-                    };
-
-                    const saveHotspotUserOnDB = await createHotspotUser(newHotspotUserData);
-
-                    if (saveHotspotUserOnDB.success) {
-                        return NextResponse.json({
-                            success: true,
-                            createPayment
-                        });
-                    }
-                    return NextResponse.json({
-                        success: false,
-                        message: 'Failed to save hotspot user on database'
-                    });
-                }
+                return NextResponse.json({
+                    success: true,
+                    createPayment
+                });
             } else {
                 // TODO: refund the user payment
                 return NextResponse.json({
@@ -80,6 +54,6 @@ export const POST = async (req) => {
             return NextResponse.json({ success: false, message: 'Payment creation failed' });
         }
     } catch (error) {
-        return NextResponse.json({ success: false, error: error.message });
+        return NextResponse.json({ success: false, message: error.message });
     }
 };

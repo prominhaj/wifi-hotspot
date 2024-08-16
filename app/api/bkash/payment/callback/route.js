@@ -53,7 +53,7 @@ export async function GET(req) {
                 );
 
                 const mikrotikResponse = await createdUserInMikrotik.json();
-                if (mikrotikResponse.success) {
+                if (mikrotikResponse?.success) {
                     const redirectUrl = `${process.env.BASE_URL}/payment?success=${
                         mikrotikResponse?.success
                     }&trxID=${
@@ -63,17 +63,17 @@ export async function GET(req) {
                     return NextResponse.redirect(redirectUrl);
                 } else {
                     return NextResponse.redirect(
-                        `${process.env.BASE_URL}/dashboard?message=${mikrotikResponse?.message}`
+                        `${process.env.BASE_URL}/dashboard?success=${mikrotikResponse?.success}&message=${mikrotikResponse?.message}`
                     );
                 }
             } else {
                 return NextResponse.redirect(
-                    `${process.env.BASE_URL}/dashboard?message=${decodeURI(data.statusMessage)}`
+                    `${process.env.BASE_URL}/dashboard?message=${data.statusMessage}`
                 );
             }
         } catch (error) {
             return NextResponse.redirect(
-                `${process.env.BASE_URL}/dashboard?message=${decodeURI(error.message)}`
+                `${process.env.BASE_URL}/dashboard?message=${error.message}`
             );
         }
     }
