@@ -40,7 +40,7 @@ export const POST = async (req) => {
 
             if (results[0]?.ret) {
                 const createdHotspotUserResponse = await fetch(
-                    `${process.env.NEXT_PUBLIC_BASE_URL}/api/mikrotik/hotspot/getUserById?id=${results[0]?.ret}`
+                    `${process.env.BASE_URL}/api/mikrotik/hotspot/getUserById?id=${results[0]?.ret}`
                 );
                 const createdHotspotUser = await createdHotspotUserResponse.json();
 
