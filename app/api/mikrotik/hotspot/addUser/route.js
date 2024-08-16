@@ -39,6 +39,19 @@ export const POST = async (req) => {
             conn.close();
 
             if (results[0]?.ret) {
+                const hotspotData = {
+                    userId,
+                    paymentId: createPayment?._id,
+                    hotspotUserId: results[0]?.ret,
+                    username: user?.phone,
+                    password: user?.phone,
+                    hotspotProfile: getPackage?.profileType,
+                    hotspotSever: getPackage?.server || 'hotspot1'
+                };
+
+                // Save hotspot data to your database
+                await createHotspotUser(hotspotData);
+
                 return NextResponse.json({
                     success: true,
                     createPayment
