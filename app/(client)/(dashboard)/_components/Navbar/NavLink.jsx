@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -7,11 +8,12 @@ const NavLink = ({ item }) => {
     const pathname = usePathname();
     return (
         <Link
-            className={`${item.path === pathname ? "text-white dark:bg-purple-500 bg-blue-500" : "text-light-text dark:text-dark-text"} bg-light-bg hover:bg-light-bg-hover dark:hover:bg-dark-bg-hover dark:bg-dark-bg p-2.5 rounded-full`}
+            className={cn(item?.path === pathname && "font-semibold absolute before:w-full before:h-1 before:z-10 before:bg-green-500 before:top-0 before:left-0 before:right-0", "flex flex-col relative items-center w-full")}
             href={item.path}
             key={item.name}
         >
-            <span>{item.icon}</span>
+            <span className={cn(item?.path === pathname && "text-green-500", "pt-2")}>{item.icon}</span>
+            <span className="pb-2 text-primary">{item.name}</span>
         </Link>
     );
 };

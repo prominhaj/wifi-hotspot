@@ -34,12 +34,10 @@ export async function GET(req) {
                 }
             );
 
-            console.log(data);
-
             if (data && data.statusCode === '0000') {
                 // Create New user in mikrotik
                 const createdUserInMikrotik = await fetch(
-                    `${process.env.BASE_URL}/api/mikrotik/addHotspotUser`,
+                    `${process.env.BASE_URL}/api/mikrotik/hotspot/addUser`,
                     {
                         method: 'POST',
                         headers: {
@@ -55,14 +53,19 @@ export async function GET(req) {
                 );
 
                 const mikrotikResponse = await createdUserInMikrotik.json();
+                if (mikrotikResponse.success) {
+                    const redirectUrl = `${process.env.BASE_URL}/payment?success=${
+                        mikrotikResponse?.success
+                    }&trxID=${
+                        mikrotikResponse?.createPayment?.transactionId
+                    }&paymentId=${mikrotikResponse?.createPayment?._id.toString()}`;
 
-                const redirectUrl = `${process.env.BASE_URL}/payment?success=${
-                    mikrotikResponse?.success
-                }&trxID=${
-                    mikrotikResponse?.createPayment?.transactionId
-                }&paymentId=${mikrotikResponse?.createPayment?._id.toString()}`;
-
-                return NextResponse.redirect(redirectUrl);
+                    return NextResponse.redirect(redirectUrl);
+                } else {
+                    return NextResponse.redirect(
+                        `${process.env.BASE_URL}/dashboard?message=${mikrotikResponse?.message}`
+                    );
+                }
             } else {
                 return NextResponse.redirect(
                     `${process.env.BASE_URL}/dashboard?message=${decodeURI(data.statusMessage)}`

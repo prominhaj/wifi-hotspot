@@ -10,7 +10,7 @@ import ServiceSection from "./ServiceSection";
 const DashboardPage = async () => {
     const user = await getSessionUser();
     const wifiPackages = await getAllPackages();
-    const isActive = false;
+    const isActive = true;
 
     return (
         <div className="max-w-md mx-auto">
