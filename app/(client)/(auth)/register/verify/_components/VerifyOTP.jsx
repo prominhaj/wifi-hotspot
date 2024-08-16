@@ -7,7 +7,6 @@ import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import { cn } from "@/lib/utils";
 import { getUserById, verifyOtp } from "@/app/actions/user";
 import { useRouter } from "next/navigation";
-import Cookies from 'js-cookie';
 import { generateOTP } from "@/lib/otp";
 import { getCookies } from "@/lib/cookies";
 
