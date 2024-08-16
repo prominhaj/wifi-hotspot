@@ -2,24 +2,26 @@ import { getPaymentById, updatePaymentInfo } from '@/queries/payment';
 import CheckPayment from './_components/CheckPayment';
 import { CircleX } from 'lucide-react';
 import { getSessionUser } from '@/lib/dal';
+import { updateHotspotUser } from '@/queries/hotspotUser';
+import { redirect } from 'next/navigation';
 
 const PaymentPage = async ({ searchParams: { success, trxID, paymentId, login } }) => {
     const sessionUser = await getSessionUser();
 
     if (login) {
         const response = await fetch(
-            `${process.env.BASE_URL}/api/mikrotik/hotspot/getUserByUsername?phone=01720232223`
+            `${process.env.BASE_URL}/api/mikrotik/hotspot/getUserByUsername?phone=${sessionUser?.phone}`
         );
         const getHotspotUser = await response.json();
-        // const newHotspotUserData = {
-        //     userId,
-        //     paymentId: createPayment?._id,
-        //     hotspotUserId: results[0]?.ret,
-        //     username: getHotspotUser?.user?.name,
-        //     password: getHotspotUser?.user?.password,
-        //     hotspotProfile: getHotspotUser?.user?.profile,
-        //     hotspotSever: getHotspotUser?.user?.server
-        // };
+        if (getHotspotUser?.success) {
+            const updatedHotspotUser = await updateHotspotUser(sessionUser?.id, {
+                macAddress: getHotspotUser?.user['mac-address'],
+                expiresAt: getHotspotUser?.user?.comment
+            });
+            if (updatedHotspotUser.success) {
+                redirect('/dashboard');
+            }
+        }
     }
 
     if (paymentId && trxID && success) {

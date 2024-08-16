@@ -11,3 +11,20 @@ export const createHotspotUser = async (data) => {
         throw new Error(error);
     }
 };
+
+export const updateHotspotUser = async (userId, updateIfo) => {
+    try {
+        const updatedHotspotUser = await HotspotUser.updateOne(
+            {
+                userId
+            },
+            updateIfo
+        ).lean();
+        return {
+            success: true,
+            hotspotUser: updatedHotspotUser
+        };
+    } catch (error) {
+        throw new Error(error);
+    }
+};
