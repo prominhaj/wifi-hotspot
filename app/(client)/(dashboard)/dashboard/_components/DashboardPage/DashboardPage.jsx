@@ -1,25 +1,16 @@
 
 import { Button } from "@/components/ui/button"
-import { getSessionUser } from "@/lib/dal"
-import ProfileSection from "./ProfileSection";
-import ActivePackageSection from "./ActivePackageSection";
 import PackageCard from "@/components/globals/PackageCard/PackageCard";
 import { getAllPackages } from "@/queries/package";
 import ServiceSection from "./ServiceSection";
+import ActiveDashboard from "./ActiveDashboard";
 
 const DashboardPage = async () => {
-    const user = await getSessionUser();
     const wifiPackages = await getAllPackages();
-    const isActive = true;
 
     return (
         <div className="max-w-md mx-auto">
-            <div className="relative">
-                <ProfileSection user={user} isActive={isActive} />
-                <ActivePackageSection isActive={isActive} />
-            </div>
-
-
+            <ActiveDashboard />
             <ServiceSection />
             <div className="p-4 mt-4 bg-white shadow dark:bg-black rounded-xl">
                 <h2 className="mb-3 text-lg font-semibold">Recent Transaction</h2>

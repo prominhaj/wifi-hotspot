@@ -1,7 +1,7 @@
 import { Progress } from "@/components/ui/progress"
 import { ArrowDownUp, Wifi } from "lucide-react";
 
-const ActivePackage = () => {
+const ActivePackage = ({ uploadUsages = 0, downloadUsages = 0 }) => {
     return (
         <div className="p-4 mx-5 mt-4 bg-white shadow dark:shadow-gray-700 dark:bg-gray-950 rounded-xl">
             <div className="flex items-center justify-between">
@@ -19,7 +19,7 @@ const ActivePackage = () => {
                 <div>
                     <Wifi className="w-6 h-6 mx-auto" />
                     <div className="mt-1 text-sm">Current Using</div>
-                    <div className="text-xs text-muted-foreground">0.95 MB/1 MB</div>
+                    <div className="text-xs text-muted-foreground">{uploadUsages}/{downloadUsages}</div>
                 </div>
                 <div>
                     <ArrowDownUp className="w-6 h-6 mx-auto" />
