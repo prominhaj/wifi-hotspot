@@ -5,10 +5,10 @@ import moment from "moment";
 
 const ActivePackage = ({ activeInfo }) => {
     const {
-        uploadUsages = 0,
-        downloadUsages = 0,
-        totalUploadUsages = 0,
-        totalDownloadUsages = 0,
+        uploadUsages,
+        downloadUsages,
+        totalUploadUsages,
+        totalDownloadUsages,
         packages
     } = activeInfo;
 
@@ -38,12 +38,16 @@ const ActivePackage = ({ activeInfo }) => {
                 <div>
                     <Wifi className="w-6 h-6 mx-auto" />
                     <div className="mt-1 text-sm">Current Using</div>
-                    <div className="text-xs text-muted-foreground">{uploadUsages}/{downloadUsages}</div>
+                    <div className="text-xs text-muted-foreground">
+                        {uploadUsages || "0 Bytes"}/{downloadUsages || "0 Bytes"}
+                    </div>
                 </div>
                 <div>
                     <ArrowDownUp className="w-6 h-6 mx-auto" />
                     <div className="mt-1 text-sm">Total Usages</div>
-                    <div className="text-xs text-muted-foreground">{totalUploadUsages}/{totalDownloadUsages}</div>
+                    <div className="text-xs text-muted-foreground">
+                        {totalUploadUsages || "0 Bytes"}/{totalDownloadUsages || "0 Bytes"}
+                    </div>
                 </div>
             </div>
         </div>

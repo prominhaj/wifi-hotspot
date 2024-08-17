@@ -21,7 +21,7 @@ const headerModeItems = [
     {
         name: "Profile",
         icon: <User className="w-7 h-7" />,
-        path: "/user"
+        path: "/profile"
     },
 ]
 
