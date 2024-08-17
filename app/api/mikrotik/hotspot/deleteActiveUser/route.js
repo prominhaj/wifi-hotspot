@@ -8,12 +8,11 @@ export const DELETE = async (req) => {
     try {
         const conn = await connectToRouter();
 
-        // Delete the hotspot user
-        await conn.write('/ip/hotspot/user/remove', [`=.id=${userId}`]);
-
+        // Delete the active hotspot user
+        await conn.write('/ip/hotspot/active/remove', [`=.id=${userId}`]);
         conn.close();
 
-        return NextResponse.json({ success: true, message: 'User deleted successfully' });
+        return NextResponse.json({ success: true, message: 'Active User deleted successfully' });
     } catch (error) {
         return NextResponse.json({ success: false, message: error.message });
     }

@@ -48,7 +48,7 @@ export const POST = async (req) => {
                     hotspotUserId: results[0]?.ret,
                     username: user?.phone,
                     password: user?.phone,
-                    expiresAt: expiredDate
+                    expiredAt: expiredDate
                 };
 
                 // Save hotspot data to your database

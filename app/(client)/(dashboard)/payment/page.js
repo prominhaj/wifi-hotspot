@@ -4,7 +4,7 @@ import { CircleX } from 'lucide-react';
 import { getSessionUser } from '@/lib/dal';
 import { updateHotspotUser } from '@/queries/hotspotUser';
 import { redirect } from 'next/navigation';
-import { getHotspotActiveUserByPhone } from '@/lib/dataFetching/hotspot';
+import { getHotspotActiveUserByPhone } from '@/lib/hotspot/dataFetching/hotspot';
 
 const PaymentPage = async ({ searchParams: { success, trxID, paymentId, login } }) => {
     const sessionUser = await getSessionUser();

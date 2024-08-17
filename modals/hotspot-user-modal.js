@@ -33,7 +33,7 @@ const hotspotUserSchema = new Schema(
             type: String,
             required: false
         },
-        expiresAt: {
+        expiredAt: {
             type: Date,
             required: true
         },

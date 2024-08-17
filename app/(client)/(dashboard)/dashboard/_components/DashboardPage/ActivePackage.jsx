@@ -27,10 +27,10 @@ const ActivePackage = ({ activeInfo }) => {
                 <Progress value={progressValue} className="w-full h-3 bg-gray-200" />
                 <div className="flex justify-between mt-2 text-sm">
                     <div className="font-medium">
-                        {validity === 1 ? "24 Hours" : validity + " Days"}
+                        {validity === 1 ? "24 Hours" : validity || 0 + " Days"}
                     </div>
                     <div className="font-medium">
-                        {validity === 1 ? remaining + " Hours" : remaining + " Days"} Left
+                        {validity === 1 ? remaining || 0 + " Hours" : remaining || 0 + " Days"} Left
                     </div>
                 </div>
             </div>

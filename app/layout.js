@@ -3,6 +3,8 @@ import ThemeProvider from '@/Providers/ThemeProvider';
 import { Toaster } from 'sonner';
 import { dbConnect } from '@/lib/mongo';
 import NextTopLoader from 'nextjs-toploader';
+import cron from 'node-cron';
+import { updateExpiredUsers } from '@/cron/updateExpiredUsers';
 
 export const metadata = {
     manifest: '/manifest.json',
@@ -17,6 +19,10 @@ export const viewport = {
 export default async function RootLayout({ children }) {
     // Connect to MongoDB database
     const cont = await dbConnect();
+
+    // Schedule the cron job to run every minute
+    cron.schedule('* * * * *', updateExpiredUsers);
+
     return (
         <html lang='en'>
             <body>

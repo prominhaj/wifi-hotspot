@@ -2,7 +2,10 @@ import { getSessionUser } from '@/lib/dal';
 import ProfileSection from '../_components/DashboardPage/ProfileSection';
 import ActivePackageSection from '../_components/DashboardPage/ActivePackageSection';
 import { getHotspotUserById } from '@/queries/hotspotUser';
-import { getHotspotActiveUserByPhone, getHotspotUserByPhone } from '@/lib/dataFetching/hotspot';
+import {
+    getHotspotActiveUserByPhone,
+    getHotspotUserByPhone
+} from '@/lib/hotspot/dataFetching/hotspot';
 
 const ActiveDashboard = async () => {
     const user = await getSessionUser();
