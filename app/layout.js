@@ -2,7 +2,7 @@ import './globals.css';
 import ThemeProvider from '@/Providers/ThemeProvider';
 import { Toaster } from 'sonner';
 import { dbConnect } from '@/lib/mongo';
-import NextProgress from '@/Providers/NextProgress';
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata = {
     manifest: '/manifest.json',
@@ -20,7 +20,7 @@ export default async function RootLayout({ children }) {
     return (
         <html lang='en'>
             <body>
-                <NextProgress />
+                <NextTopLoader height={5} />
                 <ThemeProvider>{children}</ThemeProvider>
                 <Toaster richColors position='top-center' duration={3000} />
             </body>
