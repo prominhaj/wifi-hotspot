@@ -44,7 +44,7 @@ const ProfileSection = ({ user, isActive, packageInfo }) => {
                             <h6 className="text-lg font-medium tracking-wider text-white">
                                 {packageInfo?.packageId?.packageName}
                             </h6>
-                            <div className="text-sm font-medium">ACTIVE TO {moment(packageInfo?.createdAt).subtract(10, 'days').calendar()}</div>
+                            <div className="text-sm font-medium">ACTIVE TO {moment(packageInfo?.createdAt).format('DD/MM/YYYY')}</div>
                         </div>
                     </div>
                 )

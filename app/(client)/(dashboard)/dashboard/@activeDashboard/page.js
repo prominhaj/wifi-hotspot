@@ -11,17 +11,19 @@ const ActiveDashboard = async () => {
         getHotspotActiveUserByPhone(user?.phone),
         getHotspotUserById(user?.id)
     ]);
-    // const hotspotUser = await getHotspotUserByPhone(user?.phone);
-    // const activeHotspotUser = await getHotspotActiveUserByPhone(user?.phone);
-    // const packages = await getHotspotUserById(user?.id);
 
     return (
         <div className='relative'>
-            <ProfileSection packageInfo={packages} user={user} isActive={hotspotUser?.success} />
+            <ProfileSection
+                packageInfo={packages}
+                user={user}
+                isActive={packages?.status === 'active' ? true : false}
+            />
             <ActivePackageSection
-                isActive={hotspotUser?.success}
+                isActive={packages?.status === 'active' ? true : false}
                 activeHotspotUser={activeHotspotUser}
                 hotspotUser={hotspotUser}
+                packages={packages}
             />
         </div>
     );

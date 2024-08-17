@@ -9,32 +9,29 @@ const ActivePackage = ({ activeInfo }) => {
         downloadUsages = 0,
         totalUploadUsages = 0,
         totalDownloadUsages = 0,
-        expiredDate,
-        expiredTime
+        packages
     } = activeInfo;
 
-    const expiredTimeAndDate = expiredDate + " " + expiredTime;
-    const { progressValue, remainingDays, daysPassed } = calculateProgress(expiredTimeAndDate, 7);
-    console.log(`Progress: ${progressValue}%`);
-    console.log(`Days Left: ${remainingDays}`);
-    console.log(`Days Passed: ${daysPassed}`);
-
-    console.log(expiredTimeAndDate);
-
+    const validity = packages?.packageId?.validity;
+    const { progressValue, remaining } = calculateProgress(packages?.expiresAt, validity);
 
     return (
         <div className="p-4 mx-5 mt-4 bg-white shadow dark:shadow-gray-700 dark:bg-gray-950 rounded-xl">
             <div className="flex items-center justify-between">
                 <div className="font-semibold">Expired Date</div>
                 <div className="text-sm font-medium text-muted-foreground">
-                    {moment(expiredTimeAndDate).format('MMM DD YYYY, h:mm:ss a')}
+                    {moment(packages?.expiresAt).format('MMM DD YYYY, h:mm:ss a')}
                 </div>
             </div>
             <div className="mt-2">
-                <Progress value={90} className="w-full h-3 bg-gray-200" />
+                <Progress value={progressValue} className="w-full h-3 bg-gray-200" />
                 <div className="flex justify-between mt-2 text-sm">
-                    <div className="font-medium">30 Days</div>
-                    <div className="font-medium">29 Left</div>
+                    <div className="font-medium">
+                        {validity === 1 ? "24 Hours" : validity + " Days"}
+                    </div>
+                    <div className="font-medium">
+                        {validity === 1 ? remaining + " Hours" : remaining + " Days"} Left
+                    </div>
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-4 mt-4 text-center">

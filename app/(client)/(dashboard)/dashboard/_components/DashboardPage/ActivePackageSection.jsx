@@ -4,13 +4,13 @@ import { cn } from "@/lib/utils";
 import { getPopularPackage } from "@/queries/package";
 import { formatBytes } from "@/lib/convertData";
 
-const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser }) => {
+const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, packages }) => {
+
     const popularPackage = await getPopularPackage();
-    const uploadUsages = isActive && formatBytes(activeHotspotUser?.user['bytes-in']);
-    const downloadUsages = isActive && formatBytes(activeHotspotUser?.user['bytes-out']);
-    const totalUploadUsages = isActive && formatBytes(hotspotUser?.user['bytes-in']);
-    const totalDownloadUsages = isActive && formatBytes(hotspotUser?.user['bytes-out']);
-    const expiredDate = isActive && (hotspotUser?.user?.comment).split(" ");
+    const uploadUsages = isActive && activeHotspotUser?.success && formatBytes(activeHotspotUser?.user['bytes-in']);
+    const downloadUsages = isActive && activeHotspotUser?.success && formatBytes(activeHotspotUser?.user['bytes-out']);
+    const totalUploadUsages = isActive && hotspotUser?.success && formatBytes(hotspotUser?.user['bytes-in']);
+    const totalDownloadUsages = isActive && hotspotUser?.success && formatBytes(hotspotUser?.user['bytes-out']);
 
     // Calculate active package usages
     const activeInfo = {
@@ -18,8 +18,7 @@ const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser }
         downloadUsages,
         totalUploadUsages,
         totalDownloadUsages,
-        expiredDate: expiredDate[0],
-        expiredTime: expiredDate[1]
+        packages,
     }
 
     return (
