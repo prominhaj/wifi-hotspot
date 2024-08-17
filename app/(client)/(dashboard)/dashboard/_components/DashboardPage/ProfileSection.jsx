@@ -1,8 +1,8 @@
 import BDTIcon from "@/components/globals/BDTIcon/BDTIcon";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { PlusIcon } from "lucide-react";
 import moment from "moment";
 
 const ProfileSection = ({ user, isActive, packageInfo }) => {
@@ -22,9 +22,10 @@ const ProfileSection = ({ user, isActive, packageInfo }) => {
                         <div className="text-sm font-medium">{user?.phone}</div>
                     </div>
                 </div>
-                <Button variant="primary">
-                    <PlusIcon className="w-4 h-4" /> Top up
-                </Button>
+                <Badge className="py-1.5 text-sm">Connected</Badge>
+                {/* <Button variant="primary" className="bg-purple-500">
+                    Connected
+                </Button> */}
             </div>
             {
                 isActive && (

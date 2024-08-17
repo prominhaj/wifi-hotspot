@@ -31,11 +31,11 @@ export const getHotspotUserById = async (userId) => {
     }
 };
 
-export const updateHotspotUser = async (userId, updateIfo) => {
+export const updateHotspotUser = async (hotspotUserId, updateIfo) => {
     try {
         const updatedHotspotUser = await HotspotUser.updateOne(
             {
-                userId
+                hotspotUserId
             },
             updateIfo
         ).lean();
