@@ -3,7 +3,11 @@ import Package from '@/modals/package-modal';
 
 export const getAllPackages = async () => {
     try {
-        const packages = await Package.find().lean();
+        const packages = await Package.find()
+            .sort({
+                validity: 1
+            })
+            .lean();
         return replaceMongoIdInArray(packages);
     } catch (error) {
         throw new Error(error);
