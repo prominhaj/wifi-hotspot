@@ -22,7 +22,7 @@ const ProfileSection = ({ user, isActive, packageInfo }) => {
                         <div className="text-sm font-medium">{user?.phone}</div>
                     </div>
                 </div>
-                <Badge className="py-1.5 text-sm">Connected</Badge>
+                <Badge className="py-1.5 text-sm bg-blue-500">Connected</Badge>
                 {/* <Button variant="primary" className="bg-purple-500">
                     Connected
                 </Button> */}

@@ -18,7 +18,8 @@ export const createHotspotUser = async (data) => {
 export const getHotspotUserById = async (userId) => {
     try {
         const hotspotUser = await HotspotUser.findOne({
-            userId
+            userId,
+            status: 'active'
         })
             .populate({
                 path: 'packageId',

@@ -9,28 +9,28 @@ const ActivePackage = ({ activeInfo }) => {
         downloadUsages,
         totalUploadUsages,
         totalDownloadUsages,
-        packages
+        packageInfo
     } = activeInfo;
 
-    const validity = packages?.packageId?.validity;
-    const { progressValue, remaining } = calculateProgress(packages?.expiresAt, validity);
+    const validity = packageInfo?.packageId?.validity;
+    const { progressValue, remaining } = calculateProgress(packageInfo?.expiredAt, validity);
 
     return (
         <div className="p-4 mx-5 mt-4 bg-white shadow dark:shadow-gray-700 dark:bg-gray-950 rounded-xl">
             <div className="flex items-center justify-between">
                 <div className="font-semibold">Expired Date</div>
                 <div className="text-sm font-medium text-muted-foreground">
-                    {moment(packages?.expiresAt).format('MMM DD YYYY, h:mm:ss a')}
+                    {moment(packageInfo?.expiredAt).format('MMM DD YYYY, h:mm:ss a')}
                 </div>
             </div>
             <div className="mt-2">
                 <Progress value={progressValue} className="w-full h-3 bg-gray-200" />
                 <div className="flex justify-between mt-2 text-sm">
                     <div className="font-medium">
-                        {validity === 1 ? "24 Hours" : validity || 0 + " Days"}
+                        {validity === 1 ? "24 Hours" : validity + " Days"}
                     </div>
                     <div className="font-medium">
-                        {validity === 1 ? remaining || 0 + " Hours" : remaining || 0 + " Days"} Left
+                        {validity === 1 ? remaining + " Hours" : remaining + " Days"} Left
                     </div>
                 </div>
             </div>

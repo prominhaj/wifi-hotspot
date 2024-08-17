@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { getPopularPackage } from "@/queries/package";
 import { formatBytes } from "@/lib/convertData";
 
-const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, packages }) => {
+const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, packageInfo }) => {
 
     const popularPackage = await getPopularPackage();
     const uploadUsages = isActive && activeHotspotUser?.success && formatBytes(activeHotspotUser?.user['bytes-in']);
@@ -18,7 +18,7 @@ const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, 
         downloadUsages,
         totalUploadUsages,
         totalDownloadUsages,
-        packages,
+        packageInfo,
     }
 
     return (
