@@ -33,17 +33,14 @@ const hotspotUserSchema = new Schema(
             type: String,
             required: false
         },
-        hotspotProfile: {
-            type: String,
-            required: true
-        },
-        hotspotServer: {
-            type: String,
-            required: true
-        },
         expiresAt: {
             type: Date,
-            required: false
+            required: true
+        },
+        status: {
+            type: String,
+            required: true,
+            default: 'active'
         }
     },
     { timestamps: true }

@@ -15,9 +15,12 @@ const packageSchema = new Schema(
             type: Number,
             required: false
         },
-        profileType: {
+        profileName: {
             type: String,
             required: true
+        },
+        hotspotServer: {
+            type: String
         },
         validity: {
             type: Number,

@@ -4,20 +4,16 @@ import { CircleX } from 'lucide-react';
 import { getSessionUser } from '@/lib/dal';
 import { updateHotspotUser } from '@/queries/hotspotUser';
 import { redirect } from 'next/navigation';
+import { getHotspotUserByPhone } from '@/lib/dataFetching/hotspot';
 
 const PaymentPage = async ({ searchParams: { success, trxID, paymentId, login } }) => {
     const sessionUser = await getSessionUser();
 
     if (login) {
-        const response = await fetch(
-            `${process.env.BASE_URL}/api/mikrotik/hotspot/getUserByUsername?phone=${sessionUser?.phone}`
-        );
-        const getHotspotUser = await response.json();
+        const getHotspotUser = await getHotspotUserByPhone(sessionUser?.phone);
         if (getHotspotUser?.success) {
-            const expiresDate = (hotspotUser?.user?.comment).split(' ');
             const updatedHotspotUser = await updateHotspotUser(sessionUser?.id, {
-                macAddress: getHotspotUser?.user['mac-address'],
-                expiresAt: expiresDate[0] + ' ' + expiresDate[1]
+                macAddress: getHotspotUser?.user['mac-address']
             });
             if (updatedHotspotUser.success) {
                 redirect('/dashboard');

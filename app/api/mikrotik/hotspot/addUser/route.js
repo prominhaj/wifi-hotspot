@@ -1,3 +1,4 @@
+import { getExpirationDate } from '@/lib/convertData';
 import connectToRouter from '@/lib/mikrotik';
 import Payment from '@/modals/payment-modal';
 import { createHotspotUser } from '@/queries/hotspotUser';
@@ -31,14 +32,15 @@ export const POST = async (req) => {
             const results = await conn.write('/ip/hotspot/user/add', [
                 `=name=${user?.phone}`,
                 `=password=${user?.phone}`,
-                `=profile=${getPackage?.profileType}`,
-                `=server=${getPackage?.server || 'hotspot1'}`,
-                `=comment=up-`
+                `=profile=${getPackage?.profileName}`,
+                `=server=${getPackage?.hotspotServer || 'hotspot1'}`,
+                `=comment=${user?.name}`
             ]);
 
             conn.close();
 
             if (results[0]?.ret) {
+                const expiredDate = getExpirationDate(getPackage?.validity);
                 const hotspotData = {
                     userId,
                     packageId,
@@ -46,8 +48,7 @@ export const POST = async (req) => {
                     hotspotUserId: results[0]?.ret,
                     username: user?.phone,
                     password: user?.phone,
-                    hotspotProfile: getPackage?.profileType,
-                    hotspotServer: getPackage?.server || 'hotspot1'
+                    expiresAt: expiredDate
                 };
 
                 // Save hotspot data to your database
