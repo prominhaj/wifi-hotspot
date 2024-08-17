@@ -4,13 +4,13 @@ import { CircleX } from 'lucide-react';
 import { getSessionUser } from '@/lib/dal';
 import { updateHotspotUser } from '@/queries/hotspotUser';
 import { redirect } from 'next/navigation';
-import { getHotspotUserByPhone } from '@/lib/dataFetching/hotspot';
+import { getHotspotActiveUserByPhone } from '@/lib/dataFetching/hotspot';
 
 const PaymentPage = async ({ searchParams: { success, trxID, paymentId, login } }) => {
     const sessionUser = await getSessionUser();
 
     if (login) {
-        const getHotspotUser = await getHotspotUserByPhone(sessionUser?.phone);
+        const getHotspotUser = await getHotspotActiveUserByPhone(sessionUser?.phone);
         if (getHotspotUser?.success) {
             const updatedHotspotUser = await updateHotspotUser(sessionUser?.id, {
                 macAddress: getHotspotUser?.user['mac-address']
