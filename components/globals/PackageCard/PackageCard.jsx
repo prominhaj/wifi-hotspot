@@ -39,7 +39,7 @@ const PackageCard = async ({ wifiPackage }) => {
                 <div className="pt-2.5 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <span className="px-1 py-0.5 text-sm text-red-600 bg-red-200 rounded">
-                            {parseInt(discountPercentage)}%</span>
+                            -{parseInt(discountPercentage)}%</span>
                         <p className="flex items-center text-base font-medium line-through opacity-60 gap-0.5">
                             <BDTIcon /> {wifiPackage?.discountPrice} TK
                         </p>

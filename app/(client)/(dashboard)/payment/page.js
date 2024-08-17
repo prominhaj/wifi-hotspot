@@ -14,9 +14,10 @@ const PaymentPage = async ({ searchParams: { success, trxID, paymentId, login } 
         );
         const getHotspotUser = await response.json();
         if (getHotspotUser?.success) {
+            const expiresDate = (hotspotUser?.user?.comment).split(' ');
             const updatedHotspotUser = await updateHotspotUser(sessionUser?.id, {
                 macAddress: getHotspotUser?.user['mac-address'],
-                expiresAt: getHotspotUser?.user?.comment
+                expiresAt: expiresDate[0] + ' ' + expiresDate[1]
             });
             if (updatedHotspotUser.success) {
                 redirect('/dashboard');

@@ -8,7 +8,7 @@ const NavLink = ({ item }) => {
     const pathname = usePathname();
     return (
         <Link
-            className={cn(item?.path === pathname && "font-semibold absolute before:w-full before:h-1 before:z-10 before:bg-green-500 before:top-0 before:left-0 before:right-0", "flex flex-col relative items-center w-full")}
+            className={cn(item?.path === pathname ? "font-semibold absolute before:w-full before:h-1 before:z-10 before:bg-green-500 before:top-0 before:left-0 before:right-0" : "absolute before:w-full before:h-1 before:z-10 before:bg-white before:top-0 before:left-0 before:right-0", "flex flex-col relative items-center w-full")}
             href={item.path}
             key={item.name}
         >

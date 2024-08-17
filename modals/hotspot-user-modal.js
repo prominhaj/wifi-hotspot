@@ -24,21 +24,25 @@ const hotspotUserSchema = new Schema(
             ref: 'Payment',
             required: true
         },
+        packageId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Package',
+            required: true
+        },
         macAddress: {
             type: String,
-            required: false,
-            unique: true
+            required: false
         },
         hotspotProfile: {
             type: String,
             required: true
         },
-        hotspotSever: {
+        hotspotServer: {
             type: String,
             required: true
         },
         expiresAt: {
-            type: String,
+            type: Date,
             required: false
         }
     },

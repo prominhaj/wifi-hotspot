@@ -41,12 +41,13 @@ export const POST = async (req) => {
             if (results[0]?.ret) {
                 const hotspotData = {
                     userId,
+                    packageId,
                     paymentId: createPayment?._id,
                     hotspotUserId: results[0]?.ret,
                     username: user?.phone,
                     password: user?.phone,
                     hotspotProfile: getPackage?.profileType,
-                    hotspotSever: getPackage?.server || 'hotspot1'
+                    hotspotServer: getPackage?.server || 'hotspot1'
                 };
 
                 // Save hotspot data to your database
