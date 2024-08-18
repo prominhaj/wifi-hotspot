@@ -3,7 +3,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import moment from "moment";
+import moment from 'moment-timezone';
+
 
 const ProfileSection = ({ user, isActive, packageInfo }) => {
 
@@ -45,7 +46,7 @@ const ProfileSection = ({ user, isActive, packageInfo }) => {
                             <h6 className="text-lg font-medium tracking-wider text-white">
                                 {packageInfo?.packageId?.packageName}
                             </h6>
-                            <div className="text-sm font-medium">ACTIVE TO {moment(packageInfo?.createdAt).format('DD/MM/YYYY')}</div>
+                            <div className="text-sm font-medium">ACTIVE TO {moment(packageInfo?.createdAt).tz('Asia/Tokyo').format('DD/MM/YYYY')}</div>
                         </div>
                     </div>
                 )

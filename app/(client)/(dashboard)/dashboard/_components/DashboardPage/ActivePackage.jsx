@@ -1,7 +1,7 @@
 import { Progress } from "@/components/ui/progress"
 import { calculateProgress } from "@/lib/convertData";
 import { ArrowDownUp, Wifi } from "lucide-react";
-import moment from "moment";
+import moment from 'moment-timezone';
 
 const ActivePackage = ({ activeInfo }) => {
     const {
@@ -20,7 +20,7 @@ const ActivePackage = ({ activeInfo }) => {
             <div className="flex items-center justify-between">
                 <div className="font-semibold">Expired Date</div>
                 <div className="text-sm font-medium text-muted-foreground">
-                    {moment(packageInfo?.expiredAt).format('MMM DD YYYY, h:mm:ss a')}
+                    {moment(packageInfo?.expiredAt).tz('Asia/Tokyo').format('MMM DD YYYY, h:mm:ss a')}
                 </div>
             </div>
             <div className="mt-2">
