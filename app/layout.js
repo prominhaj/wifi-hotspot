@@ -20,9 +20,6 @@ export default async function RootLayout({ children }) {
     // Connect to MongoDB database
     const cont = await dbConnect();
 
-    // Schedule the cron job to run every minute
-    cron.schedule('* * * * *', updateExpiredUsers);
-
     return (
         <html lang='en'>
             <body>
