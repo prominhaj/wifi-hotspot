@@ -21,8 +21,8 @@ export default async function RootLayout({ children }) {
     return (
         <html lang='en'>
             <body>
-                <NextTopLoader color='' height={5} />
-                <ThemeProvider className='bg'>{children}</ThemeProvider>
+                <NextTopLoader color='#FF0000' height={5} showSpinner={false} />
+                <ThemeProvider>{children}</ThemeProvider>
                 <Toaster richColors position='top-center' duration={3000} />
             </body>
         </html>

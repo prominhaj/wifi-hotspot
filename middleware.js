@@ -1,6 +1,6 @@
 import { NextResponse, userAgent } from 'next/server';
-import { cookies } from 'next/headers';
 import { decrypt } from './lib/session';
+import { textEncrypt } from './lib/hash';
 
 const protectedRoutes = ['/dashboard', '/payment'];
 const publicRoutes = ['/login', '/register', '/register/verify', '/'];
@@ -10,10 +10,16 @@ export default async function middleware(req) {
     const isProtectedRoute = protectedRoutes.includes(path);
     const isPublicRoute = publicRoutes.includes(path);
 
+    // Check Device Name
     const { device } = userAgent(req);
     const viewport = device.type === 'mobile' ? 'mobile' : 'desktop';
+    const encryptedDeviceName = textEncrypt(viewport);
 
-    const cookie = cookies().get('session')?.value;
+    // Set the encrypted device name in cookies
+    const response = NextResponse.next();
+    response.cookies.set('device', encryptedDeviceName, { httpOnly: true, secure: true });
+
+    const cookie = req.cookies.get('session')?.value;
     const session = await decrypt(cookie);
 
     if (isProtectedRoute && !session?.userId) {
@@ -21,10 +27,10 @@ export default async function middleware(req) {
     }
 
     if (isPublicRoute && session?.userId && !req.nextUrl.pathname.startsWith('/dashboard')) {
-        return NextResponse.redirect(new URL(`/dashboard?device=${viewport}`, req.nextUrl));
+        return NextResponse.redirect(new URL(`/dashboard`, req.nextUrl));
     }
 
-    return NextResponse.next();
+    return response;
 }
 
 export const config = {
