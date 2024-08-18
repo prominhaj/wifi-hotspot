@@ -3,8 +3,6 @@ import ThemeProvider from '@/Providers/ThemeProvider';
 import { Toaster } from 'sonner';
 import { dbConnect } from '@/lib/mongo';
 import NextTopLoader from 'nextjs-toploader';
-import cron from 'node-cron';
-import { updateExpiredUsers } from '@/cron/updateExpiredUsers';
 
 export const metadata = {
     manifest: '/manifest.json',
@@ -20,14 +18,11 @@ export default async function RootLayout({ children }) {
     // Connect to MongoDB database
     const cont = await dbConnect();
 
-    // Schedule the cron job to run every minute
-    cron.schedule('* * * * *', updateExpiredUsers);
-
     return (
         <html lang='en'>
             <body>
-                <NextTopLoader height={5} />
-                <ThemeProvider>{children}</ThemeProvider>
+                <NextTopLoader color='' height={5} />
+                <ThemeProvider className='bg'>{children}</ThemeProvider>
                 <Toaster richColors position='top-center' duration={3000} />
             </body>
         </html>
