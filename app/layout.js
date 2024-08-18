@@ -3,8 +3,6 @@ import ThemeProvider from '@/Providers/ThemeProvider';
 import { Toaster } from 'sonner';
 import { dbConnect } from '@/lib/mongo';
 import NextTopLoader from 'nextjs-toploader';
-import cron from 'node-cron';
-import { updateExpiredUsers } from '@/cron/updateExpiredUsers';
 
 export const metadata = {
     manifest: '/manifest.json',
