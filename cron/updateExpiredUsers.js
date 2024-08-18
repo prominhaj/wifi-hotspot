@@ -9,7 +9,7 @@ export const updateExpiredUsers = async () => {
     const currentDate = new Date();
 
     try {
-        // Find users whose expiredAt date is less than or equal to the current date and time
+        // Find users whose expiredAt date is less than or equal to the current date & time
         const expiredUsers = await HotspotUser.find({
             expiredAt: { $lte: currentDate },
             status: 'active'
