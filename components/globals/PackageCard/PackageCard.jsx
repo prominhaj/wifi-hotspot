@@ -12,16 +12,29 @@ import BDTIcon from "../BDTIcon/BDTIcon";
 import { calculateDiscountedPrice } from "@/lib/convertData";
 import { cookies } from "next/headers";
 import { textDecrypt } from "@/lib/hash";
+import { cn } from "@/lib/utils";
 
-const PackageCard = async ({ wifiPackage }) => {
+const PackageCard = async ({ wifiPackage, isPopular }) => {
     const user = await getSessionUser();
     const device = cookies().get("device")?.value;
     const deviceDecrypt = textDecrypt(device);
     const price = deviceDecrypt === "mobile" ? wifiPackage?.price : wifiPackage?.desktopPrice;
     const finalPrice = calculateDiscountedPrice(price, wifiPackage?.discountPercentage);
 
+
     return (
-        <Card className="w-full bg-background">
+        <Card
+            className={cn(isPopular ? "bg-white" : "bg-light-card-bg", "w-full dark:bg-dark-card-bg relative")}
+        >
+            {
+                isPopular && (
+                    <div
+                        className="absolute top-1 -left-[3px] tracking-wide px-1 py-0.5 rounded-xl text-xs text-white font-semibold -rotate-45 bg-pink-500"
+                    >
+                        HOT
+                    </div>
+                )
+            }
             <CardHeader className="p-5">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">

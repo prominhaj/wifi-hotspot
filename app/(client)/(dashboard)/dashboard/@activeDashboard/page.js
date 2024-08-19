@@ -18,6 +18,7 @@ const ActiveDashboard = async () => {
     return (
         <div className='relative'>
             <ProfileSection
+                hotspotUser={hotspotUser}
                 isActiveHotspotUser={activeHotspotUser?.success}
                 packageInfo={currentPlan}
                 user={user}

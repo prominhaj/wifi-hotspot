@@ -1,4 +1,4 @@
-import { ArrowDownUp, BarChartIcon, ChartNoAxesColumnIncreasing, CircleDollarSign, HomeIcon, LayoutDashboard, SettingsIcon, StoreIcon, User } from "lucide-react";
+import { ArrowDownUp, ChartNoAxesColumnIncreasing, LayoutDashboard, User } from "lucide-react";
 import NavLink from "./NavLink";
 
 // Header Mode Items

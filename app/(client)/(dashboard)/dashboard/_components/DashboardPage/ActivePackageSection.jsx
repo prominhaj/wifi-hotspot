@@ -29,7 +29,7 @@ const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, 
                         <ActivePackage activeInfo={activeInfo} />
                     ) : (
                         <div className="px-3">
-                            <PackageCard wifiPackage={popularPackage} />
+                            <PackageCard isPopular={true} wifiPackage={popularPackage} />
                         </div>
                     )
                 }

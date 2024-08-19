@@ -6,10 +6,14 @@ const ServiceSection = () => {
 
     return (
         <div className="grid grid-cols-4 gap-4 mt-4 text-center">
-            <div>
+            <ServiceButton
+                device={device}
+                url="https://www.google.com"
+                mobileUrl="https://www.google.com"
+            >
                 <GlobeIcon className="w-8 h-8 mx-auto text-orange-500" />
                 <h4 className="mt-1 text-sm">Internet</h4>
-            </div>
+            </ServiceButton>
             <ServiceButton
                 device={device}
                 url="https://www.youtube.com"
