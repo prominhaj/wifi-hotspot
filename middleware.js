@@ -2,8 +2,8 @@ import { NextResponse, userAgent } from 'next/server';
 import { decrypt } from './lib/session';
 import { textEncrypt } from './lib/hash';
 
-const protectedRoutes = ['/dashboard', '/payment'];
-const publicRoutes = ['/login', '/register', '/register/verify', '/'];
+const protectedRoutes = ['/', '/dashboard', '/payment'];
+const publicRoutes = ['/login', '/register', '/register/verify'];
 
 export default async function middleware(req) {
     const path = req.nextUrl.pathname;

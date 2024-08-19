@@ -37,8 +37,6 @@ export const POST = async (req) => {
                 `=comment=${user?.name}`
             ]);
 
-            conn.close();
-
             if (results[0]?.ret) {
                 const expiredDate = getExpirationDate(getPackage?.validity);
                 const hotspotData = {

@@ -1,12 +1,12 @@
-import { ArrowDownUp, ChartNoAxesColumnIncreasing, LayoutDashboard, User } from "lucide-react";
+import { ArrowDownUp, ChartNoAxesColumnIncreasing, House, LayoutDashboard, User } from "lucide-react";
 import NavLink from "./NavLink";
 
 // Header Mode Items
 const headerModeItems = [
     {
-        name: "Dashboard",
-        icon: <LayoutDashboard className="w-7 h-7" />,
-        path: "/dashboard"
+        name: "Home",
+        icon: <House className="w-7 h-7" />,
+        path: "/"
     },
     {
         name: "Packages",

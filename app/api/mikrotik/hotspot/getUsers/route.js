@@ -8,8 +8,6 @@ export const GET = async (_req) => {
         // Fetch all hotspot users
         const users = await conn.write('/ip/hotspot/user/print');
 
-        conn.close();
-
         return NextResponse.json({ success: true, users });
     } catch (error) {
         return NextResponse.json({ error: true, message: error.message });

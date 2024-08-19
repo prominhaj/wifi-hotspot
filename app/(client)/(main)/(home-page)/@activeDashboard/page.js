@@ -9,10 +9,13 @@ import {
 
 const ActiveDashboard = async () => {
     const user = await getSessionUser();
-    const [hotspotUser, activeHotspotUser, currentPlan] = await Promise.all([
-        getHotspotUserByPhone(user?.phone),
-        getHotspotActiveUserByPhone(user?.phone),
-        getHotspotUserById(user?.id)
+
+    const currentPlan = await getHotspotUserById(user?.id);
+    const currentStatus = currentPlan?.status === 'active' ? true : false;
+
+    const [hotspotUser, activeHotspotUser] = await Promise.all([
+        currentStatus &&
+            (getHotspotUserByPhone(user?.phone), getHotspotActiveUserByPhone(user?.phone))
     ]);
 
     return (
@@ -23,10 +26,10 @@ const ActiveDashboard = async () => {
                     isActiveHotspotUser={activeHotspotUser?.success}
                     packageInfo={currentPlan}
                     user={user}
-                    isActive={currentPlan?.status === 'active' ? true : false}
+                    isActive={currentStatus}
                 />
                 <ActivePackageSection
-                    isActive={currentPlan?.status === 'active' ? true : false}
+                    isActive={currentStatus}
                     activeHotspotUser={activeHotspotUser}
                     hotspotUser={hotspotUser}
                     packageInfo={currentPlan}

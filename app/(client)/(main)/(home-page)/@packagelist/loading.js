@@ -7,6 +7,9 @@ const PackageListLoading = () => {
             <Skeleton className='w-1/4 h-6 mb-2 rounded' />
             <div className='grid items-center grid-cols-1 gap-5'>
                 <PackageCardLoading />
+                <PackageCardLoading />
+                <PackageCardLoading />
+                <PackageCardLoading />
             </div>
         </div>
     );

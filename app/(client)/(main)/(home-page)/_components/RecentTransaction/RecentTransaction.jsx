@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { getSessionUser } from "@/lib/dal";
 import { cn } from "@/lib/utils";
 import { getRecentTransaction } from "@/queries/payment";
