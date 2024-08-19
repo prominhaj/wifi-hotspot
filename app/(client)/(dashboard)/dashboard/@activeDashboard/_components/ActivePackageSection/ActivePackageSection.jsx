@@ -1,5 +1,5 @@
 import PackageCard from "@/components/globals/PackageCard/PackageCard";
-import ActivePackage from "./ActivePackage";
+import ActivePackage from "../../../_components/DashboardPage/ActivePackage";
 import { cn } from "@/lib/utils";
 import { getPopularPackage } from "@/queries/package";
 import { formatBytes } from "@/lib/convertData";

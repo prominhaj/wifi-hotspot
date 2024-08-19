@@ -1,6 +1,6 @@
 import { getSessionUser } from '@/lib/dal';
-import ProfileSection from '../_components/DashboardPage/ProfileSection';
-import ActivePackageSection from '../_components/DashboardPage/ActivePackageSection';
+import ProfileSection from './_components/ProfileSection/ProfileSection';
+import ActivePackageSection from './_components/ActivePackageSection/ActivePackageSection';
 import { getHotspotUserById } from '@/queries/hotspotUser';
 import {
     getHotspotActiveUserByPhone,
@@ -16,21 +16,23 @@ const ActiveDashboard = async () => {
     ]);
 
     return (
-        <div className='relative'>
-            <ProfileSection
-                hotspotUser={hotspotUser}
-                isActiveHotspotUser={activeHotspotUser?.success}
-                packageInfo={currentPlan}
-                user={user}
-                isActive={currentPlan?.status === 'active' ? true : false}
-            />
-            <ActivePackageSection
-                isActive={currentPlan?.status === 'active' ? true : false}
-                activeHotspotUser={activeHotspotUser}
-                hotspotUser={hotspotUser}
-                packageInfo={currentPlan}
-            />
-        </div>
+        <>
+            <div className='relative'>
+                <ProfileSection
+                    hotspotUser={hotspotUser}
+                    isActiveHotspotUser={activeHotspotUser?.success}
+                    packageInfo={currentPlan}
+                    user={user}
+                    isActive={currentPlan?.status === 'active' ? true : false}
+                />
+                <ActivePackageSection
+                    isActive={currentPlan?.status === 'active' ? true : false}
+                    activeHotspotUser={activeHotspotUser}
+                    hotspotUser={hotspotUser}
+                    packageInfo={currentPlan}
+                />
+            </div>
+        </>
     );
 };
 
