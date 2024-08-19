@@ -1,28 +1,36 @@
-import { isMobileDevice } from "@/lib/device";
+import { getDevice } from "@/lib/hash";
+import ServiceButton from "./ServiceButton";
 
 const ServiceSection = () => {
-    const device = isMobileDevice();
-    console.log(device);
-
+    const device = getDevice();
 
     return (
         <div className="grid grid-cols-4 gap-4 mt-4 text-center">
             <div>
                 <GlobeIcon className="w-8 h-8 mx-auto text-orange-500" />
-                <div className="mt-1 text-sm">Internet Device: {device}</div>
+                <div className="mt-1 text-sm">Internet</div>
             </div>
-            <div>
+            <ServiceButton
+                onClick={() => handleRedirect("https://www.youtube.com",
+                    "youtube://www.youtube.com")}
+            >
                 <YouTubeIcon className="w-8 h-8 mx-auto text-red-500" />
-                <div className="mt-1 text-sm">YouTube</div>
-            </div>
-            <div>
+                <h4 className="mt-1 text-sm">YouTube</h4>
+            </ServiceButton>
+            <ServiceButton
+                onClick={() => handleRedirect("https://www.facebook.com",
+                    "fb://profile")}
+            >
                 <FacebookIcon className="w-8 h-8 mx-auto text-blue-500" />
                 <div className="mt-1 text-sm">Facebook</div>
-            </div>
-            <div>
+            </ServiceButton>
+            <ServiceButton
+                onClick={() => handleRedirect("https://www.tiktok.com",
+                    "tiktok://user")}
+            >
                 <TikTokIcon className="w-8 h-8 mx-auto text-black dark:text-white" />
                 <div className="mt-1 text-sm">TikTok</div>
-            </div>
+            </ServiceButton>
         </div>
     );
 };
