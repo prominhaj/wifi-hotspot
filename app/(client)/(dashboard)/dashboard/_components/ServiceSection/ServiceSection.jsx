@@ -11,22 +11,25 @@ const ServiceSection = () => {
                 <div className="mt-1 text-sm">Internet</div>
             </div>
             <ServiceButton
-                onClick={() => handleRedirect("https://www.youtube.com",
-                    "youtube://www.youtube.com")}
+                device={device}
+                url="https://www.youtube.com"
+                mobileUrl="youtube://www.youtube.com"
             >
                 <YouTubeIcon className="w-8 h-8 mx-auto text-red-500" />
                 <h4 className="mt-1 text-sm">YouTube</h4>
             </ServiceButton>
             <ServiceButton
-                onClick={() => handleRedirect("https://www.facebook.com",
-                    "fb://profile")}
+                device={device}
+                url="https://www.facebook.com"
+                mobileUrl="fb://profile"
             >
                 <FacebookIcon className="w-8 h-8 mx-auto text-blue-500" />
                 <div className="mt-1 text-sm">Facebook</div>
             </ServiceButton>
             <ServiceButton
-                onClick={() => handleRedirect("https://www.tiktok.com",
-                    "tiktok://user")}
+                device={device}
+                url="https://www.tiktok.com"
+                mobileUrl="tiktok://user"
             >
                 <TikTokIcon className="w-8 h-8 mx-auto text-black dark:text-white" />
                 <div className="mt-1 text-sm">TikTok</div>
