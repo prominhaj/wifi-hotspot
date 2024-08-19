@@ -22,7 +22,7 @@ const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, 
     }
 
     return (
-        <div className={cn(isActive ? "mb-[5rem]" : "mb-[8rem]")}>
+        <div className={cn(isActive ? "mb-[5rem]" : "mb-[8.5rem]")}>
             <div className={cn(isActive ? "top-36" : "top-20", "absolute left-0 right-0 z-30")}>
                 {
                     isActive ? (

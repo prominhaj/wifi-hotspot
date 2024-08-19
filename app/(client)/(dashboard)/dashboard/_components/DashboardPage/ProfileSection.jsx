@@ -1,15 +1,16 @@
 import BDTIcon from "@/components/globals/BDTIcon/BDTIcon";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import moment from 'moment-timezone';
 
 
-const ProfileSection = ({ user, isActive, packageInfo }) => {
+const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser }) => {
 
     return (
-        <div className={cn(isActive ? "h-72" : "h-48", "relative p-4 text-white bg-gradient-to-b from-[#0FB981] to-[#78D397] rounded-xl")}>
+        <div
+            className={cn(isActive ? "h-72" : "h-48", "relative p-4 text-white bg-gradient-to-b dark:from-purple-700 dark:bg-purple-400 from-[#0FB981] to-[#78D397] rounded-xl")}
+        >
             <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center space-x-4">
                     <Avatar className="w-12 h-12">
@@ -23,10 +24,23 @@ const ProfileSection = ({ user, isActive, packageInfo }) => {
                         <div className="text-sm font-medium">{user?.phone}</div>
                     </div>
                 </div>
-                <Badge className="py-1.5 text-sm bg-blue-500">Connected</Badge>
-                {/* <Button variant="primary" className="bg-purple-500">
-                    Connected
-                </Button> */}
+                {
+                    isActiveHotspotUser ? (
+                        <Button
+                            variant="primary"
+                            className="relative bg-purple-500 cursor-default dark:bg-blue-500 pe-5"
+                        >
+                            Connected <span className="absolute text-lg text-green-500 top-0.5 right-1.5 dark:text-green-400">●</span>
+                        </Button>
+                    ) : (
+                        <Button
+                            variant="destructive"
+                            className="rounded-2xl"
+                        >
+                            Connect
+                        </Button>
+                    )
+                }
             </div>
             {
                 isActive && (

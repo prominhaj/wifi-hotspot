@@ -21,7 +21,7 @@ const PackageCard = async ({ wifiPackage }) => {
     const finalPrice = calculateDiscountedPrice(price, wifiPackage?.discountPercentage);
 
     return (
-        <Card className="w-full">
+        <Card className="w-full bg-background">
             <CardHeader className="p-5">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
