@@ -8,12 +8,12 @@ const ServiceSection = () => {
         <div className="grid grid-cols-4 gap-4 mt-4 text-center">
             <div>
                 <GlobeIcon className="w-8 h-8 mx-auto text-orange-500" />
-                <div className="mt-1 text-sm">Internet</div>
+                <h4 className="mt-1 text-sm">Internet</h4>
             </div>
             <ServiceButton
                 device={device}
                 url="https://www.youtube.com"
-                mobileUrl="youtube://www.youtube.com"
+                mobileUrl="vnd.youtube://"
             >
                 <YouTubeIcon className="w-8 h-8 mx-auto text-red-500" />
                 <h4 className="mt-1 text-sm">YouTube</h4>
@@ -21,7 +21,7 @@ const ServiceSection = () => {
             <ServiceButton
                 device={device}
                 url="https://www.facebook.com"
-                mobileUrl="fb://profile"
+                mobileUrl="fb://"
             >
                 <FacebookIcon className="w-8 h-8 mx-auto text-blue-500" />
                 <div className="mt-1 text-sm">Facebook</div>
@@ -29,7 +29,7 @@ const ServiceSection = () => {
             <ServiceButton
                 device={device}
                 url="https://www.tiktok.com"
-                mobileUrl="tiktok://user"
+                mobileUrl="tiktok://"
             >
                 <TikTokIcon className="w-8 h-8 mx-auto text-black dark:text-white" />
                 <div className="mt-1 text-sm">TikTok</div>
