@@ -14,7 +14,7 @@ const ServiceSection = () => {
                 <div className="mt-1 text-sm">Facebook</div>
             </div>
             <div>
-                <TikTokIcon className="w-8 h-8 mx-auto text-black" />
+                <TikTokIcon className="w-8 h-8 mx-auto text-black dark:text-white" />
                 <div className="mt-1 text-sm">TikTok</div>
             </div>
         </div>
