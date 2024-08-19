@@ -1,6 +1,8 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { getSessionUser } from "@/lib/dal";
+import { cn } from "@/lib/utils";
 import { getRecentTransaction } from "@/queries/payment";
+import Link from "next/link";
 
 const RecentTransaction = async () => {
     const sessionUser = await getSessionUser();
@@ -8,8 +10,9 @@ const RecentTransaction = async () => {
 
     if (!recentTransaction) return;
 
+
     return (
-        <div className='p-3 mt-4 shadow bg-background dark:bg-black rounded-xl'>
+        <div className='px-3 pt-3 mt-4 shadow bg-background dark:bg-black rounded-xl'>
             <h2 className='mb-3 text-lg font-semibold'>Recent Transaction</h2>
             <div className='flex items-center justify-between'>
                 <div>
@@ -23,11 +26,14 @@ const RecentTransaction = async () => {
                         </div>
                     </div>
                 </div>
-                <Button size="sm" className="text-white bg-green-500">
-                    Paid
+                <Button size="sm" className={cn(recentTransaction?.status === "paid" ? "bg-green-500" : "bg-red-500", "text-white capitalize")}>
+                    {recentTransaction?.status}
                 </Button>
             </div>
-        </div>
+            <Link className={cn(buttonVariants({ variant: "link" }), "text-center text-sm font-medium text-green-500")} href="/payment/history">
+                See All
+            </Link>
+        </div >
     );
 };
 

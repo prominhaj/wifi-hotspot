@@ -1,9 +1,15 @@
+import { isMobileDevice } from "@/lib/device";
+
 const ServiceSection = () => {
+    const device = isMobileDevice();
+    console.log(device);
+
+
     return (
         <div className="grid grid-cols-4 gap-4 mt-4 text-center">
             <div>
                 <GlobeIcon className="w-8 h-8 mx-auto text-orange-500" />
-                <div className="mt-1 text-sm">Internet</div>
+                <div className="mt-1 text-sm">Internet Device: {device}</div>
             </div>
             <div>
                 <YouTubeIcon className="w-8 h-8 mx-auto text-red-500" />

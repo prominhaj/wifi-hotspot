@@ -4,7 +4,7 @@ import RefreshPage from '@/components/globals/RefreshPage/RefreshPage';
 
 const ClientLayout = ({ children }) => {
     return (
-        <main className='max-w-[30rem] mx-auto p-5'>
+        <main className='max-w-[30rem] mx-auto p-3'>
             <div className='flex items-center justify-between pb-3'>
                 <Header />
                 <div className='flex items-center gap-3'>
