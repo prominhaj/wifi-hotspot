@@ -59,7 +59,7 @@ const RegisterForm = () => {
                             maxLength={field?.maxLength}
                             minLength={field?.minLength}
                             icon={field?.icon}
-                            placeHolder={field?.placeholder}
+                            placeholder={field?.placeholder}
                             error={field?.error}
                         >
                             {field.error && (

@@ -63,7 +63,7 @@ const LoginForm = ({ redirectUrl }) => {
                         pattern="\d{11}"
                         title="Please enter a valid 11-digit phone number"
                         icon={<Phone className="w-4 h-4" />}
-                        placeHolder="01786XXXXXX"
+                        placeholder="01786XXXXXX"
                         error={errors.phone}
                     >
                         {errors?.phone && (
@@ -85,7 +85,7 @@ const LoginForm = ({ redirectUrl }) => {
                         maxLength={12}
                         minLength={4}
                         icon={<KeyRound className="w-4 h-4" />}
-                        placeHolder="********"
+                        placeholder="********"
                         error={errors.password}
                     >
                         {errors?.password && (

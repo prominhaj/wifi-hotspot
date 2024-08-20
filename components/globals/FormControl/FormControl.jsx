@@ -11,7 +11,7 @@ const FormControl = ({
     className,
     type = "text",
     required = false,
-    placeHolder,
+    placeholder,
     icon,
     defaultValue,
     error,
@@ -35,7 +35,7 @@ const FormControl = ({
                     id={name}
                     name={name}
                     required={required}
-                    placeHolder={placeHolder}
+                    placeholder={placeholder}
                     defaultValue={defaultValue || ""}
                     {...props}
                 />
