@@ -14,7 +14,7 @@ import { cookies } from "next/headers";
 import { textDecrypt } from "@/lib/hash";
 import { cn } from "@/lib/utils";
 
-const PackageCard = async ({ wifiPackage, isPopular }) => {
+const PackageCard = async ({ wifiPackage, isPopular, isDisabled }) => {
     const user = await getSessionUser();
     const device = cookies().get("device")?.value;
     const deviceDecrypt = textDecrypt(device);
@@ -71,7 +71,7 @@ const PackageCard = async ({ wifiPackage, isPopular }) => {
                     </div>
                 </CardContent>
                 <CardFooter className="p-5 pt-0">
-                    <BuyButton user={user} amount={finalPrice} packageId={wifiPackage?.id} />
+                    <BuyButton disabled={isDisabled} user={user} amount={finalPrice} packageId={wifiPackage?.id} />
                 </CardFooter>
             </Card>
         </>

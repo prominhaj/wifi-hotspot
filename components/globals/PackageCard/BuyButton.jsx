@@ -3,7 +3,7 @@
 import { toast } from "sonner";
 import SubmitButton from "../SubmitButton/SubmitButton";
 
-const BuyButton = ({ amount, user, packageId }) => {
+const BuyButton = ({ amount, user, packageId, disabled }) => {
 
     const packagePaymentAction = async () => {
         try {
@@ -31,8 +31,8 @@ const BuyButton = ({ amount, user, packageId }) => {
     return (
         <>
             <form action={packagePaymentAction} className="w-full">
-                <SubmitButton className="w-full h-10 text-lg text-green-500 bg-transparent border-green-500" variant="outline">
-                    Buy
+                <SubmitButton disabled={disabled} className="w-full h-10 text-lg text-green-500 bg-transparent border-green-500 disabled:border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:text-muted-foreground" variant="outline">
+                    {disabled ? "Already Buy" : "Buy"}
                 </SubmitButton>
             </form>
         </>
