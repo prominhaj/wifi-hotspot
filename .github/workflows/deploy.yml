@@ -68,16 +68,16 @@ jobs:
             - name: Check Disk Space
               run: df -h
 
-            - name: Stop and remove old container if exists
-              run: |
-                  if [ $(docker ps -q -f name=wifi-hotspot-container) ]; then
-                    docker stop wifi-hotspot-container
-                    docker rm wifi-hotspot-container
-                  fi
+            # - name: Stop and remove old container if exists
+            #   run: |
+            #       if [ $(docker ps -q -f name=wifi-hotspot-container) ]; then
+            #         docker stop wifi-hotspot-container
+            #         docker rm wifi-hotspot-container
+            #       fi
 
-            - name: Remove old Docker images
-              run: |
-                  docker rmi -f $(docker images -q)
+            # - name: Remove old Docker images
+            #   run: |
+            #       docker rmi -f $(docker images -q)
 
             - name: Free up Docker space
               run: |
