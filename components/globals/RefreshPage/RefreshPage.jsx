@@ -3,7 +3,7 @@ import RefreshBtn from "./RefreshBtn";
 
 const RefreshPage = () => {
     return (
-        <form action={refreshPath}>
+        <form className="flex items-center" action={refreshPath}>
             <RefreshBtn />
         </form>
     );

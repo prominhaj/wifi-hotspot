@@ -7,6 +7,7 @@ import { updateUserInfo } from '@/queries/user';
 import { replaceMongoIdInObject } from '@/lib/convertData';
 import { generateOTP } from '@/lib/otp';
 import { loginUser } from './auth';
+import { revalidatePath } from 'next/cache';
 
 export const createAccount = async (data) => {
     try {
@@ -88,6 +89,21 @@ export const getUserById = async (id) => {
     try {
         const user = await User.findById(id).lean();
         return replaceMongoIdInObject(user);
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const updateUserData = async (id, updatedData) => {
+    try {
+        const updated = await updateUserInfo(id, updatedData);
+
+        revalidatePath('/');
+
+        return {
+            success: !!updated,
+            message: updated ? 'User data updated successfully' : 'User data not found'
+        };
     } catch (error) {
         throw new Error(error);
     }

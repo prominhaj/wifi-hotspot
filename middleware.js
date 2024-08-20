@@ -2,7 +2,7 @@ import { NextResponse, userAgent } from 'next/server';
 import { decrypt } from './lib/session';
 import { textEncrypt } from './lib/hash';
 
-const protectedRoutes = ['/', '/payment'];
+const protectedRoutes = ['/', '/payment', '/payment/history', '/statistic', '/profile'];
 const publicRoutes = ['/login', '/register', '/register/verify'];
 
 export default async function middleware(req) {
@@ -26,7 +26,7 @@ export default async function middleware(req) {
         return NextResponse.redirect(new URL(`/login?redirectUrl=${path}`, req.nextUrl));
     }
 
-    if (isPublicRoute && session?.userId && !req.nextUrl.pathname.startsWith('/')) {
+    if (isPublicRoute && session?.userId) {
         return NextResponse.redirect(new URL(`/`, req.nextUrl));
     }
 
