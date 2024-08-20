@@ -10,7 +10,7 @@ export async function GET(req) {
     const packageId = searchParams.get('packageId');
 
     if (status === 'cancel' || status === 'failure') {
-        return NextResponse.redirect(`${process.env.BASE_URL}/dashboard?message=${status}`);
+        return NextResponse.redirect(`${process.env.BASE_URL}/?message=${status}`);
     }
 
     if (status === 'success') {
@@ -63,18 +63,16 @@ export async function GET(req) {
                     return NextResponse.redirect(redirectUrl);
                 } else {
                     return NextResponse.redirect(
-                        `${process.env.BASE_URL}/dashboard?success=${mikrotikResponse?.success}&message=${mikrotikResponse?.message}`
+                        `${process.env.BASE_URL}/?success=${mikrotikResponse?.success}&message=${mikrotikResponse?.message}`
                     );
                 }
             } else {
                 return NextResponse.redirect(
-                    `${process.env.BASE_URL}/dashboard?message=${data.statusMessage}`
+                    `${process.env.BASE_URL}/?message=${data.statusMessage}`
                 );
             }
         } catch (error) {
-            return NextResponse.redirect(
-                `${process.env.BASE_URL}/dashboard?message=${error.message}`
-            );
+            return NextResponse.redirect(`${process.env.BASE_URL}/?message=${error.message}`);
         }
     }
 }

@@ -15,8 +15,6 @@ export const PUT = async (req) => {
 
         await conn.write('/ip/hotspot/user/set', [`=.id=${userId}`, ...updateFields]);
 
-        conn.close();
-
         return NextResponse.json({ success: true, message: 'User updated successfully' });
     } catch (error) {
         return NextResponse.json({

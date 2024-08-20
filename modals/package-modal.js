@@ -11,7 +11,12 @@ const packageSchema = new Schema(
             required: true,
             default: 0
         },
-        discountPrice: {
+        desktopPrice: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        discountPercentage: {
             type: Number,
             required: false
         },

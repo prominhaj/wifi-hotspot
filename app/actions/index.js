@@ -7,6 +7,6 @@ export const redirectPath = async (path) => {
     redirect(path);
 };
 
-export const refreshPath = async (path) => {
-    revalidatePath(path);
+export const refreshPath = async () => {
+    revalidatePath('/');
 };

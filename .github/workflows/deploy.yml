@@ -27,13 +27,12 @@ jobs:
                   echo "MIKROTIK_PORT=${{ secrets.MIKROTIK_PORT }}" >> .env
                   echo "MIKROTIK_USER=${{ secrets.MIKROTIK_USER }}" >> .env
                   echo "MONGO_URL=${{ secrets.MONGO_URL }}" >> .env
-                  echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env
-                  echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}" >> .env
                   echo "NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}" >> .env
                   echo "SMS_API_KEY=${{ secrets.SMS_API_KEY }}" >> .env
                   echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
                   echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" >> .env
                   echo "NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP=${{ secrets.NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP }}" >> .env
+                  echo "NEXT_PUBLIC_SECRET_KEY=${{ secrets.NEXT_PUBLIC_SECRET_KEY }}" >> .env
 
             - name: Archive .env file
               run: tar -czf env.tar.gz .env
