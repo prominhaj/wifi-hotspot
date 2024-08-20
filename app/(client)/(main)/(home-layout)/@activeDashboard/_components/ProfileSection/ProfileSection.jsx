@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import ConnectBtn from "../../../_components/DashboardPage/ConnectBtn";
 import moment from "moment";
+import { convertToUTCPlus6 } from "@/lib/convertData";
 
 const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hotspotUser }) => {
+
+    console.log(hotspotUser?.success);
+
     return (
         <>
             <div
@@ -56,15 +60,17 @@ const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hots
                                 <div className="flex items-center gap-1 text-3xl font-bold">
                                     <BDTIcon width="30px" height="30px" />
                                     <span>
-                                        {packageInfo?.packageId?.price} TK
+                                        {packageInfo?.paymentId?.amount} TK
                                     </span>
                                 </div>
                             </div>
                             <div>
-                                <h6 className="text-lg font-medium tracking-wider text-white">
+                                <h6 className="text-lg font-medium tracking-wider text-center text-white">
                                     {packageInfo?.packageId?.packageName}
                                 </h6>
-                                <div className="text-sm font-medium">ACTIVE TO {moment(packageInfo?.createdAt).format('DD/MM/YYYY')}</div>
+                                <div className="text-sm font-medium">
+                                    Activated at {moment(convertToUTCPlus6(packageInfo?.createdAt)).format('MMM DD YYYY')}
+                                </div>
                             </div>
                         </div>
                     )

@@ -13,10 +13,10 @@ const ActiveDashboard = async () => {
     const currentPlan = await getHotspotUserById(user?.id);
     const currentStatus = currentPlan?.status === 'active' ? true : false;
 
-    const [hotspotUser, activeHotspotUser] = await Promise.all([
-        currentStatus &&
-            (getHotspotUserByPhone(user?.phone), getHotspotActiveUserByPhone(user?.phone))
-    ]);
+    const hotspotUser = await getHotspotUserByPhone(user?.phone);
+    const activeHotspotUser = await getHotspotActiveUserByPhone(user?.phone);
+
+    console.log(user?.phone);
 
     return (
         <>

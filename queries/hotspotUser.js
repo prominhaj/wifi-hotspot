@@ -25,6 +25,10 @@ export const getHotspotUserById = async (userId) => {
                 path: 'packageId',
                 model: Package
             })
+            .populate({
+                path: 'paymentId',
+                model: Payment
+            })
             .lean();
         return replaceMongoIdInObject(hotspotUser);
     } catch (error) {

@@ -1,6 +1,7 @@
 import { Progress } from "@/components/ui/progress"
-import { calculateProgress } from "@/lib/convertData";
+import { calculateProgress, convertToUTCPlus6 } from "@/lib/convertData";
 import { ArrowDownUp, Wifi } from "lucide-react";
+import moment from "moment";
 
 const ActivePackage = ({ activeInfo }) => {
     const {
@@ -19,7 +20,7 @@ const ActivePackage = ({ activeInfo }) => {
             <div className="flex items-center justify-between">
                 <div className="font-semibold">Expired Date</div>
                 <div className="text-sm font-medium text-muted-foreground">
-                    {packageInfo?.expiredAt.toLocaleString()}
+                    {moment(convertToUTCPlus6(packageInfo?.expiredAt)).format('MMM DD YYYY, h:mm:ss A')}
                 </div>
             </div>
             <div className="mt-2">
