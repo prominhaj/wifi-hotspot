@@ -4,6 +4,7 @@ import ChangeProfilePhoto from './_components/ChangeProfilePhoto';
 import { getSessionUser } from '@/lib/dal';
 import Logout from '@/components/globals/Logout/Logout';
 import ProfileName from './_components/ProfileName';
+import ChangePassword from './_components/ChangePassword/ChangePassword';
 
 const ProfilePage = async () => {
     const sessionUser = await getSessionUser();
@@ -43,7 +44,9 @@ const ProfilePage = async () => {
                 </div>
             </div>
             {/* Tabs */}
-            <div className='pt-5'></div>
+            <div className='pt-5'>
+                <ChangePassword userId={sessionUser?.id} />
+            </div>
         </section>
     );
 };

@@ -8,6 +8,7 @@ import { replaceMongoIdInObject } from '@/lib/convertData';
 import { generateOTP } from '@/lib/otp';
 import { loginUser } from './auth';
 import { revalidatePath } from 'next/cache';
+import { passwordValidation } from '@/lib/validations/user';
 
 export const createAccount = async (data) => {
     try {
@@ -106,5 +107,62 @@ export const updateUserData = async (id, updatedData) => {
         };
     } catch (error) {
         throw new Error(error);
+    }
+};
+
+export const changeUserPassword = async (formData, userId) => {
+    // Form Data
+    const oldPassword = formData.get('oldPassword');
+    const newPassword = formData.get('newPassword');
+    const retypePassword = formData.get('confirmPassword');
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Password Validation
+        const validatedFields = passwordValidation.safeParse({
+            password: newPassword,
+            confirmPassword: retypePassword
+        });
+
+        if (!validatedFields.success) {
+            return {
+                errors: validatedFields.error.flatten().fieldErrors
+            };
+        }
+
+        // Check Old Password
+        const isPasswordMatched = oldPassword === user.password;
+        if (!isPasswordMatched) {
+            return {
+                success: false,
+                oldPassword: true,
+                message: 'Old Password does not match'
+            };
+        }
+
+        // Check Old Password And New Password
+        if (oldPassword === newPassword) {
+            return {
+                success: false,
+                message: 'Old Password and New Password cannot be same'
+            };
+        }
+
+        // Hash New Password
+        await User.findByIdAndUpdate(userId, { password: newPassword });
+
+        // Revalidate Old Password
+        revalidatePath('/');
+
+        return {
+            success: true,
+            message: 'Password updated successfully'
+        };
+    } catch (error) {
+        throw new Error(error.message);
     }
 };
