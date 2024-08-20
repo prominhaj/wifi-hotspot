@@ -1,7 +1,6 @@
 import { Progress } from "@/components/ui/progress"
 import { calculateProgress } from "@/lib/convertData";
 import { ArrowDownUp, Wifi } from "lucide-react";
-import moment from 'moment-timezone';
 
 const ActivePackage = ({ activeInfo }) => {
     const {
