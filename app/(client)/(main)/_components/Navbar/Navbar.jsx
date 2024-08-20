@@ -1,4 +1,4 @@
-import { ArrowDownUp, ChartNoAxesColumnIncreasing, House, LayoutDashboard, User } from "lucide-react";
+import { BadgeDollarSign, ChartNoAxesColumnIncreasing, House, User } from "lucide-react";
 import NavLink from "./NavLink";
 
 // Header Mode Items
@@ -9,9 +9,9 @@ const headerModeItems = [
         path: "/"
     },
     {
-        name: "Packages",
-        icon: <ArrowDownUp className="w-7 h-7" />,
-        path: "/packages"
+        name: "Payments",
+        icon: <BadgeDollarSign className="w-7 h-7" />,
+        path: "/payment/history"
     },
     {
         name: "Statistic",

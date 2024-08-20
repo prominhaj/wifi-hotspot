@@ -20,7 +20,7 @@ const PaymentPage = async ({ searchParams: { success, trxID, paymentId, login } 
                 macAddress: getActiveHotspotUser?.user['mac-address']
             });
             if (updatedHotspotUser.success) {
-                redirect('/dashboard');
+                redirect('/');
             }
         }
     }

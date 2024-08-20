@@ -1,8 +1,8 @@
 import PackageCard from "@/components/globals/PackageCard/PackageCard";
-import ActivePackage from "../../../_components/DashboardPage/ActivePackage";
 import { cn } from "@/lib/utils";
 import { getPopularPackage } from "@/queries/package";
 import { formatBytes } from "@/lib/convertData";
+import ActivePackage from "../../../_components/DashboardPage/ActivePackage";
 
 const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, packageInfo }) => {
 

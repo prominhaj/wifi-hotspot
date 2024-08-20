@@ -73,7 +73,7 @@ const VerifyOTP = ({ id }) => {
             const verify = await verifyOtp(otp, id);
             if (verify?.success) {
                 toast.success(verify.message);
-                router.push('/dashboard');
+                router.push('/');
             } else {
                 if (!verify?.otpVerify) {
                     setError(verify.message);

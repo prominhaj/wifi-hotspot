@@ -27,7 +27,7 @@ const LoginForm = ({ redirectUrl }) => {
 
             if (result?.success) {
                 toast.success(result.message);
-                router.push(redirectUrl || "/dashboard");
+                router.push(redirectUrl || "/");
             } else {
                 handleErrors(result, user);
             }
