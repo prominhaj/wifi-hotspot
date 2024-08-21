@@ -3,9 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const TotalCard = ({ title, count, icon }) => {
     return (
         <>
-            <Card x-chunk="dashboard-01-chunk-0">
+            <Card className="bg-background/20">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                    <CardTitle className="text-base font-semibold">
+                    <CardTitle className="text-base font-semibold tracking-widest">
                         {title}
                     </CardTitle>
                     {icon}
