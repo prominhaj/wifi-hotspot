@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import ConnectBtn from "../../../_components/DashboardPage/ConnectBtn";
 import moment from "moment";
 import { convertToUTCPlus6 } from "@/lib/convertData";
+import Link from "next/link";
 
 const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hotspotUser }) => {
 
@@ -15,12 +16,14 @@ const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hots
             >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center space-x-4">
-                        <Avatar className="w-12 h-12">
-                            <AvatarImage className="object-cover" src={user?.profilePhoto?.url} alt={user?.name} />
-                            <AvatarFallback className="font-medium text-black dark:text-white">
-                                {user?.name.slice(0, 2)}
-                            </AvatarFallback>
-                        </Avatar>
+                        <Link href="/profile">
+                            <Avatar className="w-12 h-12">
+                                <AvatarImage className="object-cover" src={user?.profilePhoto?.url} alt={user?.name} />
+                                <AvatarFallback className="font-medium text-black dark:text-white">
+                                    {user?.name.slice(0, 2)}
+                                </AvatarFallback>
+                            </Avatar>
+                        </Link>
                         <div>
                             <div className="font-semibold">{user?.name}</div>
                             <div className="text-sm font-medium">{user?.phone}</div>
