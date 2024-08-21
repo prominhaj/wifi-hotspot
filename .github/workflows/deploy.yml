@@ -33,6 +33,9 @@ jobs:
                   echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" >> .env
                   echo "NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP=${{ secrets.NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP }}" >> .env
                   echo "NEXT_PUBLIC_SECRET_KEY=${{ secrets.NEXT_PUBLIC_SECRET_KEY }}" >> .env
+                  echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> .env
+                  echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}" >> .env
+                  echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> .env
 
             - name: Archive .env file
               run: tar -czf env.tar.gz .env
