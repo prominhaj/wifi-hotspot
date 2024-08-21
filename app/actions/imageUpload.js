@@ -9,22 +9,24 @@ export const updateProfileImage = async (formData, fileName, folder, publicId, u
         // Upload profile image
         const uploadImage = await fileUploader(formData, fileName, folder, publicId);
 
-        // Update user profile image in database
-        const updateUser = await updateUserInfo(userId, {
-            profilePhoto: {
-                url: uploadImage?.url,
-                public_id: uploadImage?.public_id
+        if (uploadImage?.url) {
+            // Update user profile image in database
+            const updateUser = await updateUserInfo(userId, {
+                profilePhoto: {
+                    url: uploadImage?.url,
+                    public_id: uploadImage?.public_id
+                }
+            });
+
+            revalidatePath('/');
+
+            if (updateUser) {
+                return {
+                    success: true,
+                    message: 'Profile image updated successfully',
+                    profilePhoto: updateUser.profilePhoto
+                };
             }
-        });
-
-        revalidatePath('/');
-
-        if (updateUser) {
-            return {
-                success: true,
-                message: 'Profile image updated successfully',
-                profilePhoto: updateUser.profilePhoto
-            };
         }
     } catch (error) {
         throw new Error(error);
