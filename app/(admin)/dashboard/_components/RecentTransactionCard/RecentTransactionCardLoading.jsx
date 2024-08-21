@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-const RecentEnrollCardLoading = () => {
+const RecentTransactionCardLoading = () => {
     return (
         <div className="flex flex-wrap items-center w-full gap-2 sm:gap-3 md:gap-4">
             <Skeleton className="rounded-full h-9 w-9" />
@@ -13,4 +13,4 @@ const RecentEnrollCardLoading = () => {
     );
 };
 
-export default RecentEnrollCardLoading;
+export default RecentTransactionCardLoading;

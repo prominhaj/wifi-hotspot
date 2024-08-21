@@ -1,7 +1,7 @@
 import TotalCardLoading from '../../../_components/TotalCard/TotalCardLoading';
 
-const DashboardActiveUsersLoading = () => {
+const DashboardHotspotUsersLoading = () => {
     return <TotalCardLoading />;
 };
 
-export default DashboardActiveUsersLoading;
+export default DashboardHotspotUsersLoading;

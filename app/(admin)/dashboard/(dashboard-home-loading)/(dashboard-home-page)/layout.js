@@ -1,14 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { DollarSign, TrendingDown, TrendingUp, Users, WifiOff } from 'lucide-react';
+import { DollarSign, TrendingDown, TrendingUp } from 'lucide-react';
 import { getSessionUser } from '@/lib/dal';
-import { calculateSales, getMonthlyReport } from '@/queries/admin';
+import { calculateSales } from '@/queries/admin';
 import { cn } from '@/lib/utils';
 import TotalCard from '../../_components/TotalCard/TotalCard';
-import DashboardBarChart from '../../_components/BarChart/BarChart';
 
-const DashboardHomePageLayout = async ({ children, activeusers, hotspotusers, totalusers }) => {
+const DashboardHomePageLayout = async ({
+    children,
+    activeusers,
+    hotspotusers,
+    totalusers,
+    salescharts,
+    recenttransactions
+}) => {
     const user = await getSessionUser();
-    const reports = await getMonthlyReport();
     const { totalSales, lastMonthSales, thisMonthSales, percentChange } = await calculateSales();
 
     return (
@@ -54,30 +59,10 @@ const DashboardHomePageLayout = async ({ children, activeusers, hotspotusers, to
                     {totalusers}
                 </div>
                 <div className='grid grid-cols-1 gap-4 md:gap-8 xl:grid-cols-3'>
-                    <Card className='xl:col-span-2 bg-background/20'>
-                        <CardHeader className='flex flex-row items-center'>
-                            <CardTitle>Monthly Sales Charts</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <DashboardBarChart chartData={reports} />
-                        </CardContent>
-                    </Card>
-                    <Card className='bg-background/20'>
-                        <CardHeader>
-                            <CardTitle>Recent Transactions</CardTitle>
-                        </CardHeader>
-                        <CardContent className='grid gap-5 md:gap-8'>
-                            {/* {recentEnrollments?.length === 0 ? (
-                        <p className='text-lg font-medium text-center text-muted-foreground'>
-                            No Recent Enroll Course
-                        </p>
-                    ) : (
-                        recentEnrollments?.map((enroll) => (
-                            <RecentEnrollCard key={enroll.id} enroll={enroll} />
-                        ))
-                    )} */}
-                        </CardContent>
-                    </Card>
+                    {/* salescharts */}
+                    {salescharts}
+                    {/* recenttransactions */}
+                    {recenttransactions}
                 </div>
             </main>
         </div>

@@ -57,3 +57,19 @@ export const getPaymentHistoriesByUserId = async (userId) => {
         throw new Error(error);
     }
 };
+
+export const getLastRecentTransaction = async () => {
+    try {
+        const lastRecentTransaction = await Payment.find()
+            .limit(8)
+            .populate({
+                path: 'userId',
+                model: User
+            })
+            .sort({ createdAt: -1 })
+            .lean();
+        return replaceMongoIdInArray(lastRecentTransaction);
+    } catch (error) {
+        throw new Error(error);
+    }
+};

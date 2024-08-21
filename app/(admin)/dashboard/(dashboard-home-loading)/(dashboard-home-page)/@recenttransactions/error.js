@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default function DashboardActiveUsersError({ error, reset }) {
+const DashboardRecentTransactionsError = () => {
     return (
         <Card className='flex flex-col items-start justify-start w-full gap-2 border bg-background/20'>
             <CardHeader className='pb-1'>
@@ -17,4 +17,6 @@ export default function DashboardActiveUsersError({ error, reset }) {
             </CardContent>
         </Card>
     );
-}
+};
+
+export default DashboardRecentTransactionsError;

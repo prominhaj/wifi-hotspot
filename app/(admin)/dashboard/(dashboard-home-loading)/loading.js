@@ -1,7 +1,7 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import TotalCardLoading from '../_components/TotalCard/TotalCardLoading';
 import BarChartLoading from '../_components/BarChart/BarChartLoading';
-import RecentEnrollCardLoading from '../_components/RecentEnrollCard/RecentEnrollCardLoading';
+import RecentTransactionCardLoading from '../_components/RecentTransactionCard/RecentTransactionCardLoading';
 
 const DashBoardHomePageLoading = () => {
     return (
@@ -22,12 +22,12 @@ const DashBoardHomePageLoading = () => {
                     <div className='p-6 pb-2 space-y-0 border shadow rounded-xl bg-card/20 text-card-foreground'>
                         <Skeleton className='w-1/3 h-6 rounded' />
                         <div className='grid grid-cols-1 gap-5 pt-5 md:gap-8'>
-                            <RecentEnrollCardLoading />
-                            <RecentEnrollCardLoading />
-                            <RecentEnrollCardLoading />
-                            <RecentEnrollCardLoading />
-                            <RecentEnrollCardLoading />
-                            <RecentEnrollCardLoading />
+                            <RecentTransactionCardLoading />
+                            <RecentTransactionCardLoading />
+                            <RecentTransactionCardLoading />
+                            <RecentTransactionCardLoading />
+                            <RecentTransactionCardLoading />
+                            <RecentTransactionCardLoading />
                         </div>
                     </div>
                 </div>
