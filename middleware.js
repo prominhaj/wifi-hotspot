@@ -2,7 +2,14 @@ import { NextResponse, userAgent } from 'next/server';
 import { decrypt } from './lib/session';
 import { textEncrypt } from './lib/hash';
 
-const protectedRoutes = ['/', '/payment', '/payment/history', '/statistic', '/profile'];
+const protectedRoutes = [
+    '/',
+    '/payment',
+    '/payment/history',
+    '/statistic',
+    '/profile',
+    '/dashboard'
+];
 const publicRoutes = ['/login', '/register', '/register/verify'];
 
 export default async function middleware(req) {

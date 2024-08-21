@@ -30,7 +30,7 @@ const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hots
                         </div>
                     </div>
                     {
-                        isActive && (
+                        isActive && hotspotUser && (
                             <>
                                 {
                                     isActiveHotspotUser ? (

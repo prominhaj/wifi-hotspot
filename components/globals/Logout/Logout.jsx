@@ -1,14 +1,15 @@
 
 import { logout } from "@/app/actions";
 import SubmitButton from "../SubmitButton/SubmitButton";
+import { cn } from "@/lib/utils";
 
-const Logout = () => {
+const Logout = ({ className }) => {
     return (
-        <form action={logout}>
-            <SubmitButton className="w-full text-base rounded-2xl" variant="destructive">
+        <form className="w-full" action={logout}>
+            <SubmitButton className={cn(className ? className : "rounded-2xl", "w-full text-base")} variant="destructive">
                 Logout
             </SubmitButton>
-        </form>
+        </form >
     );
 };
 
