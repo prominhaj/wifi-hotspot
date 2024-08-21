@@ -1,5 +1,6 @@
 "use client";
 
+import { redirectPath } from "@/app/actions";
 import { loginUser } from "@/app/actions/auth";
 import { getUserByPhone } from "@/app/actions/user";
 import FormControl from "@/components/globals/FormControl/FormControl";
@@ -8,13 +9,11 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { KeyRound, Phone } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const LoginForm = ({ redirectUrl }) => {
     const [errors, setErrors] = useState({});
-    const router = useRouter();
 
     const handleUserLogin = async (formData) => {
         setErrors({});
@@ -26,8 +25,8 @@ const LoginForm = ({ redirectUrl }) => {
             const result = await loginUser(phone, password);
 
             if (result?.success) {
-                router.push(redirectUrl || "/");
                 toast.success(result.message);
+                await redirectPath(redirectUrl || "/")
             } else {
                 handleErrors(result, user);
             }
