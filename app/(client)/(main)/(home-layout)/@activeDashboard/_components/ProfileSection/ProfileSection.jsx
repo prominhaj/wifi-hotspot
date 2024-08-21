@@ -8,17 +8,15 @@ import { convertToUTCPlus6 } from "@/lib/convertData";
 
 const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hotspotUser }) => {
 
-    console.log(hotspotUser?.success);
-
     return (
         <>
             <div
-                className={cn(isActive ? "h-72" : "h-48", "relative p-4 text-white bg-gradient-to-b dark:from-blue-700 dark:bg-blue-400 from-[#0FB981] to-[#78D397] rounded-xl")}
+                className={cn(isActive ? "h-[17rem]" : "h-48", "relative p-4 text-white bg-gradient-to-b dark:from-blue-700 dark:bg-blue-400 from-[#0FB981] to-[#78D397] rounded-xl")}
             >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center space-x-4">
                         <Avatar className="w-12 h-12">
-                            <AvatarImage src={user?.profilePhoto?.url} alt={user?.name} />
+                            <AvatarImage className="object-cover" src={user?.profilePhoto?.url} alt={user?.name} />
                             <AvatarFallback className="font-medium text-black dark:text-white">
                                 {user?.name.slice(0, 2)}
                             </AvatarFallback>
@@ -29,7 +27,7 @@ const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hots
                         </div>
                     </div>
                     {
-                        hotspotUser?.success && (
+                        isActive && (
                             <>
                                 {
                                     isActiveHotspotUser ? (

@@ -1,7 +1,7 @@
 "use client";
 
+import { updateProfileImage } from "@/app/actions/imageUpload";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
-// import { updateUserImage } from "@/app/actions/updateFileUploader";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ImageDown, Trash2 } from "lucide-react";
@@ -24,11 +24,11 @@ const ChangeProfilePhoto = ({ user }) => {
         formData.append('file', image);
 
         try {
-            // const uploadResult = await updateUserImage(formData, "file", "Images/users", user?.profilePicture?.public_id, user?.id)
-            // if (uploadResult.success) {
-            //     toast.success("Profile photo updated successfully")
-            //     setIsOpen(false)
-            // }
+            const uploadResult = await updateProfileImage(formData, "file", "images/users", user?.profilePhoto?.public_id, user?.id)
+            if (uploadResult?.success) {
+                toast.success("Profile photo updated successfully")
+                setIsOpen(false)
+            }
         } catch (error) {
             toast.error(error.message)
         }

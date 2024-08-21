@@ -21,9 +21,10 @@ const ProfilePage = async () => {
                                     <Camera className='w-6 h-6' />
                                 </div>
                             </div>
-                            <Avatar className='w-full h-full transition-colors duration-500 shadow dark:shadow-gray-800 ring-4 ring-slate-50 dark:ring-slate-800'>
+                            <Avatar className='w-full h-full transition-colors duration-500 shadow dark:shadow-gray-800 ring-4 ring-green-500'>
                                 <AvatarImage
-                                    src={sessionUser?.profilePicture?.url}
+                                    className='object-cover'
+                                    src={sessionUser?.profilePhoto?.url}
                                     alt='profile-image'
                                 />
                                 <AvatarFallback>{sessionUser?.name.slice(0, 2)}</AvatarFallback>
