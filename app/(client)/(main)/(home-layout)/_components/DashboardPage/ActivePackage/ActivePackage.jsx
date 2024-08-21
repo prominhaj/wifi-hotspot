@@ -2,6 +2,7 @@ import { Progress } from "@/components/ui/progress"
 import { calculateProgress, convertToUTCPlus6 } from "@/lib/convertData";
 import { ArrowDownUp, Wifi } from "lucide-react";
 import moment from "moment";
+import ExpiredLeftTime from "./ExpiredLeftTime";
 
 const ActivePackage = ({ activeInfo }) => {
     const {
@@ -13,7 +14,10 @@ const ActivePackage = ({ activeInfo }) => {
     } = activeInfo;
 
     const validity = packageInfo?.packageId?.validity;
-    const { progressValue, remaining } = calculateProgress(packageInfo?.expiredAt, validity);
+    const { progressValue } = calculateProgress(packageInfo?.expiredAt, validity);
+
+    console.log(progressValue);
+
 
     return (
         <div className="p-4 mx-5 mt-4 bg-white shadow dark:shadow-gray-700 dark:bg-gray-950 rounded-xl">
@@ -29,9 +33,7 @@ const ActivePackage = ({ activeInfo }) => {
                     <div className="font-medium">
                         {validity === 1 ? "24 Hours" : validity + " Days"}
                     </div>
-                    <div className="font-medium">
-                        {validity === 1 ? remaining + " Hours" : remaining + " Days"} Left
-                    </div>
+                    <ExpiredLeftTime validity={validity} expiredDate={packageInfo?.expiredAt} />
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-4 mt-4 text-center">

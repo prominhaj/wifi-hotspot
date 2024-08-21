@@ -2,7 +2,7 @@ import PackageCard from "@/components/globals/PackageCard/PackageCard";
 import { cn } from "@/lib/utils";
 import { getPopularPackage } from "@/queries/package";
 import { formatBytes } from "@/lib/convertData";
-import ActivePackage from "../../../_components/DashboardPage/ActivePackage";
+import ActivePackage from "../../../_components/DashboardPage/ActivePackage/ActivePackage";
 
 const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, packageInfo }) => {
 
