@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import BarChartLoading from '../_components/BarChart/BarChartLoading';
 import TotalCardLoading from '../_components/TotalCard/TotalCardLoading';
+import BarChartLoading from '../_components/BarChart/BarChartLoading';
 import RecentEnrollCardLoading from '../_components/RecentEnrollCard/RecentEnrollCardLoading';
 
 const DashBoardHomePageLoading = () => {

@@ -26,6 +26,7 @@ export const Navbar = async () => {
             <div className="cursor-pointer">
               <Avatar>
                 <AvatarImage
+                  className="object-cover"
                   src={user?.profilePhoto?.url}
                   alt={user?.name}
                 />
