@@ -17,7 +17,7 @@ const ActivePackage = ({ activeInfo }) => {
     const { progressValue } = calculateProgress(packageInfo?.expiredAt, validity);
 
     return (
-        <div className="p-4 mx-3 mt-4 bg-white shadow md:mx-5 dark:shadow-gray-700 dark:bg-gray-950 rounded-xl">
+        <div className="p-4 mx-3 mt-4 shadow bg-light-card-bg md:mx-5 dark:shadow-gray-700 dark:bg-dark-card-bg rounded-xl">
             <div className="flex items-center justify-between">
                 <div className="font-semibold">Expired Date</div>
                 <div className="text-sm font-medium text-muted-foreground">

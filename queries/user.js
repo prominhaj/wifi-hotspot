@@ -36,3 +36,12 @@ export const getAllUsers = async () => {
         throw new Error(error);
     }
 };
+
+export const getTotalUsers = async () => {
+    try {
+        const totalUsers = await User.countDocuments();
+        return totalUsers;
+    } catch (error) {
+        throw new Error(error);
+    }
+};

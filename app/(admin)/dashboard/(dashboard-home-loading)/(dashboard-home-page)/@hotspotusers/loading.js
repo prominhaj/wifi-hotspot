@@ -1,4 +1,4 @@
-const { default: TotalCardLoading } = require('../../../_components/TotalCard/TotalCardLoading');
+import TotalCardLoading from '../../../_components/TotalCard/TotalCardLoading';
 
 const DashboardActiveUsersLoading = () => {
     return <TotalCardLoading />;
