@@ -1,23 +1,22 @@
 "use client";
 import { SidebarItem } from "./sidebar-item";
-import { BarChart, Users } from 'lucide-react';
-import { BookOpen } from 'lucide-react';
+import { BarChart, Users, Wifi } from 'lucide-react';
 
 const adminRoutes = [
   {
     icon: BarChart,
     label: 'Analytics',
-    href: '/admin/dashboard'
+    href: '/dashboard'
   },
   {
-    icon: BookOpen,
-    label: 'Courses',
-    href: '/admin/courses'
+    icon: Wifi,
+    label: 'Hotspot Users',
+    href: '/hotspot-users'
   },
   {
     icon: Users,
-    label: 'Instructors',
-    href: '/admin/instructors'
+    label: 'Users',
+    href: '/users'
   },
 ]
 

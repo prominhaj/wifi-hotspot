@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import TotalCard from '../_components/TotalCard/TotalCard';
-import { Activity, DollarSign, TrendingDown, TrendingUp, Users } from 'lucide-react';
+import { DollarSign, TrendingDown, TrendingUp, Users, Wifi, WifiOff } from 'lucide-react';
 import DashboardBarChart from '../_components/BarChart/BarChart';
 import { getSessionUser } from '@/lib/dal';
 import { calculateSales, getMonthlyReport } from '@/queries/admin';
@@ -12,13 +12,12 @@ const DashboardPage = async () => {
     const user = await getSessionUser();
     const reports = await getMonthlyReport();
     const { totalSales, lastMonthSales, thisMonthSales, percentChange } = await calculateSales();
-    console.log({ totalSales, lastMonthSales, thisMonthSales, percentChange });
 
     return (
         <>
             <div className='flex flex-col w-full'>
-                <main className='flex flex-col flex-1 gap-4 p-4 md:gap-8 md:p-8'>
-                    <div className='grid grid-cols-1 gap-4 md:gap-8 lg:grid-cols-3'>
+                <main className='flex flex-col flex-1 gap-4 p-4 md:gap-6 md:p-8'>
+                    <div className='grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-3'>
                         {/* total Revenue */}
                         <TotalCard
                             title={
@@ -49,6 +48,21 @@ const DashboardPage = async () => {
                             title='Total Sales'
                             count={`BDT ${totalSales}`}
                             icon={<DollarSign className='w-4 h-4 text-muted-foreground' />}
+                        />
+                        <TotalCard
+                            title='Active Users'
+                            count={0}
+                            icon={<Wifi className='w-4 h-4 text-muted-foreground' />}
+                        />
+                        <TotalCard
+                            title='Hotspot Users'
+                            count={0}
+                            icon={<WifiOff className='w-4 h-4 text-muted-foreground' />}
+                        />
+                        <TotalCard
+                            title='Total Users'
+                            count={0}
+                            icon={<Users className='w-4 h-4 text-muted-foreground' />}
                         />
                     </div>
                     <div className='grid grid-cols-1 gap-4 md:gap-8 xl:grid-cols-3'>
