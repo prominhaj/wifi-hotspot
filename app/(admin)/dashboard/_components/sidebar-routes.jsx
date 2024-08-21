@@ -11,12 +11,12 @@ const adminRoutes = [
   {
     icon: Wifi,
     label: 'Hotspot Users',
-    href: '/hotspot-users'
+    href: '/dashboard/hotspot-users'
   },
   {
     icon: Users,
     label: 'Users',
-    href: '/users'
+    href: '/dashboard/users'
   },
 ]
 

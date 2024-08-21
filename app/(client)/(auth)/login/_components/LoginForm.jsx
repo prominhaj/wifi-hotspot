@@ -25,8 +25,14 @@ const LoginForm = ({ redirectUrl }) => {
             const result = await loginUser(phone, password);
 
             if (result?.success) {
-                toast.success(result.message);
-                await redirectPath(redirectUrl || "/")
+                if (result?.user?.role == "admin") {
+                    toast.success(result.message);
+                    await redirectPath("/dashboard")
+                }
+                else {
+                    toast.success(result.message);
+                    await redirectPath(redirectUrl || "/")
+                }
             } else {
                 handleErrors(result, user);
             }
