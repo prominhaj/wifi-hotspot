@@ -26,8 +26,8 @@ const LoginForm = ({ redirectUrl }) => {
             const result = await loginUser(phone, password);
 
             if (result?.success) {
-                toast.success(result.message);
                 router.push(redirectUrl || "/");
+                toast.success(result.message);
             } else {
                 handleErrors(result, user);
             }
