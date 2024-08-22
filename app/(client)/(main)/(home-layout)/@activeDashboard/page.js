@@ -13,8 +13,8 @@ const ActiveDashboard = async () => {
     const currentPlan = await getHotspotUserById(user?.id);
     const currentStatus = currentPlan?.status === 'active' ? true : false;
 
-    const hotspotUser = await getHotspotUserByPhone(user?.phone);
-    const activeHotspotUser = await getHotspotActiveUserByPhone(user?.phone);
+    const hotspotUser = currentStatus && (await getHotspotUserByPhone(user?.phone));
+    const activeHotspotUser = currentStatus && (await getHotspotActiveUserByPhone(user?.phone));
 
     return (
         <>

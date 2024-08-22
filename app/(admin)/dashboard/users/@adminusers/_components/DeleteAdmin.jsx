@@ -1,5 +1,6 @@
 "use client";
 import { updateUserData } from "@/app/actions/user";
+import AlertConfirm from "@/components/globals/AlertConfirm/AlertConfirm";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import {
     AlertDialog,
@@ -36,29 +37,18 @@ const DeleteAdmin = ({ id }) => {
     }
 
     return (
-        <AlertDialog open={open} onOpenChange={setOpen}>
-            <AlertDialogTrigger>
-                <div className={cn(buttonVariants({ variant: "destructive", size: "sm" }))}>
+        <>
+            <AlertConfirm
+                button={<div className={cn(buttonVariants({ variant: "destructive", size: "sm" }))}>
                     <Trash2 className="w-4 h-4" />
-                </div>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        This action cannot be undone. This will delete by admin and role user from our servers.
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <form action={changeRoleInAdmin}>
-                        <SubmitButton variant="destructive" className="flex items-center gap-1">
-                            <Trash2 className="w-4 h-4" /> Delete
-                        </SubmitButton>
-                    </form>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
+                </div>}
+                submitButton={<><Trash2 className="w-4 h-4" /> Delete</>}
+                handleAction={changeRoleInAdmin}
+                open={open}
+                confirmMessage={`This action cannot be undone. This will delete by admin and role user from our servers.`}
+                setOpen={setOpen}
+            />
+        </>
     );
 };
 

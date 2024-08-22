@@ -3,6 +3,7 @@ import moment from "moment";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { calculateDiscountedPrice, convertToUTCPlus6 } from "@/lib/convertData";
+import ActionDropDown from "../ActionDropdown";
 
 export const columns = [
     {
@@ -138,10 +139,9 @@ export const columns = [
         cell: ({ row }) => {
             const { id } = row.original;
             return (
-                <div className="flex space-x-2">
-                    {/* <EditPackage id={id} />
-                    <DeletePackage id={id} /> */}
-                </div>
+                <>
+                    <ActionDropDown id={id} />
+                </>
             );
         },
     },
