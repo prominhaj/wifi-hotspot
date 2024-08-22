@@ -19,7 +19,7 @@ const ActivePackage = ({ activeInfo }) => {
     return (
         <div className="p-4 mx-3 mt-4 shadow bg-light-card-bg md:mx-5 dark:shadow-gray-700 dark:bg-dark-card-bg rounded-xl">
             <div className="flex items-center justify-between">
-                <div className="font-semibold">Expired Date</div>
+                <div className="font-semibold text-base">Expired Date</div>
                 <div className="text-sm font-medium text-muted-foreground">
                     {moment(convertToUTCPlus6(packageInfo?.expiredAt)).format('MMM DD YYYY, h:mm:ss A')}
                 </div>
