@@ -166,3 +166,14 @@ export const changeUserPassword = async (formData, userId) => {
         throw new Error(error.message);
     }
 };
+
+export const deleteUserById = async (userId) => {
+    try {
+        await User.findByIdAndDelete(userId);
+        revalidatePath('/');
+        
+        return { success: true, message: 'User deleted successfully' };
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};

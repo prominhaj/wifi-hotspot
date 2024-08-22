@@ -1,9 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import ChangeRoleByUser from "../@users/_components/ChangeRoleByUser";
 import { useState } from "react";
+import DeleteUser from "../@users/_components/DeleteUser";
 
 const ActionDropDown = ({ id }) => {
     const [open, setOpen] = useState(false);
@@ -17,9 +18,7 @@ const ActionDropDown = ({ id }) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="center">
                 <ChangeRoleByUser id={id} onOpen={setOpen} />
-                <DropdownMenuItem onClick={() => alert(`Delete ${id}`)}>
-                    Delete
-                </DropdownMenuItem>
+                <DeleteUser id={id} onOpen={setOpen} />
             </DropdownMenuContent>
         </DropdownMenu>
     );
