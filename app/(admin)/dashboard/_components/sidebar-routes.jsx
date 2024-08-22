@@ -1,6 +1,6 @@
 "use client";
 import { SidebarItem } from "./sidebar-item";
-import { BarChart, Users, Wifi } from 'lucide-react';
+import { BarChart, Package, Users, Wifi } from 'lucide-react';
 
 const adminRoutes = [
   {
@@ -14,12 +14,16 @@ const adminRoutes = [
     href: '/dashboard/hotspot-users'
   },
   {
+    icon: Package,
+    label: 'Packages',
+    href: '/dashboard/packages'
+  },
+  {
     icon: Users,
     label: 'Users',
     href: '/dashboard/users'
   },
 ]
-
 
 export const SidebarRoutes = () => {
 

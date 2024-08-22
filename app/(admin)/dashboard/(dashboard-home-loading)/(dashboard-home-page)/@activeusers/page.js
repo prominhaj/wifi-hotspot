@@ -7,7 +7,7 @@ const DashboardActiveUsers = async () => {
     // console.log(activeHotspotUser);
     return (
         <TotalCard
-            title='Active Users'
+            title='Active Hotspot Users'
             count={0}
             icon={<Wifi className='w-4 h-4 text-muted-foreground' />}
         />

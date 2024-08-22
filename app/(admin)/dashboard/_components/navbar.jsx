@@ -6,7 +6,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
 import RefreshPage from "@/components/globals/RefreshPage/RefreshPage";
 import ThemeSwitch from "@/components/globals/ThemeSwitch/ThemeSwitch";
 import { getSessionUser } from "@/lib/dal";
@@ -16,7 +15,7 @@ export const Navbar = async () => {
   const user = await getSessionUser();
 
   return (
-    <div className="flex items-center h-full p-4 border-b shadow-sm bg-background/20">
+    <div className="flex items-center h-full p-4 border-b shadow-sm bg-background/80">
       <MobileSidebar />
       <div className="flex items-center justify-end w-full gap-5">
         <RefreshPage />
@@ -46,7 +45,7 @@ export const Navbar = async () => {
               </button>
             </DropdownMenuItem>
             <DropdownMenuItem className="w-full cursor-pointer">
-              <Logout className="rounded-lg" />
+              <Logout size="sm" className="text-sm rounded-lg" />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

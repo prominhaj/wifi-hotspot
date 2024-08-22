@@ -1,5 +1,5 @@
 import { getAllAdminUsers } from '@/queries/user';
-import { DataTable } from '@/app/(admin)/components/data-table';
+import { DataTable } from '@/app/(admin)/dashboard/users/_components/data-table';
 import { columns } from '../_components/columns';
 
 const AdminUsersPage = async () => {
