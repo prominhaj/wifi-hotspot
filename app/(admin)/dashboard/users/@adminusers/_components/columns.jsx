@@ -3,8 +3,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import DeleteAdmin from "./DeleteAdmin";
+import moment from "moment";
+import { convertToUTCPlus6 } from "@/lib/convertData";
 
 export const columns = [
     {
@@ -83,10 +85,10 @@ export const columns = [
             </Button>
         ),
         cell: ({ row }) => {
-            const updatedData = new Date(row.original.updatedAt).toLocaleDateString();
+            const updatedData = row.original.updatedAt;
             return (
                 <div className="ml-4">
-                    {updatedData}
+                    {moment(convertToUTCPlus6(updatedData)).format('MMM DD YYYY, h:mm:ss A')}
                 </div>
             );
         },
@@ -97,21 +99,9 @@ export const columns = [
             const { id } = row.original;
 
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="w-8 h-8 p-0">
-                            <MoreHorizontal className="w-4 h-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => alert(`Details for ${id}`)}>
-                            Details
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => alert(`Delete ${id}`)}>
-                            Delete
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <>
+                    <DeleteAdmin id={id} />
+                </>
             );
         },
     },
