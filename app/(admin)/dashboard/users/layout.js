@@ -15,7 +15,7 @@ const items = [
 
 export const dynamic = 'force-dynamic';
 
-const DashboardUsersPageLayout = ({ children, adminusers }) => {
+const DashboardUsersPageLayout = ({ adminusers, users }) => {
     return (
         <>
             <BreadcrumbSection items={items} />
@@ -26,7 +26,7 @@ const DashboardUsersPageLayout = ({ children, adminusers }) => {
                         <TabsTrigger value='users'>Users</TabsTrigger>
                     </TabsList>
                     <TabsContent value='admin'>{adminusers}</TabsContent>
-                    <TabsContent value='users'>{/* <PendingInstructor /> */}</TabsContent>
+                    <TabsContent value='users'>{users}</TabsContent>
                 </Tabs>
             </div>
         </>

@@ -55,3 +55,12 @@ export const getAllAdminUsers = async () => {
         throw new Error(error);
     }
 };
+
+export const getAllRoleUsers = async () => {
+    try {
+        const roleUsers = await User.find({ role: 'user' }).select('-password').lean();
+        return replaceMongoIdInArray(roleUsers);
+    } catch (error) {
+        throw new Error(error);
+    }
+};

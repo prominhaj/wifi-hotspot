@@ -4,9 +4,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
-import DeleteAdmin from "./DeleteAdmin";
+import DeleteAdmin from "../@adminusers/_components/DeleteAdmin";
 import moment from "moment";
 import { convertToUTCPlus6 } from "@/lib/convertData";
+import { cn } from "@/lib/utils";
+import ActionDropDown from "./ActionDropDown";
 
 export const columns = [
     {
@@ -17,7 +19,7 @@ export const columns = [
             </Button>
         ),
         cell: ({ row }) => {
-            const photo = row.original.profilePhoto.url;
+            const photo = row.original?.profilePhoto?.url;
             const name = row.original.name;
 
             return (
@@ -67,7 +69,7 @@ export const columns = [
 
             return (
                 <div className="ml-4 capitalize">
-                    <Badge className="text-white bg-green-500">
+                    <Badge className={cn(role === "admin" ? "bg-green-500" : "bg-blue-500", "text-white")}>
                         {role}
                     </Badge>
                 </div>
@@ -96,11 +98,17 @@ export const columns = [
     {
         accessorKey: "Action",
         cell: ({ row }) => {
-            const { id } = row.original;
+            const { id, role } = row.original;
 
             return (
                 <>
-                    <DeleteAdmin id={id} />
+                    {
+                        role === "user" ? (
+                            <ActionDropDown id={id} />
+                        ) : (
+                            <DeleteAdmin id={id} />
+                        )
+                    }
                 </>
             );
         },

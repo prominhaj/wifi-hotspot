@@ -12,11 +12,14 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Trash2 } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const DeleteAdmin = ({ id }) => {
+    const [open, setOpen] = useState(false);
 
     const changeRoleInAdmin = async () => {
         try {
@@ -25,6 +28,7 @@ const DeleteAdmin = ({ id }) => {
             })
             if (updated?.success) {
                 toast.success("Admin deleted successfully")
+                setOpen(false)
             }
         } catch (error) {
             toast.error(error.message)
@@ -32,11 +36,11 @@ const DeleteAdmin = ({ id }) => {
     }
 
     return (
-        <AlertDialog>
+        <AlertDialog open={open} onOpenChange={setOpen}>
             <AlertDialogTrigger>
-                <Button size="sm" variant="destructive">
+                <div className={cn(buttonVariants({ variant: "destructive", size: "sm" }))}>
                     <Trash2 className="w-4 h-4" />
-                </Button>
+                </div>
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
