@@ -32,7 +32,7 @@ jobs:
                   echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
                   echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" >> .env
                   echo "NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP=${{ secrets.NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP }}" >> .env
-                  echo "NEXT_PUBLIC_SECRET_KEY=${{ secrets.NEXT_PUBLIC_SECRET_KEY }}" >> .env
+                  echo "DEVICE_SECRET_KEY=${{ secrets.DEVICE_SECRET_KEY }}" >> .env
                   echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> .env
                   echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}" >> .env
                   echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> .env

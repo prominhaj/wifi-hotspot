@@ -1,5 +1,5 @@
 const PackagesPage = () => {
-    return <div>PackagesPage</div>;
+    return null;
 };
 
 export default PackagesPage;
