@@ -27,6 +27,10 @@ const packageSchema = new Schema(
         hotspotServer: {
             type: String
         },
+        hotspotProfileId: {
+            type: String,
+            required: true
+        },
         validity: {
             type: Number,
             required: true,

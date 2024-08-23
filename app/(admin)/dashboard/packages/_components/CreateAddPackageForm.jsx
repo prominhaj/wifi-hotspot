@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import SubmitButton from '@/components/globals/SubmitButton/SubmitButton';
-import FormControl from './FormControl';
+import FormControl from '../add/_components/FormControl';
 import { createPackageSchema } from '@/lib/validations/package';
-import { createProfileInMikrotik } from '@/app/actions/mikrotik';
+import { createProfileInMikrotik, updateProfileInMikrotik } from '@/app/actions/mikrotik';
 import {
     Select,
     SelectContent,
@@ -17,28 +17,28 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { createPackage } from '@/app/actions/package';
+import { createPackage, updatePackageById } from '@/app/actions/package';
 
-const CreateAddPackageForm = ({ serverProfile }) => {
+const CreateAddPackageForm = ({ serverProfile, defaultValueData, isEditing }) => {
     const router = useRouter();
 
     const form = useForm({
         resolver: zodResolver(createPackageSchema),
         defaultValues: {
-            packageName: '',
-            profileName: '',
-            price: '',
-            desktopPrice: '',
-            validity: '',
-            discountPercentage: '',
-            speedLimit: '',
-            hotspotServer: serverProfile[0]?.name,
+            packageName: defaultValueData?.packageName || '',
+            profileName: defaultValueData?.profileName || '',
+            price: defaultValueData?.price || '',
+            desktopPrice: defaultValueData?.desktopPrice || '',
+            validity: defaultValueData?.validity || '',
+            discountPercentage: defaultValueData?.discountPercentage || '',
+            speedLimit: defaultValueData?.speedLimit || '',
+            hotspotServer: defaultValueData?.hotspotServer || serverProfile[0]?.name,
         }
     });
 
     const { isSubmitting, isValid } = form.formState;
 
-    const onSubmit = async (values) => {
+    const handleCreateProfile = async (values) => {
         const rate_limit = `${values.speedLimit}M/${values.speedLimit}M`;
         const profileName = values.profileName;
 
@@ -47,7 +47,9 @@ const CreateAddPackageForm = ({ serverProfile }) => {
             const createdProfileInMikrotik = await createProfileInMikrotik({ name: profileName, rate_limit });
             if (createdProfileInMikrotik[0].ret) {
                 // Save Profile Data In DB
-                const createdProfile = await createPackage(values);
+                const createdProfile = await createPackage(
+                    { ...values, hotspotProfileId: createdProfileInMikrotik[0]?.ret }
+                );
                 if (createdProfile?.success) {
                     toast.success('Profile created successfully');
                     router.push(`/dashboard/packages`);
@@ -58,9 +60,40 @@ const CreateAddPackageForm = ({ serverProfile }) => {
         }
     };
 
+    // Handle Edit Functions
+    const handleEditProfile = async (values) => {
+        const rate_limit = `${values.speedLimit}M/${values.speedLimit}M`;
+        const profileName = values.profileName;
+
+        // Update Hotspot Profile 
+        const updateHotspotProfileData = {
+            hotspotProfileId: defaultValueData?.hotspotProfileId,
+            name: profileName,
+            rate_limit
+        }
+
+        try {
+            const updateHotspotProfile = await updateProfileInMikrotik(updateHotspotProfileData);
+            if (updateHotspotProfile?.success) {
+                // Update Package Data In DB
+                const updatedPackageData = {
+                    ...values,
+                    hotspotProfileId: defaultValueData?.hotspotProfileId
+                }
+                const updatedPackage = await updatePackageById(defaultValueData?.id, updatedPackageData);
+                if (updatedPackage?.success) {
+                    router.push(`/dashboard/packages`);
+                    toast.success("Profile updated successfully")
+                }
+            }
+        } catch (error) {
+            toast.error(error)
+        }
+    }
+
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='grid grid-cols-1 gap-5 md:grid-cols-2'>
+            <form onSubmit={form.handleSubmit(isEditing ? handleEditProfile : handleCreateProfile)} className='grid grid-cols-1 gap-5 md:grid-cols-2'>
                 {/* packageName */}
                 <FormControl
                     form={form}
@@ -131,7 +164,7 @@ const CreateAddPackageForm = ({ serverProfile }) => {
                                     </SelectTrigger>
                                     <SelectContent >
                                         {
-                                            serverProfile.map((server, index) => (
+                                            serverProfile?.map((server, index) => (
                                                 <SelectItem key={index} value={server.name}>
                                                     {server.name}
                                                 </SelectItem>
@@ -152,7 +185,7 @@ const CreateAddPackageForm = ({ serverProfile }) => {
                         </Button>
                     </Link>
                     <SubmitButton variant="primary" loading={isSubmitting} disabled={!isValid}>
-                        Create
+                        {isEditing ? "Update" : "Create"}
                     </SubmitButton>
                 </div>
             </form>

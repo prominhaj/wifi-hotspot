@@ -18,6 +18,21 @@ export const createPackage = async (packageData) => {
     }
 };
 
+export const updatePackageById = async (packageId, updatedData) => {
+    try {
+        await Package.findByIdAndUpdate(packageId, updatedData);
+
+        // revalidatePath
+        revalidatePath('/');
+
+        return {
+            success: true
+        };
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const deletePackageById = async (packageId) => {
     try {
         await Package.findByIdAndDelete(packageId);

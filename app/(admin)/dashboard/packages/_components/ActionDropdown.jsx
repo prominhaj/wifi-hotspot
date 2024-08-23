@@ -18,7 +18,7 @@ const ActionDropDown = ({ id }) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
                 <DropdownMenuItem className="cursor-pointer">
-                    <Link className="w-full" href="/dashboard/packages/edit">Edit</Link>
+                    <Link className="w-full" href={`/dashboard/packages/${id}/edit`}>Edit</Link>
                 </DropdownMenuItem>
                 <DeletePackage id={id} onOpen={setOpen} />
             </DropdownMenuContent>
