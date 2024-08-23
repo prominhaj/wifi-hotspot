@@ -3,7 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, BadgeCheck, BadgeX } from "lucide-react";
 import DeleteAdmin from "../@adminusers/_components/DeleteAdmin";
 import moment from "moment";
 import { convertToUTCPlus6 } from "@/lib/convertData";
@@ -91,6 +91,26 @@ export const columns = [
             return (
                 <div className="ml-4">
                     {moment(convertToUTCPlus6(updatedData)).format('MMM DD YYYY, h:mm:ss A')}
+                </div>
+            );
+        },
+    },
+    {
+        accessorKey: "verified",
+        header: ({ column }) => (
+            <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            >
+                Verified <ArrowUpDown className="w-4 h-4 ml-2" />
+            </Button>
+        ),
+        cell: ({ row }) => {
+            const verified = row.original.verified;
+
+            return (
+                <div className={cn(verified ? "text-green-500" : "text-red-500", "ml-8 capitalize")}>
+                    {verified ? <BadgeCheck /> : <BadgeX />}
                 </div>
             );
         },
