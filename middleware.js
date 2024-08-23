@@ -24,7 +24,7 @@ export default async function middleware(req) {
 
     // Set the encrypted device name in cookies
     const response = NextResponse.next();
-    // response.cookies.set('device', encryptedDeviceName);
+    response.cookies.set('device', encryptedDeviceName);
 
     const cookie = req.cookies.get('session')?.value;
     const session = await decrypt(cookie);
