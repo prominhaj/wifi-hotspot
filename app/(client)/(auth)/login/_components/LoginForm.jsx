@@ -20,6 +20,14 @@ const LoginForm = ({ redirectUrl }) => {
         const phone = formData.get("phone");
         const password = formData.get("password");
 
+        if (!phone || !password) {
+            setErrors({
+                phone: ["Please enter a phone number"],
+                password: ["Password number is required"],
+            });
+            return;
+        }
+
         try {
             const user = await getUserByPhone(phone);
             const result = await loginUser(phone, password);

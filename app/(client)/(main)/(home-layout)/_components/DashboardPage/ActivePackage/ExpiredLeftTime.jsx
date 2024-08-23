@@ -2,7 +2,6 @@
 import { calculateProgress } from '@/lib/convertData';
 import { useState, useEffect } from 'react';
 
-
 const ExpiredLeftTime = ({ expiredDate, validity }) => {
     const [remainingInfo, setRemainingInfo] = useState({ remainingTime: '', timeUnit: '' });
 
@@ -17,9 +16,11 @@ const ExpiredLeftTime = ({ expiredDate, validity }) => {
 
     return (
         <div className="font-medium">
-            {remainingInfo.timeUnit && (
+            {remainingInfo.remainingTime && (
                 <div>
-                    {remainingInfo.remainingTime} {remainingInfo.timeUnit} Left
+                    {remainingInfo.timeUnit
+                        ? `${remainingInfo.remainingTime} ${remainingInfo.timeUnit} Left`
+                        : `${remainingInfo.remainingTime} Left`}
                 </div>
             )}
         </div>

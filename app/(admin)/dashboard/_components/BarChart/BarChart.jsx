@@ -5,19 +5,25 @@ import {
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
+import { IndianRupee } from "lucide-react";
 
 const chartConfig = {
     total: {
-        label: "Total",
+        label: "Sales",
         color: "#2563eb",
+        icon: IndianRupee,
+        theme: {
+            light: "#7c3aed",
+            dark: "#2563eb",
+        },
     }
 }
 
 const DashboardBarChart = ({ chartData }) => {
     return (
         <>
-            <ChartContainer config={chartConfig} className="min-h-[10rem] w-full">
+            <ChartContainer config={chartConfig} className="min-h-[8rem] w-full">
                 <BarChart accessibilityLayer data={chartData}>
                     <CartesianGrid vertical={false} />
                     <XAxis
