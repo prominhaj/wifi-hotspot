@@ -1,7 +1,17 @@
 'use server';
 
+import { replaceMongoIdInObject } from '@/lib/convertData';
 import Package from '@/modals/package-modal';
 import { revalidatePath } from 'next/cache';
+
+export const getPackageByIdInAction = async (id) => {
+    try {
+        const getPackage = await Package.findById(id).lean();
+        return replaceMongoIdInObject(getPackage);
+    } catch (error) {
+        throw new Error(error);
+    }
+};
 
 export const createPackage = async (packageData) => {
     try {

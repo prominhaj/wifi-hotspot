@@ -1,7 +1,8 @@
 "use client";
 
-import { deletePackageById } from "@/app/actions/package";
-import AlertConfirm from "@/components/globals/AlertConfirm/AlertConfirm";
+import { deleteProfileInMikrotik } from "@/app/actions/mikrotik";
+import { deletePackageById, getPackageByIdInAction } from "@/app/actions/package";
+import AlertConfirm from "@/components/globals/AlertConfirm/AlertConfirm";;
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -11,12 +12,16 @@ const DeletePackage = ({ onOpen, id }) => {
 
 
     const deletePackageAction = async () => {
+        const getPackage = await getPackageByIdInAction(id);
         try {
-            const packageDelete = await deletePackageById(id);
-            if (packageDelete?.success) {
-                toast.success("Package deleted successfully");
-                onOpen(false);
-                setOpen(false);
+            const deleteHotspotProfile = await deleteProfileInMikrotik(getPackage?.hotspotProfileId);
+            if (deleteHotspotProfile?.success) {
+                const packageDelete = await deletePackageById(id);
+                if (packageDelete?.success) {
+                    toast.success("Package deleted successfully");
+                    onOpen(false);
+                    setOpen(false);
+                }
             }
         } catch (error) {
             toast.error(error.message)

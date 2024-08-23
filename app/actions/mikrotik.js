@@ -36,3 +36,17 @@ export const updateProfileInMikrotik = async (data) => {
         throw new Error(error);
     }
 };
+
+export const deleteProfileInMikrotik = async (id) => {
+    const conn = await connectToRouter();
+    try {
+        const response = await conn.write('/ip/hotspot/user/profile/remove', [`=.id=${id}`]);
+        console.log(response);
+
+        return {
+            success: true
+        };
+    } catch (error) {
+        throw new Error(error);
+    }
+};
