@@ -21,3 +21,25 @@ export const getHotspotUsers = async (length) => {
         throw new Error(`Failed to fetch Hotspot users: ${error.message}`);
     }
 };
+
+export const getHotspotProfile = async () => {
+    const conn = await connectToRouter();
+
+    try {
+        const profiles = await conn.write('/ip/hotspot/user/profile/print');
+        return profiles;
+    } catch (error) {
+        throw new Error(`Failed to fetch Hotspot profile: ${error.message}`);
+    }
+};
+
+export const getHotspotServerProfile = async () => {
+    const conn = await connectToRouter();
+
+    try {
+        const serverProfile = await conn.write('/ip/hotspot/print');
+        return serverProfile;
+    } catch (error) {
+        throw new Error(`Failed to fetch Hotspot Server profile: ${error.message}`);
+    }
+};

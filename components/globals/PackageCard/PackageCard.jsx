@@ -51,7 +51,7 @@ const PackageCard = async ({ wifiPackage, isPopular, isDisabled }) => {
                 </CardHeader>
                 <CardContent className="px-5">
                     <h2 className="text-xl font-bold">
-                        {wifiPackage?.speedLimit} Speed
+                        {wifiPackage?.speedLimit} Mbps Unlimited
                     </h2>
                     <div className="pt-2.5 flex items-center justify-between">
                         <div className="flex items-center gap-2">

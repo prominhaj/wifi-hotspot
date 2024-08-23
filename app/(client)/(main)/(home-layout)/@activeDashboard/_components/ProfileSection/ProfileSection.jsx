@@ -12,7 +12,7 @@ const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hots
     return (
         <>
             <div
-                className={cn(isActive ? "h-[17rem]" : "h-48", "relative p-4 text-white bg-gradient-to-b dark:from-blue-700 dark:bg-blue-400 from-[#0FB981] to-[#78D397] rounded-xl")}
+                className={cn(isActive ? "h-[17rem]" : "h-48", "relative p-4 text-white bg-gradient-to-b dark:from-[#252e48] dark:bg-[#4276b5] from-[#0FB981] to-[#78D397] rounded-xl")}
             >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                     <div className="flex items-center space-x-4">
