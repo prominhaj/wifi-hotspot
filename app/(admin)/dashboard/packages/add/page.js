@@ -32,8 +32,6 @@ const PackagesAddPage = async () => {
         };
     });
 
-    console.log(profiles);
-
     return (
         <div>
             <BreadcrumbSection items={items} />

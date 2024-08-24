@@ -13,8 +13,6 @@ const items = [
     }
 ];
 
-export const dynamic = 'force-dynamic';
-
 const DashboardUsersPageLayout = ({ adminusers, users }) => {
     return (
         <>

@@ -3,12 +3,30 @@ import Package from '@/modals/package-modal';
 import Payment from '@/modals/payment-modal';
 import User from '@/modals/user-modal';
 
+export const getAllPayments = async () => {
+    try {
+        const payments = await Payment.find()
+            .populate({
+                path: 'userId',
+                model: User
+            })
+            .lean();
+        return replaceMongoIdInArray(payments);
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const getPaymentById = async (id) => {
     try {
         const payment = await Payment.findById(id)
             .populate({
                 path: 'userId',
                 model: User
+            })
+            .populate({
+                path: 'packageId',
+                model: Package
             })
             .lean();
         return replaceMongoIdInObject(payment);

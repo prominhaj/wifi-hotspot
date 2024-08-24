@@ -1,6 +1,6 @@
 "use client";
 import { SidebarItem } from "./sidebar-item";
-import { BarChart, Package, Users, Wifi } from 'lucide-react';
+import { BadgeDollarSign, BarChart, Package, Users, Wifi } from 'lucide-react';
 
 const adminRoutes = [
   {
@@ -22,6 +22,11 @@ const adminRoutes = [
     icon: Users,
     label: 'Users',
     href: '/dashboard/users'
+  },
+  {
+    icon: BadgeDollarSign,
+    label: 'Payment History',
+    href: '/dashboard/payment/history'
   },
 ]
 
