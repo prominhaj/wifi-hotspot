@@ -5,6 +5,9 @@ import { getSessionUser } from '@/lib/dal';
 import Logout from '@/components/globals/Logout/Logout';
 import ProfileName from './_components/ProfileName';
 import ChangePassword from './_components/ChangePassword/ChangePassword';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
 
 const ProfilePage = async () => {
     const sessionUser = await getSessionUser();
@@ -40,7 +43,15 @@ const ProfilePage = async () => {
                         </div>
                     </div>
                 </div>
-                <div className='pt-3 border-t border-gray-100 dark:border-gray-700'>
+                <div className='flex flex-col items-center gap-2.5 pt-3 border-t border-gray-100 dark:border-gray-700'>
+                    {sessionUser?.role === 'admin' && (
+                        <Link
+                            className={cn(buttonVariants({ variant: 'primary' }), 'w-full')}
+                            href='/dashboard'
+                        >
+                            Dashboard
+                        </Link>
+                    )}
                     <Logout />
                 </div>
             </div>
