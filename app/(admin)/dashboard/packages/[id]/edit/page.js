@@ -33,13 +33,13 @@ const PackageEditPage = async ({ params: { id } }) => {
         };
     });
 
-    const modifiedPackages = getPackage.map((item) => ({
-        ...item,
-        price: item?.price.toString(),
-        validity: item?.validity.toString(),
-        desktopPrice: item?.desktopPrice.toString(),
-        discountPercentage: item?.discountPercentage.toString()
-    }));
+    const modifiedPackages = {
+        ...getPackage,
+        price: getPackage?.price.toString(),
+        validity: getPackage?.validity.toString(),
+        desktopPrice: getPackage?.desktopPrice.toString(),
+        discountPercentage: getPackage?.discountPercentage.toString()
+    };
 
     return (
         <div>

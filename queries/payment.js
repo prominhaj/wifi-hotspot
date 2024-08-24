@@ -10,6 +10,7 @@ export const getAllPayments = async () => {
                 path: 'userId',
                 model: User
             })
+            .sort({ createdAt: -1 })
             .lean();
         return replaceMongoIdInArray(payments);
     } catch (error) {

@@ -9,11 +9,13 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { KeyRound, Phone } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const LoginForm = ({ redirectUrl }) => {
     const [errors, setErrors] = useState({});
+    const router = useRouter();
 
     const handleUserLogin = async (formData) => {
         setErrors({});
@@ -58,7 +60,6 @@ const LoginForm = ({ redirectUrl }) => {
         } else if (result.verified) {
             router.push(`/register/verify?id=${user?.id}`);
         }
-
         toast.error(result.message);
     };
 
