@@ -30,13 +30,14 @@ const adminRoutes = [
   },
 ]
 
-export const SidebarRoutes = () => {
+export const SidebarRoutes = ({ setIsOpen }) => {
 
   return (
     <div className="flex flex-col w-full">
       {
         adminRoutes?.map((route) => (
           <SidebarItem
+            setIsOpen={setIsOpen}
             key={route.href}
             icon={route.icon}
             label={route.label}

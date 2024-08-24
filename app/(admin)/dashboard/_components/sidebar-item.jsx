@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-export const SidebarItem = ({ icon: Icon, label, href }) => {
+export const SidebarItem = ({ icon: Icon, label, href, setIsOpen }) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -11,6 +11,9 @@ export const SidebarItem = ({ icon: Icon, label, href }) => {
 
   const onClick = () => {
     router.push(href);
+    if (setIsOpen) {
+      setIsOpen(false)
+    }
   };
 
   return (
