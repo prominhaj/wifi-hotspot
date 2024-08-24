@@ -32,14 +32,22 @@ const PackageEditPage = async ({ params: { id } }) => {
             name: server.name
         };
     });
-    
+
+    const modifiedPackages = getPackage.map((item) => ({
+        ...item,
+        price: item?.price.toString(),
+        validity: item?.validity.toString(),
+        desktopPrice: item?.desktopPrice.toString(),
+        discountPercentage: item?.discountPercentage.toString()
+    }));
+
     return (
         <div>
             <BreadcrumbSection items={items} />
             <div className='flex items-center justify-center max-w-5xl p-6 mx-auto mt-5 rounded-lg md:mt-16'>
                 <div className='w-full max-w-full bg-background/10'>
                     <CreateAddPackageForm
-                        defaultValueData={getPackage}
+                        defaultValueData={modifiedPackages}
                         serverProfile={modifiedServerProfile}
                         isEditing={true}
                     />
