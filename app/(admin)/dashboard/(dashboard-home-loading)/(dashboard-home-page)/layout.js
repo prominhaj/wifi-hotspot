@@ -36,19 +36,19 @@ const DashboardHomePageLayout = async ({
                                 </small>
                             </p>
                         }
-                        count={`BDT ${thisMonthSales}`}
+                        count={`TK ${thisMonthSales}`}
                         icon={<DollarSign className='w-4 h-4 text-muted-foreground' />}
                     />
                     {/* Last Month Sales */}
                     <TotalCard
                         title='Last Month Sales'
-                        count={`BDT ${lastMonthSales}`}
+                        count={`TK ${lastMonthSales}`}
                         icon={<DollarSign className='w-4 h-4 text-muted-foreground' />}
                     />
                     {/* Total Sales */}
                     <TotalCard
                         title='Total Sales'
-                        count={`BDT ${totalSales}`}
+                        count={`TK ${totalSales}`}
                         icon={<DollarSign className='w-4 h-4 text-muted-foreground' />}
                     />
                     {/* active users */}

@@ -1,7 +1,30 @@
-import { replaceMongoIdInObject } from '@/lib/convertData';
+import { replaceMongoIdInArray, replaceMongoIdInObject } from '@/lib/convertData';
 import HotspotUser from '@/modals/hotspot-user-modal';
 import Package from '@/modals/package-modal';
 import Payment from '@/modals/payment-modal';
+import User from '@/modals/user-modal';
+
+export const getHotspotUsers = async (filter) => {
+    try {
+        const hotspotUsers = await HotspotUser.find(filter)
+            .populate({
+                path: 'userId',
+                model: User
+            })
+            .populate({
+                path: 'packageId',
+                model: Package
+            })
+            .populate({
+                path: 'paymentId',
+                model: Payment
+            })
+            .lean();
+        return replaceMongoIdInArray(hotspotUsers);
+    } catch (error) {
+        throw new Error(error);
+    }
+};
 
 export const createHotspotUser = async (data) => {
     try {
