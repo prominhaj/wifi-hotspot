@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { toast } from 'sonner';
 import SubmitButton from '@/components/globals/SubmitButton/SubmitButton';
 import FormControl from '../add/_components/FormControl';
-import { createPackageSchema } from '@/lib/validations/package';
+import { createPackageSchema, updatePackageSchema } from '@/lib/validations/package';
 import { createProfileInMikrotik, updateProfileInMikrotik } from '@/app/actions/mikrotik';
 import {
     Select,
@@ -23,7 +23,7 @@ const CreateAddPackageForm = ({ serverProfile, defaultValueData, isEditing }) =>
     const router = useRouter();
 
     const form = useForm({
-        resolver: zodResolver(createPackageSchema),
+        resolver: zodResolver(isEditing ? updatePackageSchema : createPackageSchema),
         defaultValues: {
             packageName: defaultValueData?.packageName || '',
             profileName: defaultValueData?.profileName || '',
