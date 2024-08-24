@@ -3,9 +3,8 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import moment from 'moment';
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
-import { buttonVariants } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import BackButton from './BackButton';
 
 const PaymentDetailsCard = ({ payment }) => {
     return (
@@ -121,9 +120,7 @@ const PaymentDetailsCard = ({ payment }) => {
                 </div>
             </CardContent>
             <CardFooter className="flex items-center justify-end">
-                <Link className={cn(buttonVariants({ variant: "outline" }))} href="/dashboard/payment/history">
-                    Back
-                </Link>
+                <BackButton />
             </CardFooter>
         </Card>
     );

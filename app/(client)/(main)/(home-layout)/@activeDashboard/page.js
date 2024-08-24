@@ -1,7 +1,7 @@
 import { getSessionUser } from '@/lib/dal';
 import ProfileSection from './_components/ProfileSection/ProfileSection';
 import ActivePackageSection from './_components/ActivePackageSection/ActivePackageSection';
-import { getHotspotUserById } from '@/queries/hotspotUser';
+import { getHotspotUserByUserId } from '@/queries/hotspotUser';
 import {
     getHotspotActiveUserByPhone,
     getHotspotUserByPhone
@@ -10,7 +10,7 @@ import {
 const ActiveDashboard = async () => {
     const user = await getSessionUser();
 
-    const currentPlan = await getHotspotUserById(user?.id);
+    const currentPlan = await getHotspotUserByUserId(user?.id);
     const currentStatus = currentPlan?.status === 'active' ? true : false;
 
     const hotspotUser = currentStatus && (await getHotspotUserByPhone(user?.phone));

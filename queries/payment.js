@@ -36,6 +36,27 @@ export const getPaymentById = async (id) => {
     }
 };
 
+export const getPaymentsByUserId = async (userId) => {
+    try {
+        const payments = await Payment.find({
+            userId
+        })
+            .populate({
+                path: 'userId',
+                model: User
+            })
+            .populate({
+                path: 'packageId',
+                model: Package
+            })
+            .sort({ createdAt: -1 })
+            .lean();
+        return replaceMongoIdInArray(payments);
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const updatePaymentInfo = async (paymentId, updatedInfo) => {
     try {
         const updatePayment = await Payment.findByIdAndUpdate(paymentId, updatedInfo);

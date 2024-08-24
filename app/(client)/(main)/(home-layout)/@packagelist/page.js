@@ -1,12 +1,12 @@
 import PackageCard from '@/components/globals/PackageCard/PackageCard';
 import { getSessionUser } from '@/lib/dal';
-import { getHotspotUserById } from '@/queries/hotspotUser';
+import { getHotspotUserByUserId } from '@/queries/hotspotUser';
 import { getAllPackages } from '@/queries/package';
 
 const PackageList = async () => {
     const wifiPackages = await getAllPackages();
     const user = await getSessionUser();
-    const currentPlan = await getHotspotUserById(user?.id);
+    const currentPlan = await getHotspotUserByUserId(user?.id);
     const currentStatus = currentPlan?.status === 'active' ? true : false;
 
     return (

@@ -26,19 +26,29 @@ export const getHotspotUsers = async (filter) => {
     }
 };
 
-export const createHotspotUser = async (data) => {
+export const getHotspotUserById = async (id) => {
     try {
-        const createdHotspotUser = await HotspotUser.create(data);
-        return {
-            success: true,
-            hotspotUser: createdHotspotUser
-        };
+        const hotspotUser = await HotspotUser.findById(id)
+            .populate({
+                path: 'userId',
+                model: User
+            })
+            .populate({
+                path: 'packageId',
+                model: Package
+            })
+            .populate({
+                path: 'paymentId',
+                model: Payment
+            })
+            .lean();
+        return replaceMongoIdInObject(hotspotUser);
     } catch (error) {
         throw new Error(error);
     }
 };
 
-export const getHotspotUserById = async (userId) => {
+export const getHotspotUserByUserId = async (userId) => {
     try {
         const hotspotUser = await HotspotUser.findOne({
             userId,
@@ -54,6 +64,18 @@ export const getHotspotUserById = async (userId) => {
             })
             .lean();
         return replaceMongoIdInObject(hotspotUser);
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const createHotspotUser = async (data) => {
+    try {
+        const createdHotspotUser = await HotspotUser.create(data);
+        return {
+            success: true,
+            hotspotUser: createdHotspotUser
+        };
     } catch (error) {
         throw new Error(error);
     }

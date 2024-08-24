@@ -10,11 +10,12 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import SubmitButton from "../SubmitButton/SubmitButton";
+import { cn } from "@/lib/utils";
 
-const AlertConfirm = ({ button, submitButton, handleAction, open, setOpen, confirmMessage }) => {
+const AlertConfirm = ({ button, className, submitButton, handleAction, open, setOpen, confirmMessage }) => {
     return (
         <AlertDialog open={open} onOpenChange={setOpen}>
-            <AlertDialogTrigger className="w-full gap-1 relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:opacity-50 hover:bg-[#F3F4F6] dark:hover:bg-[#1F2937]">
+            <AlertDialogTrigger className={cn(className && className, "w-full gap-1 relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:opacity-50 hover:bg-[#F3F4F6] dark:hover:bg-[#1F2937]")}>
                 {button}
             </AlertDialogTrigger>
             <AlertDialogContent>
