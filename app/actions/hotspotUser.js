@@ -14,7 +14,7 @@ export const deletePermanentlyHotspotUser = async (hotspotUserId) => {
             await deleteActiveHotspotUser(activeHotspotUser?.user['.id']);
         }
 
-        const deletedResult = await deleteHotspotUser(user?.hotspotUserId);
+        const deletedResult = await deleteHotspotUser(hotspotUser?.hotspotUserId);
         if (deletedResult?.success) {
             // Delete the user from the DB
             await HotspotUser.findByIdAndDelete(hotspotUserId);
