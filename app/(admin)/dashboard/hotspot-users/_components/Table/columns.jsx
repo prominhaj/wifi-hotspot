@@ -19,7 +19,7 @@ export const columns = [
                 Username <ArrowUpDown className="w-4 h-4 ml-2" />
             </Button>
         ),
-        cell: ({ row }) => <div className="ml-4">{row.original.username}</div>,
+        cell: ({ row }) => <div className="ml-4">{row.original?.username}</div>,
     },
     {
         accessorKey: "userId.name",
@@ -31,7 +31,7 @@ export const columns = [
                 Name <ArrowUpDown className="w-4 h-4 ml-2" />
             </Button>
         ),
-        cell: ({ row }) => <div className="ml-4">{row.original.userId.name}</div>,
+        cell: ({ row }) => <div className="ml-4">{row.original?.userId?.name}</div>,
     },
     {
         accessorKey: "userId.phone",
@@ -43,7 +43,7 @@ export const columns = [
                 Phone <ArrowUpDown className="w-4 h-4 ml-2" />
             </Button>
         ),
-        cell: ({ row }) => <div className="ml-4">{row.original.userId.phone}</div>,
+        cell: ({ row }) => <div className="ml-4">{row.original?.userId?.phone}</div>,
     },
     {
         accessorKey: "paymentId.transactionId",
@@ -55,7 +55,7 @@ export const columns = [
                 Transaction ID <ArrowUpDown className="w-4 h-4 ml-2" />
             </Button>
         ),
-        cell: ({ row }) => <div className="ml-4">{row.original.paymentId.transactionId}</div>,
+        cell: ({ row }) => <div className="ml-4">{row.original?.paymentId?.transactionId}</div>,
     },
     {
         accessorKey: "packageId.packageName",
@@ -67,7 +67,7 @@ export const columns = [
                 Package Name <ArrowUpDown className="w-4 h-4 ml-2" />
             </Button>
         ),
-        cell: ({ row }) => <div className="ml-4">{row.original.packageId.packageName}</div>,
+        cell: ({ row }) => <div className="ml-4">{row.original?.packageId?.packageName}</div>,
     },
     {
         accessorKey: "macAddress",
@@ -93,8 +93,8 @@ export const columns = [
         ),
         cell: ({ row }) => (
             <div className="ml-4 capitalize">
-                <Badge className={cn(row.original.status === "active" ? "bg-green-500" : "bg-gray-500", "text-white")}>
-                    {row.original.status}
+                <Badge className={cn(row.original?.status === "active" ? "bg-green-500" : "bg-gray-500", "text-white")}>
+                    {row.original?.status}
                 </Badge>
             </div>
         ),
@@ -109,12 +109,12 @@ export const columns = [
                 Expired Date <ArrowUpDown className="w-4 h-4 ml-2" />
             </Button>
         ),
-        cell: ({ row }) => <div className="ml-4 capitalize">{moment(convertToUTCPlus6(row.original.expiredAt)).format('MMM DD YYYY, h:mm:ss A')}</div>,
+        cell: ({ row }) => <div className="ml-4 capitalize">{moment(convertToUTCPlus6(row.original?.expiredAt)).format('MMM DD YYYY, h:mm:ss A')}</div>,
     },
     {
         accessorKey: "Action",
         cell: ({ row }) => {
-            const id = row.original.id;
+            const id = row.original?.id;
             return (
                 <div className="">
                     <Link href={`/dashboard/hotspot-users/${id}`}>

@@ -2,6 +2,8 @@ import { Wifi } from 'lucide-react';
 import TotalCard from '../../../_components/TotalCard/TotalCard';
 import { getHotspotActiveUsers } from '@/queries/mikrotik';
 
+export const dynamic = "force-dynamic";
+
 const DashboardActiveUsers = async () => {
     const activeHotspotUser = await getHotspotActiveUsers(true);
 
