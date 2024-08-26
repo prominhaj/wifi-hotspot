@@ -13,7 +13,7 @@ const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hots
             <div
                 className={cn(isActive ? "h-[17rem]" : "h-48", "relative p-4 text-white bg-gradient-to-b dark:from-[#252e48] dark:bg-[#4276b5] from-[#0FB981] to-[#78D397] rounded-xl")}
             >
-                <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-2 bello">
                     <div className="flex items-center space-x-4">
                         <Link href="/profile">
                             <Avatar className="w-12 h-12">
