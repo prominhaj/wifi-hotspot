@@ -56,29 +56,24 @@ export const POST = async (req) => {
                 await createHotspotUser(hotspotData);
 
                 // Connect To User HotSpot in Device
-                const loginUserInHotspot = await loginHotspotUser(user?.phone, user?.phone);
-                if (loginUserInHotspot?.success) {
-                    // find hotspot user and macAddress save in database
-                    const getCurrentHotspotUser = await getHotspotUserByPhone(user?.phone);
-                    const updatedHotspotUser = await updateHotspotUser(results[0]?.ret, {
-                        macAddress: getCurrentHotspotUser?.user['mac-address']
-                    });
-                    if (updatedHotspotUser?.success) {
-                        // Payment Status Paid
-                        await updatePaymentInfo(hotspotData?.paymentId, {
-                            status: 'paid'
-                        });
+                await loginHotspotUser(user?.phone, user?.phone);
 
-                        // Return the hotspot working on your device
-                        return NextResponse.json({
-                            success: true,
-                            createPayment
-                        });
-                    }
-                } else {
+                // find hotspot user and macAddress save in database
+                const getCurrentHotspotUser = await getHotspotUserByPhone(user?.phone);
+                const updatedHotspotUser = await updateHotspotUser(results[0]?.ret, {
+                    macAddress: getCurrentHotspotUser?.user['mac-address']
+                });
+
+                if (updatedHotspotUser?.success) {
+                    // Payment Status Paid
+                    await updatePaymentInfo(hotspotData?.paymentId, {
+                        status: 'paid'
+                    });
+
+                    // Return the hotspot working on your device
                     return NextResponse.json({
-                        success: false,
-                        message: 'Hotspot login failed'
+                        success: true,
+                        createPayment
                     });
                 }
             } else {
