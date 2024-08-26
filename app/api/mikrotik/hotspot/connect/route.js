@@ -1,20 +1,14 @@
+import axios from 'axios';
 import { NextResponse } from 'next/server';
 
 export const POST = async (req) => {
     const { username, password } = await req.json();
-    console.log(username, password);
-
     const url = `${process.env.NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP}/login?username=${username}&password=${password}`;
 
     try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
+        const response = await axios.get(url);
 
-        if (response.ok) {
+        if (response.data.ok) {
             return NextResponse.json({
                 success: true,
                 message: 'Login successful'
@@ -26,9 +20,10 @@ export const POST = async (req) => {
             });
         }
     } catch (error) {
-        return NextResponse.error({
+        return NextResponse.json({
             status: 500,
-            body: JSON.stringify({ error: error.message })
+            success: false,
+            message: error.message
         });
     }
 };

@@ -1,6 +1,5 @@
 "use client";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
-import { loginHotspotUser } from "@/lib/connectHotspot";
 import { toast } from "sonner";
 
 const ConnectBtn = ({ username, password }) => {
@@ -13,7 +12,14 @@ const ConnectBtn = ({ username, password }) => {
 
     const connectInHotspot = async () => {
         try {
-            const result = await loginHotspotUser(username, password)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/mikrotik/hotspot/connect`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            const result = await response.json();
             if (result?.success) {
                 toast.success(result?.message)
             }
