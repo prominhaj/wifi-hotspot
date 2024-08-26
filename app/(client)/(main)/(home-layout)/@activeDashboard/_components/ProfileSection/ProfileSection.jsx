@@ -8,7 +8,6 @@ import { convertToUTCPlus6 } from "@/lib/convertData";
 import Link from "next/link";
 
 const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hotspotUser }) => {
-
     return (
         <>
             <div
