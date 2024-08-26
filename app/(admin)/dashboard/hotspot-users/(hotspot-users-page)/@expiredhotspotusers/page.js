@@ -4,7 +4,6 @@ import { getHotspotUsers } from '@/queries/hotspotUser';
 
 const ExpiredHotspotUserPage = async () => {
     const expiredHotspotUsers = await getHotspotUsers({ status: 'expired' });
-    console.log(expiredHotspotUsers);
 
     return (
         <div>

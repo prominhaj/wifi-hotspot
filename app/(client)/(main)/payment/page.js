@@ -1,42 +1,17 @@
-import { getPaymentById, updatePaymentInfo } from '@/queries/payment';
+import { getPaymentById } from '@/queries/payment';
 import CheckPayment from './_components/CheckPayment';
 import { CircleX } from 'lucide-react';
 import { getSessionUser } from '@/lib/dal';
-import { updateHotspotUser } from '@/queries/hotspotUser';
-import { redirect } from 'next/navigation';
-import {
-    getHotspotActiveUserByPhone,
-    getHotspotUserByPhone
-} from '@/lib/hotspot/dataFetching/hotspot';
 
 const PaymentPage = async ({ searchParams: { success, trxID, paymentId, login } }) => {
     const sessionUser = await getSessionUser();
-    const getActiveHotspotUser = await getHotspotActiveUserByPhone(sessionUser?.phone);
-    const getHotspotUser = await getHotspotUserByPhone(sessionUser?.phone);
-
-    if (login) {
-        if (getHotspotUser?.success) {
-            const updatedHotspotUser = await updateHotspotUser(getHotspotUser?.user['.id'], {
-                macAddress: getActiveHotspotUser?.user['mac-address']
-            });
-            if (updatedHotspotUser.success) {
-                redirect('/');
-            }
-        }
-    }
 
     if (paymentId && trxID && success) {
         try {
             const getPayment = await getPaymentById(paymentId);
-            const matches =
-                getPayment.transactionId === trxID &&
-                getPayment.id === paymentId &&
-                getPayment.status === 'pending';
+            const matches = getPayment.transactionId === trxID && getPayment.id === paymentId;
 
             if (matches) {
-                await updatePaymentInfo(paymentId, {
-                    status: 'paid'
-                });
                 return <CheckPayment user={getPayment?.userId} />;
             } else {
                 return <WrongPaymentUser getPayment={getPayment} />;

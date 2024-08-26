@@ -89,6 +89,7 @@ export const updateHotspotUser = async (hotspotUserId, updateIfo) => {
             },
             updateIfo
         ).lean();
+
         return {
             success: true,
             hotspotUser: updatedHotspotUser

@@ -1,6 +1,6 @@
 import Navbar from './_components/Navbar/Navbar';
 
-const DashboardLayout = ({ children }) => {
+const MainLayout = async ({ children }) => {
     return (
         <>
             {children}
@@ -9,4 +9,4 @@ const DashboardLayout = ({ children }) => {
     );
 };
 
-export default DashboardLayout;
+export default MainLayout;
