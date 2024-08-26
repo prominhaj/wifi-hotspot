@@ -1,9 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DollarSign, TrendingDown, TrendingUp } from 'lucide-react';
 import { getSessionUser } from '@/lib/dal';
 import { calculateSales } from '@/queries/admin';
 import { cn } from '@/lib/utils';
 import TotalCard from '../../_components/TotalCard/TotalCard';
+
+export const dynamic = 'force-dynamic';
 
 const DashboardHomePageLayout = async ({
     children,

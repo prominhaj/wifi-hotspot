@@ -3,6 +3,8 @@ import { DataTable } from '../../_components/Table/Table';
 import { columns } from '../../_components/Table/columns';
 import { getHotspotActionById } from '@/queries/mikrotik';
 
+export const dynamic = 'force-dynamic';
+
 const ActiveHotspotUsersPage = async () => {
     const activeHotspotUsers = await getHotspotUsers({ status: 'active' });
 
