@@ -92,6 +92,7 @@ const VerifyOTP = ({ id }) => {
         if (otp.length === 4) {
             handleOtpAction()
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [otp])
 
     const handleOtpChange = (newOtp) => {
