@@ -5,12 +5,6 @@ import { toast } from "sonner";
 
 const ConnectBtn = ({ username, password }) => {
 
-    // const connectInHotspot = () => {
-    //     const loginUrl = `${process.env.NEXT_PUBLIC_MIKROTIK_LOGIN_DNS_IP}/login?username=${username}&password=${password}`;
-
-    //     window.location.href = loginUrl;
-    // }
-
     const connectInHotspot = async () => {
         try {
             const result = await loginHotspotUser(username, password)

@@ -16,9 +16,11 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export function DataTable({ columns, data }) {
     const [sorting, setSorting] = useState([]);
@@ -52,13 +54,19 @@ export function DataTable({ columns, data }) {
 
     return (
         <div>
-            <div className="flex items-center justify-between py-4">
+            <div className="flex items-center justify-between py-4 mr-5">
                 <Input
                     placeholder="Search..."
                     value={globalFilter ?? ""}
                     onChange={(event) => setGlobalFilter(event.target.value)}
                     className="max-w-sm"
                 />
+                <Link
+                    className={cn(buttonVariants({ variant: "default", size: "sm" }), "tracking-widest")}
+                    href="/dashboard/payment/refund"
+                >
+                    Refund
+                </Link>
             </div>
             <div className="border rounded-md">
                 <Table>

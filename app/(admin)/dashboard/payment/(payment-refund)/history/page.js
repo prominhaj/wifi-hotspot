@@ -1,7 +1,7 @@
 import BreadcrumbSection from '@/components/globals/Breadcrumb/BreadcrumbSection';
 import { getAllPayments } from '@/queries/payment';
-import { DataTable } from '../_components/Table/Table';
-import { columns } from '../_components/Table/columns';
+import { DataTable } from '../../_components/Table/Table';
+import { columns } from '../../_components/Table/columns';
 
 // Metadata
 export const metadata = {
