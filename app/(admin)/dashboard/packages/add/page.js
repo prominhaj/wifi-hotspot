@@ -1,12 +1,14 @@
 import BreadcrumbSection from '@/components/globals/Breadcrumb/BreadcrumbSection';
 import CreateAddPackageForm from '../_components/CreateAddPackageForm';
-import { getHotspotProfile, getHotspotServerProfile } from '@/queries/mikrotik';
+import { getHotspotServerProfile } from '@/queries/mikrotik';
 
 // MetaData
 export const metadata = {
     title: 'Add Package - Wifi Hotspot',
     description: 'Explore || Add || Build || Share'
 };
+
+export const dynamic = "force-dynamic";
 
 const items = [
     {
@@ -24,7 +26,6 @@ const items = [
 ];
 
 const PackagesAddPage = async () => {
-    const profiles = await getHotspotProfile();
     const serverProfile = await getHotspotServerProfile();
     const modifiedServerProfile = serverProfile?.map((server) => {
         return {
