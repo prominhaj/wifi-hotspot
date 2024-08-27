@@ -11,7 +11,7 @@ const DashboardActiveUsers = async () => {
         <TotalCard
             title='Active Hotspot Users'
             count={activeHotspotUser}
-            icon={<Wifi className='w-4 h-4 text-muted-foreground' />}
+            icon={<Wifi className='w-4 h-4 text-muted-foreground bello' />}
         />
     );
 };
