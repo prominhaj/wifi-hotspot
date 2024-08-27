@@ -1,11 +1,8 @@
-import { loginHotspotUser } from '@/lib/connectHotspot';
 import { getExpirationDate } from '@/lib/convertData';
-import { getHotspotUserByPhone } from '@/lib/hotspot/dataFetching/hotspot';
 import connectToRouter from '@/lib/mikrotik';
 import Payment from '@/modals/payment-modal';
-import { createHotspotUser, updateHotspotUser } from '@/queries/hotspotUser';
+import { createHotspotUser } from '@/queries/hotspotUser';
 import { getPackageById } from '@/queries/package';
-import { updatePaymentInfo } from '@/queries/payment';
 import { getUserById } from '@/queries/user';
 import { NextResponse } from 'next/server';
 
@@ -55,27 +52,10 @@ export const POST = async (req) => {
                 // Save hotspot data to your database
                 await createHotspotUser(hotspotData);
 
-                // Connect To User HotSpot in Device
-                await loginHotspotUser(user?.phone, user?.phone);
-
-                // find hotspot user and macAddress save in database
-                const getCurrentHotspotUser = await getHotspotUserByPhone(user?.phone);
-                const updatedHotspotUser = await updateHotspotUser(results[0]?.ret, {
-                    macAddress: getCurrentHotspotUser?.user['mac-address']
+                return NextResponse.json({
+                    success: true,
+                    createPayment
                 });
-
-                if (updatedHotspotUser?.success) {
-                    // Payment Status Paid
-                    await updatePaymentInfo(hotspotData?.paymentId, {
-                        status: 'paid'
-                    });
-
-                    // Return the hotspot working on your device
-                    return NextResponse.json({
-                        success: true,
-                        createPayment
-                    });
-                }
             } else {
                 // TODO: refund the user payment
                 return NextResponse.json({
