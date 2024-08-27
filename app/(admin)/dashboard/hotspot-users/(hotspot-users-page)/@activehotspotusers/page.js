@@ -21,7 +21,7 @@ const ActiveHotspotUsersPage = async () => {
 
     return (
         <div>
-            <DataTable columns={columns} data={modifiedActiveUsers} />
+            <DataTable columns={columns} data={modifiedActiveUsers} updateMac={true} />
         </div>
     );
 };

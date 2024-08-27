@@ -19,8 +19,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import UpdateHotspotMacAddress from "../../../_components/UpdateHotspotMacAddress/UpdateHotspotMacAddress";
 
-export function DataTable({ columns, data }) {
+export function DataTable({ columns, data, updateMac }) {
     const [sorting, setSorting] = useState([]);
     const [globalFilter, setGlobalFilter] = useState("");
 
@@ -60,6 +61,13 @@ export function DataTable({ columns, data }) {
                     onChange={(event) => setGlobalFilter(event.target.value)}
                     className="max-w-sm"
                 />
+                {
+                    updateMac && (
+                        <div className="mr-3">
+                            <UpdateHotspotMacAddress />
+                        </div>
+                    )
+                }
             </div>
             <div className="border rounded-md">
                 <Table>

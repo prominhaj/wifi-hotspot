@@ -98,3 +98,15 @@ export const updateHotspotUser = async (hotspotUserId, updateIfo) => {
         throw new Error(error);
     }
 };
+
+export const updateHotspotUserById = async (id, updateIfo) => {
+    try {
+        const updatedHotspotUser = await HotspotUser.findByIdAndUpdate(id, updateIfo);
+        return {
+            success: true,
+            hotspotUser: updatedHotspotUser
+        };
+    } catch (error) {
+        throw new Error(error);
+    }
+};

@@ -32,6 +32,18 @@ export const getHotspotUsers = async (length) => {
     }
 };
 
+export const getHotspotUserByUsername = async (username) => {
+    try {
+        const conn = await connectToRouter();
+
+        // Fetch user data by ID
+        const [user] = await conn.write('/ip/hotspot/user/print', [`?name=${username}`]);
+        return user;
+    } catch (error) {
+        throw new Error(`Failed to fetch user by username: ${error.message}`);
+    }
+};
+
 export const getHotspotProfile = async () => {
     const conn = await connectToRouter();
 
