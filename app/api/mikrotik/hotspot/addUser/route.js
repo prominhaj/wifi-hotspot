@@ -1,3 +1,4 @@
+import { paymentRefundInBkash } from '@/app/actions/payment';
 import { getExpirationDate } from '@/lib/convertData';
 import connectToRouter from '@/lib/mikrotik';
 import Payment from '@/modals/payment-modal';
@@ -57,16 +58,30 @@ export const POST = async (req) => {
                     createPayment
                 });
             } else {
-                // TODO: refund the user payment
-                return NextResponse.json({
-                    success: false,
-                    message: 'Hotspot user creation failed'
-                });
+                // Payment Refund
+                console.log(data?.trxID);
+
+                const refundPayment = await paymentRefundInBkash(data?.trxID);
+                if (refundPayment?.success) {
+                    return NextResponse.json({
+                        success: false,
+                        message: `Hotspot user creation failed and your payment refund`
+                    });
+                }
             }
         } else {
             return NextResponse.json({ success: false, message: 'Payment creation failed' });
         }
     } catch (error) {
-        return NextResponse.json({ success: false, message: error.message });
+        if (error.message === 'failure: already have user with this name for this server') {
+            // refund payment
+            const refundPayment = await paymentRefundInBkash(data?.trxID);
+            if (refundPayment?.success) {
+                return NextResponse.json({
+                    success: false,
+                    message: `Hotspot user already exists and your payment refund your bkash account`
+                });
+            }
+        }
     }
 };

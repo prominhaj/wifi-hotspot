@@ -34,6 +34,7 @@ export async function GET(req) {
                 }
             );
 
+            // Payment Success
             if (data && data.statusCode === '0000') {
                 // Create New user in mikrotik
                 const createdUserInMikrotik = await fetch(
@@ -63,16 +64,20 @@ export async function GET(req) {
                     return NextResponse.redirect(redirectUrl);
                 } else {
                     return NextResponse.redirect(
-                        `${process.env.BASE_URL}/?success=${mikrotikResponse?.success}&message=${mikrotikResponse?.message}`
+                        `${process.env.BASE_URL}/payment?success=${mikrotikResponse?.success}&message=${mikrotikResponse?.message}`
                     );
                 }
             } else {
                 return NextResponse.redirect(
-                    `${process.env.BASE_URL}/?message=${data.statusMessage}`
+                    `${process.env.BASE_URL}/payment?success=false&message=${data.statusMessage}`
                 );
             }
         } catch (error) {
-            return NextResponse.redirect(`${process.env.BASE_URL}/?message=${error.message}`);
+            console.log(error);
+
+            return NextResponse.redirect(
+                `${process.env.BASE_URL}/payment?success=false&message=${error.message}`
+            );
         }
     }
 }

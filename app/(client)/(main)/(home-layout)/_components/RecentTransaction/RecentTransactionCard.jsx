@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { convertToUTCPlus6 } from "@/lib/convertData";
 import { cn } from "@/lib/utils";
@@ -14,12 +14,11 @@ const RecentTransactionCard = ({ recentTransaction }) => {
                         {moment(convertToUTCPlus6(recentTransaction?.createdAt)).format('MMM DD YYYY, h:mm:ss A')}
                     </small>
                 </p>
-                <Button
-                    size="sm"
-                    className={cn(recentTransaction?.status === "paid" ? "bg-green-500" : "bg-red-500", "text-white capitalize h-6")}
+                <Badge
+                    className={cn(recentTransaction?.status === "paid" && "bg-green-500", recentTransaction?.status === "pending" && "bg-red-500", recentTransaction?.status === "refund" && "bg-indigo-500", "capitalize text-white")}
                 >
                     {recentTransaction?.status}
-                </Button>
+                </Badge>
             </div>
             <div className="flex items-center justify-between">
                 <h4 className='text-base font-medium'>{recentTransaction?.packageId?.packageName}</h4>

@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -16,12 +17,11 @@ const PaymentHistoryCard = ({ transaction }) => {
                     </h6>
                 </div>
                 <div className="flex flex-col items-center gap-2">
-                    <Button
-                        size="sm"
-                        className={cn(transaction?.status === "paid" ? "bg-green-500" : "bg-red-500", "text-white capitalize h-6")}
+                    <Badge
+                        className={cn(transaction?.status === "paid" && "bg-green-500", transaction?.status === "pending" && "bg-red-500", transaction?.status === "refund" && "bg-indigo-500", "text-white capitalize")}
                     >
                         {transaction?.status}
-                    </Button>
+                    </Badge>
                     <Button variant="outline" size="sm">
                         View
                     </Button>
