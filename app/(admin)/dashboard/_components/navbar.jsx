@@ -10,6 +10,7 @@ import RefreshPage from "@/components/globals/RefreshPage/RefreshPage";
 import ThemeSwitch from "@/components/globals/ThemeSwitch/ThemeSwitch";
 import { getSessionUser } from "@/lib/dal";
 import Logout from "@/components/globals/Logout/Logout";
+import Link from "next/link";
 
 export const Navbar = async () => {
   const user = await getSessionUser();
@@ -34,16 +35,21 @@ export const Navbar = async () => {
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56 mt-4">
-            <DropdownMenuItem className="cursor-pointer">
-              <button className="flex items-center gap-1.5 flex-wrap">
+            <Link href="/" className="flex items-center gap-1.5 flex-wrap">
+              <DropdownMenuItem className="w-full cursor-pointer">
+                Home
+              </DropdownMenuItem>
+            </Link>
+            <Link href="/profile">
+              <DropdownMenuItem className="w-full cursor-pointer flex items-center gap-1.5 flex-wrap">
                 <span>
                   {user?.name}
                 </span>
                 <span>
                   ({user?.role})
                 </span>
-              </button>
-            </DropdownMenuItem>
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuItem className="w-full cursor-pointer">
               <Logout size="sm" className="text-sm rounded-lg" />
             </DropdownMenuItem>

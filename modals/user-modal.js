@@ -31,6 +31,10 @@ const userSchema = new Schema(
                 required: false
             }
         },
+        discount: {
+            type: Number,
+            required: false
+        },
         role: {
             type: String,
             required: true,

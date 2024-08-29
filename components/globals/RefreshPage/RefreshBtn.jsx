@@ -7,7 +7,7 @@ const RefreshBtn = () => {
     const { pending } = useFormStatus();
 
     return (
-        <button disabled={pending} className={cn(pending && "animate-spin", "text-foreground")}>
+        <button disabled={pending} className={cn(pending && "animate-spin", "text-muted-foreground text-base")}>
             <RefreshCcw />
         </button>
     );
