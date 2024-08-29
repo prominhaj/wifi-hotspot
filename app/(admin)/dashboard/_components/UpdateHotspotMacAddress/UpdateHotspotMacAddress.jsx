@@ -20,7 +20,7 @@ const UpdateHotspotMacAddress = () => {
 
     return (
         <form action={handleUpdateHotspotUsersMacAddress}>
-            <SubmitButton>
+            <SubmitButton size="sm" loadingText="Updating...">
                 Update MAC Address
             </SubmitButton>
         </form>

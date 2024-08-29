@@ -13,11 +13,15 @@ export async function POST(req, { params }) {
 
     try {
         const payment = await Payment.findOne({
-            transactionId: trxID
+            transactionId: trxID,
+            status: { $ne: 'refund' }
         }).lean();
 
         if (!payment) {
-            return NextResponse.json({ message: 'Transaction not found', success: false });
+            return NextResponse.json({
+                message: 'Transaction not found and not refundable',
+                success: false
+            });
         }
 
         const { data } = await axios.post(

@@ -13,9 +13,11 @@ import { calculateDiscountedPrice } from "@/lib/convertData";
 import { cookies } from "next/headers";
 import { textDecrypt } from "@/lib/hash";
 import { cn } from "@/lib/utils";
+import connectToRouter from "@/lib/mikrotik";
 
 const PackageCard = async ({ wifiPackage, isPopular, isDisabled }) => {
     const user = await getSessionUser();
+    const isConnected = await connectToRouter(true);
     const device = cookies().get("device")?.value;
     const deviceDecrypt = textDecrypt(device);
     const price = deviceDecrypt === "mobile" ? wifiPackage?.price : wifiPackage?.desktopPrice;
@@ -71,7 +73,13 @@ const PackageCard = async ({ wifiPackage, isPopular, isDisabled }) => {
                     </div>
                 </CardContent>
                 <CardFooter className="p-5 pt-0">
-                    <BuyButton disabled={isDisabled} user={user} amount={finalPrice} packageId={wifiPackage?.id} />
+                    <BuyButton
+                        disabled={isDisabled}
+                        user={user}
+                        amount={finalPrice}
+                        packageId={wifiPackage?.id}
+                        isConnected={isConnected}
+                    />
                 </CardFooter>
             </Card>
         </>

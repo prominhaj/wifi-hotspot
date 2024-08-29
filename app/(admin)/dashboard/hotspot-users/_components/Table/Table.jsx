@@ -54,7 +54,7 @@ export function DataTable({ columns, data, updateMac }) {
 
     return (
         <div>
-            <div className="flex items-center justify-between py-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 py-4">
                 <Input
                     placeholder="Search..."
                     value={globalFilter ?? ""}

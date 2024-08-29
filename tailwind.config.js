@@ -64,6 +64,10 @@ module.exports = {
                 sm: 'calc(var(--radius) - 4px)'
             },
             keyframes: {
+                rotate: {
+                    '0%': { transform: 'rotate(0deg) scale(10)' },
+                    '100%': { transform: 'rotate(-360deg) scale(10)' }
+                },
                 'accordion-down': {
                     from: { height: '0' },
                     to: { height: 'var(--radix-accordion-content-height)' }
@@ -74,6 +78,7 @@ module.exports = {
                 }
             },
             animation: {
+                rotate: 'rotate 10s linear infinite',
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out'
             }

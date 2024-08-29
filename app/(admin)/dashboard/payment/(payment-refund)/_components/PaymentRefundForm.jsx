@@ -31,7 +31,7 @@ const PaymentRefundForm = () => {
                 <Label htmlFor="transaction">Transaction Id</Label>
                 <Input name="transactionId" id="transaction" placeholder="Enter transaction id" />
             </div>
-            <SubmitButton>
+            <SubmitButton variant="primary">
                 Refund
             </SubmitButton>
         </form>
