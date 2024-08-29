@@ -19,8 +19,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import DiscountByUser from "./DiscountByUser/DiscountByUser";
 
-export function DataTable({ columns, data }) {
+export function DataTable({ columns, data, isUser }) {
     const [sorting, setSorting] = useState([]);
     const [globalFilter, setGlobalFilter] = useState("");
 
@@ -48,13 +49,20 @@ export function DataTable({ columns, data }) {
 
     return (
         <div>
-            <div className="flex items-center justify-between py-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 py-4">
                 <Input
                     placeholder="Search..."
                     value={globalFilter ?? ""}
                     onChange={(event) => setGlobalFilter(event.target.value)}
                     className="max-w-sm"
                 />
+                {
+                    isUser && (
+                        <div className="mr-3">
+                            <DiscountByUser />
+                        </div>
+                    )
+                }
             </div>
             <div className="border rounded-md">
                 <Table>

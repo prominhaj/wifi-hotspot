@@ -16,7 +16,7 @@ const ActionDropDown = ({ id }) => {
                     <MoreHorizontal className="w-4 h-4" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
+            <DropdownMenuContent align="end">
                 <ChangeRoleByUser id={id} onOpen={setOpen} />
                 <DeleteUser id={id} onOpen={setOpen} />
             </DropdownMenuContent>

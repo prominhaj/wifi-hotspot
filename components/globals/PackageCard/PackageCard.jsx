@@ -21,8 +21,8 @@ const PackageCard = async ({ wifiPackage, isPopular, isDisabled }) => {
     const device = cookies().get("device")?.value;
     const deviceDecrypt = textDecrypt(device);
     const price = deviceDecrypt === "mobile" ? wifiPackage?.price : wifiPackage?.desktopPrice;
-    const finalPrice = calculateDiscountedPrice(price, wifiPackage?.discountPercentage);
-
+    const discount = user?.discount ? user?.discount : wifiPackage?.discountPercentage;
+    const finalPrice = calculateDiscountedPrice(price, discount);
 
     return (
         <>
@@ -58,7 +58,7 @@ const PackageCard = async ({ wifiPackage, isPopular, isDisabled }) => {
                     <div className="pt-2.5 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                             <span className="px-1 py-0.5 text-sm text-red-600 bg-red-200 rounded">
-                                -{parseInt(wifiPackage?.discountPercentage)}%</span>
+                                -{parseInt(discount)}%</span>
                             <p className="flex items-center text-base font-medium line-through opacity-60 gap-0.5">
                                 <BDTIcon /> {price} TK
                             </p>

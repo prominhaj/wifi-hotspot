@@ -7,7 +7,7 @@ const DashboardUsersSection = async () => {
 
     return (
         <div>
-            <DataTable columns={columns} data={users} />
+            <DataTable columns={columns} data={users} isUser={true} />
         </div>
     );
 };

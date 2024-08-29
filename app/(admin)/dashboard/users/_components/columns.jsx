@@ -55,22 +55,22 @@ export const columns = [
         ),
     },
     {
-        accessorKey: "role",
+        accessorKey: "discount",
         header: ({ column }) => (
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             >
-                Role <ArrowUpDown className="w-4 h-4 ml-2" />
+                Discount % <ArrowUpDown className="w-4 h-4 ml-2" />
             </Button>
         ),
         cell: ({ row }) => {
-            const role = row.original.role;
+            const discount = row.original?.discount || 0;
 
             return (
                 <div className="ml-4 capitalize">
-                    <Badge className={cn(role === "admin" ? "bg-green-500" : "bg-blue-500", "text-white")}>
-                        {role}
+                    <Badge className={cn("bg-blue-500 text-white")}>
+                        {discount} %
                     </Badge>
                 </div>
             );

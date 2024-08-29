@@ -171,9 +171,32 @@ export const deleteUserById = async (userId) => {
     try {
         await User.findByIdAndDelete(userId);
         revalidatePath('/');
-        
+
         return { success: true, message: 'User deleted successfully' };
     } catch (error) {
         throw new Error(error.message);
+    }
+};
+
+// add user discount
+export const addUserDiscount = async (phone, discount) => {
+    try {
+        // Check if user already exists
+        const userExists = await User.exists({ phone });
+        if (!userExists) {
+            return {
+                success: false,
+                message: 'User not found'
+            };
+        }
+
+        await User.updateOne({ phone }, { $set: { discount: discount } });
+
+        // revalidatePath
+        revalidatePath('/');
+
+        return { success: true, message: 'User discount added successfully' };
+    } catch (error) {
+        throw new Error(error);
     }
 };
