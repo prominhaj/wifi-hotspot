@@ -41,6 +41,7 @@ const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hots
                                         </Button>
                                     ) : (
                                         <ConnectBtn
+                                            paymentInfo={packageInfo?.paymentId}
                                             username={hotspotUser?.user?.name}
                                             password={hotspotUser?.user?.password}
                                         />

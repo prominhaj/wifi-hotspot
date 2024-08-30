@@ -47,3 +47,19 @@ export const deletePaymentHistoryById = async (id) => {
         throw new Error(error);
     }
 };
+
+export const updatePaymentById = async (paymentId, updateInfo) => {
+    try {
+        await Payment.findByIdAndUpdate(paymentId, updateInfo);
+
+        // revalidatePath
+        revalidatePath('/');
+
+        return {
+            success: true,
+            message: 'Payment Updated Successfully'
+        };
+    } catch (error) {
+        throw new Error(error);
+    }
+};

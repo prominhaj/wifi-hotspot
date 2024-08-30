@@ -16,6 +16,13 @@ const DiscountForm = ({ onChangeOpen }) => {
             toast.error("Please fill all fields");
             return;
         }
+
+        const discountValue = parseInt(discount, 10);
+        if (isNaN(discountValue) || discountValue > 100) {
+            toast.error("Discount must be a number less than or equal to 100");
+            return;
+        }
+
         try {
             const result = await addUserDiscount(phone, discount)
             if (result?.success) {
@@ -25,19 +32,19 @@ const DiscountForm = ({ onChangeOpen }) => {
                 toast.error(result?.message);
             }
         } catch (error) {
-            toast.error(error.message)
+            toast.error(error.message);
         }
-    }, [])
+    }, [onChangeOpen]);
 
     return (
-        <form action={addDiscount} className="grid gap-3">
-            <div className="flex flex-col items-start gap-1.5">
+        <form action={addDiscount} className="grid gap-4 mt-2">
+            <div className="grid gap-1.5">
                 <Label className="block" htmlFor="phone">Phone No</Label>
                 <Input id="phone" name="phone" type="text" placeholder="Phone" required />
             </div>
-            <div className="flex flex-col items-start gap-1.5">
+            <div className="grid gap-1.5">
                 <Label className="block" htmlFor="discount">Discount %</Label>
-                <Input id="discount" name="discount" type="number" placeholder="Discount" required />
+                <Input id="discount" name="discount" type="number" max="100" placeholder="Discount" required />
             </div>
             <SubmitButton className="mt-2" variant="primary">
                 Save Discount

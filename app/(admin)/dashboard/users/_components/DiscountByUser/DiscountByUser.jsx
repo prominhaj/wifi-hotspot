@@ -17,7 +17,7 @@ const DiscountByUser = () => {
     return (
         <Dialog open={isOpen} onOpenChange={setOpen}>
             <DialogTrigger>
-                <span className={cn(buttonVariants({ variant: "default" }))}>
+                <span className={cn("tracking-widest", buttonVariants({ variant: "default", size: "sm" }))}>
                     Add Discount
                 </span>
             </DialogTrigger>
