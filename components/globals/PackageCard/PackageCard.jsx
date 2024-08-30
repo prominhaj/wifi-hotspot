@@ -21,7 +21,7 @@ const PackageCard = async ({ wifiPackage, isPopular, isDisabled }) => {
     const device = cookies().get("device")?.value;
     const deviceDecrypt = textDecrypt(device);
     const price = deviceDecrypt === "mobile" ? wifiPackage?.price : wifiPackage?.desktopPrice;
-    const discount = user?.discount ? user?.discount : wifiPackage?.discountPercentage;
+    const discount = user?.discount && isPopular ? user?.discount : wifiPackage?.discountPercentage;
     const finalPrice = calculateDiscountedPrice(price, discount);
 
     return (
