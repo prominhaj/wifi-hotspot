@@ -5,6 +5,7 @@ import moment from 'moment';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import BackButton from './BackButton';
+import PaymentDeleteButton from './PaymentDeleteButton';
 
 const PaymentDetailsCard = ({ payment }) => {
     return (
@@ -119,8 +120,9 @@ const PaymentDetailsCard = ({ payment }) => {
                     </span>
                 </div>
             </CardContent>
-            <CardFooter className="flex items-center justify-end">
+            <CardFooter className="flex items-center justify-end gap-3">
                 <BackButton />
+                <PaymentDeleteButton id={payment?.id} />
             </CardFooter>
         </Card>
     );

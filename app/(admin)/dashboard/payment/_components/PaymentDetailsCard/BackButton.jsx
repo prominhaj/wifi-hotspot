@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 const BackButton = () => {
     const { back } = useRouter();
     return (
-        <Button onClick={back} variant="outline">
+        <Button onClick={back} variant="outline" size="sm">
             Back
         </Button>
     );

@@ -1,6 +1,6 @@
 import BreadcrumbSection from '@/components/globals/Breadcrumb/BreadcrumbSection';
 import { getPaymentById } from '@/queries/payment';
-import PaymentDetailsCard from '../../../_components/PaymentDetailsCard';
+import PaymentDetailsCard from '../../../_components/PaymentDetailsCard/PaymentDetailsCard';
 
 // MetaData
 export const metadata = {

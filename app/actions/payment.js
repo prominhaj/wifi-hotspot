@@ -1,5 +1,6 @@
 'use server';
 
+import Payment from '@/modals/payment-modal';
 import { revalidatePath } from 'next/cache';
 
 export const packagePayment = async (amount, userId) => {
@@ -29,6 +30,19 @@ export const paymentRefundInBkash = async (txId) => {
         revalidatePath('/');
 
         return result;
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const deletePaymentHistoryById = async (id) => {
+    try {
+        await Payment.findByIdAndDelete(id);
+
+        // revalidatePath
+        revalidatePath('/');
+
+        return { success: true, message: 'Payment Deleted Successfully' };
     } catch (error) {
         throw new Error(error);
     }
