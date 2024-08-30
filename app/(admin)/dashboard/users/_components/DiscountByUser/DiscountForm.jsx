@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
-const DiscountForm = () => {
+const DiscountForm = ({ onChangeOpen }) => {
 
     const addDiscount = useCallback(async (formData) => {
         const phone = formData.get('phone');
