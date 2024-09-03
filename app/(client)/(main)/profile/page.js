@@ -9,6 +9,29 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 
+export const generateMetadata = async ({ params }) => {
+    const sessionUser = await getSessionUser();
+
+    return {
+        title: `${sessionUser?.name} - Wifi Hotspot`,
+        openGraph: {
+            images: [sessionUser?.profilePhoto?.url]
+        },
+        keywords: [
+            'Next.js',
+            'React',
+            'JavaScript',
+            'Wifi - Shakib Electronics',
+            'Wifi Hotspot',
+            'Hotspot',
+            'Shakib Electronics',
+            'Wifi',
+            'Mikrotik',
+            'Profile Page'
+        ]
+    };
+};
+
 const ProfilePage = async () => {
     const sessionUser = await getSessionUser();
 
