@@ -12,7 +12,7 @@ const PackageList = async () => {
     return (
         <div className='p-1 mt-4'>
             <h2 className='mb-3 text-lg font-semibold'>Package For you</h2>
-            <div className='grid items-center grid-cols-1 gap-5'>
+            <div className='grid items-center grid-cols-1 gap-5 mb-3'>
                 {wifiPackages?.map((wifiPackage) => (
                     <PackageCard
                         key={wifiPackage?.id}
