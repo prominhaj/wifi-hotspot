@@ -31,7 +31,7 @@ const BuyButton = ({ amount, user, packageId, disabled, isConnected }) => {
     return (
         <>
             <form action={packagePaymentAction} className="w-full">
-                <Btn disabled={disabled} isConnected={true} />
+                <Btn disabled={disabled} isConnected={!isConnected?.error} />
             </form>
         </>
     );

@@ -16,6 +16,9 @@ const ActiveDashboard = async () => {
     const hotspotUser = currentStatus && (await getHotspotUserByPhone(user?.phone));
     const activeHotspotUser = currentStatus && (await getHotspotActiveUserByPhone(user?.phone));
 
+    console.log(hotspotUser);
+    console.log(activeHotspotUser);
+
     return (
         <>
             <div className='relative'>

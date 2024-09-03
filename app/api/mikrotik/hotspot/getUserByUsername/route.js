@@ -7,6 +7,12 @@ export const GET = async (req) => {
 
     try {
         const conn = await connectToRouter();
+        if (conn?.error) {
+            return NextResponse.json({
+                success: false,
+                message: conn?.message
+            });
+        }
 
         // Fetch user data by ID
         const [user] = await conn.write('/ip/hotspot/user/print', [`?name=${phone}`]);
