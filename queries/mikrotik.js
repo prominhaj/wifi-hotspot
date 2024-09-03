@@ -12,10 +12,21 @@ export const getHotspotActiveUsers = async (length) => {
 };
 
 export const getHotspotActionById = async (userName) => {
-    const conn = await connectToRouter();
     try {
+        const conn = await connectToRouter();
+        if (conn?.error) {
+            return {
+                success: false,
+                connection: false,
+                message: conn?.message
+            };
+        }
+
         const [user] = await conn.write('/ip/hotspot/active/print', [`?user=${userName}`]);
-        return user;
+        return {
+            success: true,
+            user
+        };
     } catch (error) {
         throw new Error(error);
     }

@@ -11,7 +11,7 @@ const ActiveHotspotUsersPage = async () => {
     const modifiedActiveUsers = await Promise.all(
         activeHotspotUsers?.map(async (activeUser) => {
             const checkActiveUser = await getHotspotActionById(activeUser?.username);
-            const isHotspotActive = checkActiveUser ? 'active' : 'offline';
+            const isHotspotActive = checkActiveUser?.success ? 'active' : 'offline';
             return {
                 ...activeUser,
                 status: isHotspotActive
