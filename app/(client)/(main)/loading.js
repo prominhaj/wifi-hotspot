@@ -1,9 +1,9 @@
-import Spinner from '@/components/globals/Loading/Spinner';
+import LoadingUI from '@/components/globals/Loading/LoadingUI';
 
 const DashboardLayoutLoading = () => {
     return (
         <div className='h-[75vh] w-full flex items-center justify-center gap-3'>
-            <Spinner size={true} /> Loading...
+            <LoadingUI />
         </div>
     );
 };

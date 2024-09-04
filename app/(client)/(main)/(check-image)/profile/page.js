@@ -36,7 +36,7 @@ const ProfilePage = async () => {
     return (
         <section className='py-3'>
             <div className='p-5 transition-all duration-500 ease-in-out border rounded-md'>
-                <div className='mb-5 text-center profile-pic'>
+                <div className='mb-5 text-center'>
                     <div>
                         <div className='mx-auto cursor-pointer group size-28'>
                             <Avatar className='w-full h-full transition-colors duration-500 shadow dark:shadow-gray-800 ring-4 ring-green-500'>

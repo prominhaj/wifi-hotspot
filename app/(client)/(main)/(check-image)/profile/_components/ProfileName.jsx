@@ -3,6 +3,7 @@
 import { updateUserData } from "@/app/actions/user";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import { Input } from "@/components/ui/input";
+import { BadgeCheck } from "lucide-react";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
@@ -40,8 +41,8 @@ const ProfileName = ({ sessionUser }) => {
                     </form>
                 ) : (
                     <div className="flex items-center justify-center gap-3">
-                        <h4 className='text-lg font-semibold'>
-                            {sessionUser?.name} {sessionUser?.role === "admin" && <>(Admin)</>}
+                        <h4 className='flex items-center gap-1 text-lg font-semibold'>
+                            {sessionUser?.name} {sessionUser?.role === "admin" && <BadgeCheck className="w-5 h-5 text-green-500" />}
                         </h4>
                         <button onClick={toggleEditing}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
