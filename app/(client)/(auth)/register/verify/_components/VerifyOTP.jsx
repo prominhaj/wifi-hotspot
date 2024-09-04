@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { generateOTP } from "@/lib/otp";
 import { getCookies } from "@/lib/cookies";
 
-const VerifyOTP = ({ id }) => {
+const VerifyOTP = ({ id, redirectUrl }) => {
     const [otp, setOtp] = useState('');
     const [error, setError] = useState('');
     const [timer, setTimer] = useState(300);
@@ -73,7 +73,7 @@ const VerifyOTP = ({ id }) => {
             const verify = await verifyOtp(otp, id);
             if (verify?.success) {
                 toast.success(verify.message);
-                router.push('/');
+                router.push(redirectUrl || '/');
             } else {
                 if (!verify?.otpVerify) {
                     setError(verify.message);

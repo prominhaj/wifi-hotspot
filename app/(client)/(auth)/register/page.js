@@ -16,10 +16,10 @@ export const metadata = {
 
 import RegisterForm from './_components/RegisterForm';
 
-const RegisterPage = () => {
+const RegisterPage = ({ searchParams: { redirectUrl } }) => {
     return (
         <>
-            <RegisterForm />
+            <RegisterForm redirectUrl={redirectUrl} />
         </>
     );
 };

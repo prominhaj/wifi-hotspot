@@ -6,6 +6,7 @@ const protectedRoutes = [
     '/',
     '/payment',
     '/payment/history',
+    '/upload-image',
     '/statistic',
     '/profile',
     '/dashboard'

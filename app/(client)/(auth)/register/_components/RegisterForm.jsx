@@ -13,7 +13,7 @@ import { userValidation } from "@/lib/validations/user";
 import { createAccount } from "@/app/actions/user";
 import { useRouter } from "next/navigation";
 
-const RegisterForm = () => {
+const RegisterForm = ({ redirectUrl }) => {
     const [errors, setErrors] = useState({});
     const { push } = useRouter();
 
@@ -29,7 +29,7 @@ const RegisterForm = () => {
                 const result = await createAccount(signUp.data);
                 if (result?.success) {
                     toast.success(result.message);
-                    push(`/register/verify?id=${result?.user?._id}`);
+                    push(`/register/verify?id=${result?.user?._id}${redirectUrl ? `&redirectUrl=${redirectUrl}` : ''}`);
                 } else {
                     setErrors({ phone: result?.phone ? [result?.message] : [] });
                     toast.error(result?.message || "Something went wrong");

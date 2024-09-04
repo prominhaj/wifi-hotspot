@@ -129,7 +129,7 @@ const LoginForm = ({ redirectUrl }) => {
                     buttonVariants({ variant: "destructive" }),
                     "w-full font-semibold tracking-wider rounded-lg dark:bg-purple-500/75"
                 )}
-                href="/register"
+                href={`/register?redirectUrl=${redirectUrl}`}
             >
                 রেজিস্টার
             </Link>
