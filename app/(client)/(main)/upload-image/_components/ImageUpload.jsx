@@ -3,10 +3,11 @@ import React, { useCallback, useState } from "react";
 import { FileUpload } from "@/components/ui/file-upload";
 import { toast } from "sonner";
 import { updateProfileImage } from "@/app/actions/imageUpload";
-import { redirectPath } from "@/app/actions";
+import { useRouter } from "next/navigation";
 
 const ImageUpload = ({ user }) => {
     const [files, setFiles] = useState([]);
+    const { push } = useRouter();
 
     const handleFileUpload = (files) => {
         setFiles(files[0]);
@@ -26,13 +27,13 @@ const ImageUpload = ({ user }) => {
             const uploadResult = await updateProfileImage(formData, "file", "images/users", user?.profilePhoto?.public_id, user?.id)
             if (uploadResult?.success) {
                 toast.success("Profile photo updated successfully")
-                await redirectPath("/")
+                push("/")
             }
 
         } catch (error) {
             toast.error(error.message)
         }
-    }, [files, user])
+    }, [files, user, push])
 
     return (
         <div className="flex items-center justify-center w-full bg-white border border-dashed rounded-lg dark:bg-black border-neutral-200 dark:border-neutral-800">
