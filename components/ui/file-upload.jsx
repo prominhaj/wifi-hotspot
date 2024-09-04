@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import MagicButton from "../globals/Button/MagicButton";
 import { Button } from "./button";
 import { Trash2 } from "lucide-react";
-import SubmitButton from "../globals/SubmitButton/SubmitButton";
 
 const mainVariant = {
     initial: {
@@ -104,12 +103,12 @@ export const FileUpload = ({
                                             height={500}
                                             alt="Selected Image"
                                         />
-                                        <SubmitButton onClick={handleDeleteFile} className="px-2.5 py-1 absolute top-2 right-2" variant="outline">
+                                        <Button onClick={handleDeleteFile} className="px-2.5 py-1 absolute top-2 right-2" variant="outline">
                                             <Trash2 className="w-5 h-5" />
-                                        </SubmitButton>
+                                        </Button>
                                     </div>
                                     <form action={onUpload}>
-                                        <MagicButton loadingText="Uploading..." type="submit" containerClass="w-full mt-2" className="w-full">
+                                        <MagicButton loadingText="uploading..." type="submit" containerClass="w-full mt-2" className="w-full">
                                             Upload
                                         </MagicButton>
                                     </form>
