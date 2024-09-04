@@ -1,9 +1,9 @@
-import Spinner from '@/components/globals/Loading/Spinner';
+import LoadingUI from '@/components/globals/Loading/LoadingUI';
 
 const DashboardActiveHotspotUserLoading = () => {
     return (
         <div className='flex items-center justify-center gap-3 my-20'>
-            <Spinner size={true} /> Loading...
+            <LoadingUI />
         </div>
     );
 };

@@ -1,11 +1,11 @@
 "use client";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
-import Link from "next/link";
 import moment from "moment";
 import { convertToUTCPlus6 } from "@/lib/convertData";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import DetailsButton from "../DetailsButton";
 
 // Column definitions
 export const columns = [
@@ -116,13 +116,7 @@ export const columns = [
         cell: ({ row }) => {
             const id = row.original?.id;
             return (
-                <div className="">
-                    <Link href={`/dashboard/hotspot-users/${id}`}>
-                        <Button variant="outline" size="sm">
-                            Details
-                        </Button>
-                    </Link>
-                </div>
+                <DetailsButton id={id} />
             );
         },
     },
