@@ -23,9 +23,15 @@ export const getHotspotActionById = async (userName) => {
         }
 
         const [user] = await conn.write('/ip/hotspot/active/print', [`?user=${userName}`]);
+
+        if (user) {
+            return {
+                success: true,
+                user
+            };
+        }
         return {
-            success: true,
-            user
+            success: false
         };
     } catch (error) {
         throw new Error(error);

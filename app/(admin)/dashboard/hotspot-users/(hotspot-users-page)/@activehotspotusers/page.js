@@ -12,6 +12,7 @@ const ActiveHotspotUsersPage = async () => {
         activeHotspotUsers?.map(async (activeUser) => {
             const checkActiveUser = await getHotspotActionById(activeUser?.username);
             const isHotspotActive = checkActiveUser?.success ? 'active' : 'offline';
+
             return {
                 ...activeUser,
                 status: isHotspotActive
