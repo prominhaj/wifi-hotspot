@@ -97,7 +97,7 @@ export const FileUpload = ({
                                             "shadow-sm"
                                         )}>
                                         <Image
-                                            className="w-full max-h-[20rem]"
+                                            className="w-full object-cover max-h-[20rem]"
                                             src={URL.createObjectURL(file)}
                                             width={600}
                                             height={500}

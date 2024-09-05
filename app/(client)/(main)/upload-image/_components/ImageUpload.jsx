@@ -27,7 +27,7 @@ const ImageUpload = ({ user }) => {
             const uploadResult = await updateProfileImage(formData, "file", "images/users", user?.profilePhoto?.public_id, user?.id)
             if (uploadResult?.success) {
                 toast.success("Profile photo updated successfully")
-                push("/")
+                // push("/")
             }
 
         } catch (error) {
