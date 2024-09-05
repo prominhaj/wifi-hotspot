@@ -1,5 +1,6 @@
 import BreadcrumbSection from '@/components/globals/Breadcrumb/BreadcrumbSection';
 import { getHotspotUserById } from '@/queries/hotspotUser';
+import EditForm from '../../_components/EditPage/EditForm';
 
 export const generateMetadata = async ({ params: { id } }) => {
     const editHotspotUser = await getHotspotUserById(id);
@@ -34,6 +35,9 @@ const HotSpotUserEditPage = async ({ params: { id } }) => {
     return (
         <div>
             <BreadcrumbSection items={items} />
+            <div className='max-w-md px-6 py-5 mx-auto md:py-8'>
+                <EditForm editHotspotUser={editHotspotUser} />
+            </div>
         </div>
     );
 };
