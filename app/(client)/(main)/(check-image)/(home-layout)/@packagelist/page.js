@@ -1,5 +1,6 @@
 import PackageCard from '@/components/globals/PackageCard/PackageCard';
 import { getSessionUser } from '@/lib/dal';
+import connectToRouter from '@/lib/mikrotik';
 import { getHotspotUserByUserId } from '@/queries/hotspotUser';
 import { getAllPackages } from '@/queries/package';
 
@@ -8,6 +9,7 @@ const PackageList = async () => {
     const user = await getSessionUser();
     const currentPlan = await getHotspotUserByUserId(user?.id);
     const currentStatus = currentPlan?.status === 'active' ? true : false;
+    const isConnected = await connectToRouter(true);
 
     return (
         <div className='p-1 mt-4'>
@@ -18,6 +20,7 @@ const PackageList = async () => {
                         key={wifiPackage?.id}
                         wifiPackage={wifiPackage}
                         isDisabled={currentStatus}
+                        isConnected={isConnected}
                     />
                 ))}
             </div>

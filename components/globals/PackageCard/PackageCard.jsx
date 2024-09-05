@@ -12,11 +12,9 @@ import BDTIcon from "../BDTIcon/BDTIcon";
 import { calculateDiscountedPrice } from "@/lib/convertData";
 import { getDevice } from "@/lib/hash";
 import { cn } from "@/lib/utils";
-import connectToRouter from "@/lib/mikrotik";
 
-const PackageCard = async ({ wifiPackage, isPopular, isDisabled }) => {
+const PackageCard = async ({ wifiPackage, isPopular, isDisabled, isConnected }) => {
     const user = await getSessionUser();
-    const isConnected = await connectToRouter(true);
     const device = getDevice();
     const price = device === "mobile" ? wifiPackage?.price : wifiPackage?.desktopPrice;
     const discount = user?.discount && isPopular ? user?.discount : wifiPackage?.discountPercentage;

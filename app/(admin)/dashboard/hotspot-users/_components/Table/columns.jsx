@@ -1,11 +1,13 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import moment from "moment";
 import { convertToUTCPlus6 } from "@/lib/convertData";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import DetailsButton from "../DetailsButton";
+import UserEditButton from "../UserEditButton";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 // Column definitions
 export const columns = [
@@ -118,7 +120,21 @@ export const columns = [
         cell: ({ row }) => {
             const id = row.original?.id;
             return (
-                <DetailsButton id={id} />
+                <div className="flex items-center gap-1.5">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}>
+                            <MoreHorizontal className="w-4 h-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem>
+                                <UserEditButton id={id} />
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <DetailsButton id={id} />
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             );
         },
     },

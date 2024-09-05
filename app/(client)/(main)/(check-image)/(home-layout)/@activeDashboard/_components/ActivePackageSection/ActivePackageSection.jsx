@@ -3,8 +3,10 @@ import { cn } from "@/lib/utils";
 import { getPopularPackage } from "@/queries/package";
 import { formatBytes } from "@/lib/convertData";
 import ActivePackage from "../../../_components/DashboardPage/ActivePackage/ActivePackage";
+import connectToRouter from "@/lib/mikrotik";
 
 const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, packageInfo }) => {
+    const isConnected = await connectToRouter(true);
 
     const popularPackage = await getPopularPackage();
     const uploadUsages = isActive && activeHotspotUser?.success && formatBytes(activeHotspotUser?.user['bytes-in']);
@@ -29,7 +31,7 @@ const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, 
                         <ActivePackage activeInfo={activeInfo} />
                     ) : (
                         <div className="px-3">
-                            <PackageCard isPopular={true} wifiPackage={popularPackage} />
+                            <PackageCard isPopular={true} wifiPackage={popularPackage} isConnected={isConnected} />
                         </div>
                     )
                 }
