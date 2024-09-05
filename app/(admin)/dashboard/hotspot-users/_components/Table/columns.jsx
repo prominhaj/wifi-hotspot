@@ -67,7 +67,9 @@ export const columns = [
                 Package Name <ArrowUpDown className="w-4 h-4 ml-2" />
             </Button>
         ),
-        cell: ({ row }) => <div className="ml-4">{row.original?.packageId?.packageName}</div>,
+        cell: ({ row }) => {
+            return <div className="ml-4">{row.original?.packageId?.packageName}</div>
+        }
     },
     {
         accessorKey: "macAddress",

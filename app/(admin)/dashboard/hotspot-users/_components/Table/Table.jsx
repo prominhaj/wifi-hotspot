@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import UpdateHotspotMacAddress from "../../../_components/UpdateHotspotMacAddress/UpdateHotspotMacAddress";
+import RecoverHotspotUsers from "../../../_components/RecoverHotspotUsers/RecoverHotspotUsers";
 
 export function DataTable({ columns, data, updateMac }) {
     const [sorting, setSorting] = useState([]);
@@ -63,7 +64,8 @@ export function DataTable({ columns, data, updateMac }) {
                 />
                 {
                     updateMac && (
-                        <div className="mr-3">
+                        <div className="flex flex-wrap items-center gap-3 mr-3">
+                            <RecoverHotspotUsers />
                             <UpdateHotspotMacAddress />
                         </div>
                     )
