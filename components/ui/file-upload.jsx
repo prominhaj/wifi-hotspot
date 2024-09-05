@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import MagicButton from "../globals/Button/MagicButton";
 import { Button } from "./button";
 import { Trash2 } from "lucide-react";
+import imageCompression from 'browser-image-compression'; // import image compression
 
 const mainVariant = {
     initial: {
@@ -37,9 +38,25 @@ export const FileUpload = ({
     const [files, setFiles] = useState([]);
     const fileInputRef = useRef(null);
 
-    const handleFileChange = (newFiles) => {
-        setFiles(newFiles);
-        onChange && onChange(newFiles);
+    const handleFileChange = async (newFiles) => {
+        const compressedFiles = await Promise.all(newFiles.map(file => compressImage(file)));
+        setFiles(compressedFiles);
+        onChange && onChange(compressedFiles);
+    };
+
+    const compressImage = async (imageFile) => {
+        const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 800,
+            useWebWorker: true,
+        };
+        try {
+            const compressedFile = await imageCompression(imageFile, options);
+            return compressedFile;
+        } catch (error) {
+            toast.error("Error compressing image");
+            return imageFile; // Return original if compression fails
+        }
     };
 
     const handleDeleteFile = () => {
@@ -56,12 +73,12 @@ export const FileUpload = ({
         noClick: true,
         onDrop: handleFileChange,
         onDropRejected: (error) => {
-            toast.error(error)
+            toast.error("File rejected");
         },
     });
 
     return (
-        (<div className="w-full" {...getRootProps()}>
+        <div className="w-full" {...getRootProps()}>
             <motion.div
                 whileHover="animate"
                 className="relative block w-full p-5 overflow-hidden rounded-lg cursor-pointer md:p-8 lg:p-10 group/file">
@@ -150,7 +167,7 @@ export const FileUpload = ({
                     </div>
                 </div>
             </motion.div>
-        </div>)
+        </div>
     );
 };
 
@@ -158,20 +175,20 @@ export function GridPattern() {
     const columns = 41;
     const rows = 11;
     return (
-        (<div
+        <div
             className="flex flex-wrap items-center justify-center flex-shrink-0 scale-105 bg-gray-100 dark:bg-neutral-900 gap-x-px gap-y-px">
             {Array.from({ length: rows }).map((_, row) =>
                 Array.from({ length: columns }).map((_, col) => {
                     const index = row * columns + col;
                     return (
-                        (<div
+                        <div
                             key={`${col}-${row}`}
                             className={`w-10 h-10 flex flex-shrink-0 rounded-[2px] ${index % 2 === 0
                                 ? "bg-gray-50 dark:bg-neutral-950"
                                 : "bg-gray-50 dark:bg-neutral-950 shadow-[0px_0px_1px_3px_rgba(255,255,255,1)_inset] dark:shadow-[0px_0px_1px_3px_rgba(0,0,0,1)_inset]"
-                                }`} />)
+                                }`} />
                     );
                 }))}
-        </div>)
+        </div>
     );
 }
