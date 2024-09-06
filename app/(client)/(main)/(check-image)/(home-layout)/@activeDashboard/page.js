@@ -6,6 +6,8 @@ import {
     getHotspotActiveUserByPhone,
     getHotspotUserByPhone
 } from '@/lib/hotspot/dataFetching/hotspot';
+import { Suspense } from 'react';
+import ActivePackageSectionLoading from './_components/ActivePackageSection/ActivePackageSectionLoading';
 
 const ActiveDashboard = async () => {
     const user = await getSessionUser();
@@ -26,12 +28,14 @@ const ActiveDashboard = async () => {
                     user={user}
                     isActive={currentStatus}
                 />
-                <ActivePackageSection
-                    isActive={currentStatus}
-                    activeHotspotUser={activeHotspotUser}
-                    hotspotUser={hotspotUser}
-                    packageInfo={currentPlan}
-                />
+                <Suspense fallback={<ActivePackageSectionLoading />}>
+                    <ActivePackageSection
+                        isActive={currentStatus}
+                        activeHotspotUser={activeHotspotUser}
+                        hotspotUser={hotspotUser}
+                        packageInfo={currentPlan}
+                    />
+                </Suspense>
             </div>
         </>
     );

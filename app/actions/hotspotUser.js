@@ -10,6 +10,37 @@ import HotspotUser from '@/modals/hotspot-user-modal';
 import Package from '@/modals/package-modal';
 import User from '@/modals/user-modal';
 
+export const updateHotspotUserById = async (id, hotspotId, updateInfo) => {
+    try {
+        const conn = await connectToRouter();
+
+        if (conn?.error) {
+            return {
+                success: false,
+                message: conn.message
+            };
+        }
+
+        // Update the hotspot user with the provided username, password, and mac-address
+        await conn.write('/ip/hotspot/user/set', [
+            `=.id=${hotspotId}`,
+            `=name=${updateInfo?.username}`,
+            `=password=${updateInfo?.password}`,
+            `=mac-address=${updateInfo?.macAddress}`
+        ]);
+
+        // Update the user's information in the database
+        await HotspotUser.findByIdAndUpdate(id, updateInfo);
+
+        return {
+            success: true,
+            message: 'Hotspot User updated successfully'
+        };
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const deletePermanentlyHotspotUser = async (hotspotUserId) => {
     try {
         const hotspotUser = await HotspotUser.findById(hotspotUserId).lean();

@@ -1,31 +1,16 @@
-import PackageCard from '@/components/globals/PackageCard/PackageCard';
-import { getSessionUser } from '@/lib/dal';
-import connectToRouter from '@/lib/mikrotik';
-import { getHotspotUserByUserId } from '@/queries/hotspotUser';
-import { getAllPackages } from '@/queries/package';
+import { Suspense } from 'react';
+import PackageList from './_components/PackageList';
+import PackageListLoading from './_components/PackageListLoading';
 
-const PackageList = async () => {
-    const wifiPackages = await getAllPackages();
-    const user = await getSessionUser();
-    const currentPlan = await getHotspotUserByUserId(user?.id);
-    const currentStatus = currentPlan?.status === 'active' ? true : false;
-    const isConnected = await connectToRouter(true);
-
+const PackageListPage = async () => {
     return (
         <div className='p-1 mt-4'>
             <h2 className='mb-3 text-lg font-semibold'>Package For you</h2>
-            <div className='grid items-center grid-cols-1 gap-5 mb-3'>
-                {wifiPackages?.map((wifiPackage) => (
-                    <PackageCard
-                        key={wifiPackage?.id}
-                        wifiPackage={wifiPackage}
-                        isDisabled={currentStatus}
-                        isConnected={isConnected}
-                    />
-                ))}
-            </div>
+            <Suspense fallback={<PackageListLoading />}>
+                <PackageList />
+            </Suspense>
         </div>
     );
 };
 
-export default PackageList;
+export default PackageListPage;

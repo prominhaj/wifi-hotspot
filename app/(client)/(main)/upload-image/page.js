@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 const UploadImagePage = async () => {
     const sessionUser = await getSessionUser();
-    if (sessionUser?.profilePhoto?.url) {
+    if (sessionUser?.profilePhoto?.url && !sessionUser?.role === 'admin') {
         redirect('/');
     }
 

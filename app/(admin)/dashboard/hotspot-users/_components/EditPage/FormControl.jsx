@@ -7,7 +7,15 @@ const FormControl = ({ children, name, defaultValue }) => {
             <Label htmlFor={name}>
                 {children}
             </Label>
-            <Input id={name} name={name} type="text" className="mt-1" defaultValue={defaultValue || ""} placeholder={name} />
+            <Input
+                id={name}
+                name={name}
+                type="text"
+                className="mt-1"
+                defaultValue={defaultValue || ""}
+                placeholder={name}
+                required
+            />
         </div>
     );
 };
