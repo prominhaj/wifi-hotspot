@@ -22,11 +22,13 @@ export const updateHotspotUserById = async (id, hotspotId, updateInfo) => {
         }
 
         // Update the hotspot user with the provided username, password, and mac-address
+
+        console.log(updateInfo?.macAddress);
+
         await conn.write('/ip/hotspot/user/set', [
             `=.id=${hotspotId}`,
             `=name=${updateInfo?.username}`,
-            `=password=${updateInfo?.password}`,
-            `=mac-address=${updateInfo?.macAddress}`
+            `=password=${updateInfo?.password}`
         ]);
 
         // Update the user's information in the database
@@ -93,14 +95,18 @@ export const recoverHotspotUsers = async () => {
                     };
                 }
 
-                await conn.write('/ip/hotspot/user/add', [
+                const createdUser = await conn.write('/ip/hotspot/user/add', [
                     `=name=${activeHotspotUser?.username}`,
-                    `=.id=${activeHotspotUser?.hotspotUserId}`,
                     `=password=${activeHotspotUser?.password}`,
                     `=profile=${activeHotspotUser?.packageId?.profileName}`,
                     `=server=${activeHotspotUser?.packageId?.hotspotServer || 'hotspot1'}`,
                     `=comment=${activeHotspotUser?.userId?.name}`
                 ]);
+                if (createdUser[0]?.ret) {
+                    await HotspotUser.findByIdAndUpdate(activeHotspotUser._id, {
+                        hotspotUserId: createdUser[0]?.ret
+                    });
+                }
             }
         }
 

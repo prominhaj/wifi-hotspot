@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const FormControl = ({ children, name, defaultValue }) => {
+const FormControl = ({ children, name, defaultValue, disabled = false }) => {
     return (
         <div>
             <Label htmlFor={name}>
@@ -14,7 +14,7 @@ const FormControl = ({ children, name, defaultValue }) => {
                 className="mt-1"
                 defaultValue={defaultValue || ""}
                 placeholder={name}
-                required
+                disabled={disabled}
             />
         </div>
     );

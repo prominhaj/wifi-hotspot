@@ -1,6 +1,7 @@
 'use server';
 
 import HotspotUser from '@/modals/hotspot-user-modal';
+import MacAddress from '@/modals/mac-address-modal';
 import { getHotspotUserByUsername } from '@/queries/mikrotik';
 import { revalidatePath } from 'next/cache';
 
@@ -19,6 +20,16 @@ export const updateHotspotUsersMacAddress = async () => {
                 await HotspotUser.findByIdAndUpdate(databaseHotspotUser._id, {
                     macAddress
                 });
+
+                // update macAddress in this connection
+                // console.log(macAddress);
+
+                // const existingMacAddress = await MacAddress.exists({ macAddress });
+                // console.log(existingMacAddress);
+
+                // if (!existingMacAddress) {
+                //     await MacAddress.create({ userId: databaseHotspotUser?.userId, macAddress });
+                // }
             }
         }
 
