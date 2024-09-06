@@ -7,12 +7,11 @@ import { Label } from "@/components/ui/label";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
-const DiscountForm = ({ onChangeOpen }) => {
+const DiscountForm = ({ onChangeOpen, id, onOpen }) => {
 
     const addDiscount = useCallback(async (formData) => {
-        const phone = formData.get('phone');
         const discount = formData.get('discount');
-        if (!phone || !discount) {
+        if (!discount) {
             toast.error("Please fill all fields");
             return;
         }
@@ -24,24 +23,21 @@ const DiscountForm = ({ onChangeOpen }) => {
         }
 
         try {
-            const result = await addUserDiscount(phone, discount)
+            const result = await addUserDiscount(discount, id)
             if (result?.success) {
                 toast.success(result?.message);
                 onChangeOpen(false);
+                onOpen(false)
             } else {
                 toast.error(result?.message);
             }
         } catch (error) {
             toast.error(error.message);
         }
-    }, [onChangeOpen]);
+    }, [onChangeOpen, id, onOpen]);
 
     return (
         <form action={addDiscount} className="grid gap-4 mt-2">
-            <div className="grid gap-1.5">
-                <Label className="block" htmlFor="phone">Phone No</Label>
-                <Input id="phone" name="phone" type="text" placeholder="Phone" required />
-            </div>
             <div className="grid gap-1.5">
                 <Label className="block" htmlFor="discount">Discount %</Label>
                 <Input id="discount" name="discount" type="number" max="100" placeholder="Discount" required />

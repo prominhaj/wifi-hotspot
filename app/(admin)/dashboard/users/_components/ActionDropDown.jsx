@@ -2,11 +2,13 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
-import ChangeRoleByUser from "../@users/_components/ChangeRoleByUser";
 import { useState } from "react";
-import DeleteUser from "../@users/_components/DeleteUser";
+import DeleteAdmin from "../(users-page)/@adminusers/_components/DeleteAdmin";
+import DiscountByUser from "./DiscountByUser/DiscountByUser";
+import ChangeRoleByUser from "../(users-page)/@users/_components/ChangeRoleByUser";
+import DeleteUser from "../(users-page)/@users/_components/DeleteUser";
 
-const ActionDropDown = ({ id }) => {
+const ActionDropDown = ({ id, role }) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -17,8 +19,17 @@ const ActionDropDown = ({ id }) => {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <ChangeRoleByUser id={id} onOpen={setOpen} />
-                <DeleteUser id={id} onOpen={setOpen} />
+                <DiscountByUser id={id} onOpen={setOpen} />
+                {
+                    role === "user" ? (
+                        <>
+                            <ChangeRoleByUser id={id} onOpen={setOpen} />
+                            <DeleteUser id={id} onOpen={setOpen} />
+                        </>
+                    ) : (
+                        <DeleteAdmin id={id} onOpen={setOpen} />
+                    )
+                }
             </DropdownMenuContent>
         </DropdownMenu>
     );

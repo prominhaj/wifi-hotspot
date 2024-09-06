@@ -19,7 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import DiscountByUser from "./DiscountByUser/DiscountByUser";
+import CreateUser from "./CreateUser/CreateUser";
 
 export function DataTable({ columns, data }) {
     const [sorting, setSorting] = useState([]);
@@ -57,7 +57,7 @@ export function DataTable({ columns, data }) {
                     className="max-w-sm"
                 />
                 <div className="mr-3">
-                    <DiscountByUser />
+                    <CreateUser />
                 </div>
             </div>
             <div className="border rounded-md">

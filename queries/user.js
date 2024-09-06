@@ -58,7 +58,10 @@ export const getAllAdminUsers = async () => {
 
 export const getAllRoleUsers = async () => {
     try {
-        const roleUsers = await User.find({ role: 'user' }).select('-password').lean();
+        const roleUsers = await User.find({ role: 'user' })
+            .select('-password')
+            .sort({ createdAt: -1 })
+            .lean();
         return replaceMongoIdInArray(roleUsers);
     } catch (error) {
         throw new Error(error);

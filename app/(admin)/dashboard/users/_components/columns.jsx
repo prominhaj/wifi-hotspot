@@ -4,7 +4,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, BadgeCheck, BadgeX } from "lucide-react";
-import DeleteAdmin from "../@adminusers/_components/DeleteAdmin";
 import moment from "moment";
 import { convertToUTCPlus6 } from "@/lib/convertData";
 import { cn } from "@/lib/utils";
@@ -122,13 +121,7 @@ export const columns = [
 
             return (
                 <>
-                    {
-                        role === "user" ? (
-                            <ActionDropDown id={id} />
-                        ) : (
-                            <DeleteAdmin id={id} />
-                        )
-                    }
+                    <ActionDropDown id={id} role={role} />
                 </>
             );
         },

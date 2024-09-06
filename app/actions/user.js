@@ -47,6 +47,33 @@ export const createAccount = async (data) => {
     }
 };
 
+export const createUserByAdmin = async (data) => {
+    try {
+        const { name, phone, password } = data;
+        // Check if user already exists
+        const userExists = await User.exists({ phone });
+        if (userExists) {
+            return {
+                success: false,
+                message: 'Phone is already exists',
+                phone: true
+            };
+        }
+
+        // Store other user details in DataBase
+        await User.create({ name, phone, password, verified: true });
+
+        revalidatePath('/');
+
+        return {
+            success: true,
+            message: 'User created successfully'
+        };
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const verifyOtp = async (otp, id) => {
     try {
         const saveOtp = cookies().get('otp')?.value;
@@ -179,10 +206,10 @@ export const deleteUserById = async (userId) => {
 };
 
 // add user discount
-export const addUserDiscount = async (phone, discount) => {
+export const addUserDiscount = async (discount, id) => {
     try {
         // Check if user already exists
-        const userExists = await User.exists({ phone });
+        const userExists = await User.exists({ _id: id });
         if (!userExists) {
             return {
                 success: false,
@@ -190,7 +217,7 @@ export const addUserDiscount = async (phone, discount) => {
             };
         }
 
-        await User.updateOne({ phone }, { $set: { discount: discount } });
+        await User.findByIdAndUpdate(id, { discount });
 
         // revalidatePath
         revalidatePath('/');
