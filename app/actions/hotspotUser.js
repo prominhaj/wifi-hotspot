@@ -95,6 +95,7 @@ export const recoverHotspotUsers = async () => {
 
                 await conn.write('/ip/hotspot/user/add', [
                     `=name=${activeHotspotUser?.username}`,
+                    `=.id=${activeHotspotUser?.hotspotUserId}`,
                     `=password=${activeHotspotUser?.password}`,
                     `=profile=${activeHotspotUser?.packageId?.profileName}`,
                     `=server=${activeHotspotUser?.packageId?.hotspotServer || 'hotspot1'}`,

@@ -1,7 +1,7 @@
-import Loading from '@/components/globals/Loading/Loading';
+import LoadingUI from '@/components/globals/Loading/LoadingUI';
 
 const PaymentPageLoading = () => {
-    return <Loading />;
+    return <LoadingUI />;
 };
 
 export default PaymentPageLoading;
