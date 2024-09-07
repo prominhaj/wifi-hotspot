@@ -7,6 +7,11 @@ const macAddressSchema = new Schema(
             ref: 'User',
             required: true
         },
+        hotspotUserId: {
+            type: Schema.Types.ObjectId,
+            ref: 'HotspotUser',
+            required: true
+        },
         macAddress: {
             type: String,
             required: true,

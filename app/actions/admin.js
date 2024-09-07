@@ -1,44 +1,18 @@
 'use server';
 
-import HotspotUser from '@/modals/hotspot-user-modal';
-import MacAddress from '@/modals/mac-address-modal';
-import { getHotspotUserByUsername } from '@/queries/mikrotik';
-import { revalidatePath } from 'next/cache';
-
 export const updateHotspotUsersMacAddress = async () => {
     try {
-        // Fetch all no macAddress hotspot users
-        const getDataBaseHotspotUsers = await HotspotUser.find({
-            $or: [{ macAddress: { $exists: false } }, { macAddress: null }]
-        }).lean();
-
-        for (const databaseHotspotUser of getDataBaseHotspotUsers) {
-            const hotspotUser = await getHotspotUserByUsername(databaseHotspotUser?.username);
-            const macAddress = hotspotUser?.['mac-address'];
-            // Update the Hotspot user set macAddress in the database
-            if (macAddress) {
-                await HotspotUser.findByIdAndUpdate(databaseHotspotUser._id, {
-                    macAddress
-                });
-
-                // update macAddress in this connection
-                // console.log(macAddress);
-
-                // const existingMacAddress = await MacAddress.exists({ macAddress });
-                // console.log(existingMacAddress);
-
-                // if (!existingMacAddress) {
-                //     await MacAddress.create({ userId: databaseHotspotUser?.userId, macAddress });
-                // }
-            }
+        const response = await fetch(`${process.env.BASE_URL}/api/update-mac-address`);
+        const result = await response.json();
+        if (result?.success) {
+            return {
+                success: true,
+                message: result.message
+            };
         }
-
-        // revalidatePath
-        revalidatePath('/');
-
         return {
-            success: true,
-            message: 'Hotspot users macAddress updated successfully'
+            success: false,
+            message: result.message
         };
     } catch (error) {
         throw new Error(error);

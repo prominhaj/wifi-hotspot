@@ -12,9 +12,9 @@ const BreadcrumbSection = ({ items }) => {
         <Breadcrumb className='px-6 pt-3'>
             <BreadcrumbList>
                 {
-                    items?.map(item => (
+                    items?.map((item, index) => (
                         <>
-                            <BreadcrumbItem key={item.label}>
+                            <BreadcrumbItem key={index}>
                                 {item?.href ? (
                                     <Link href={item.href}>
                                         {item.label}
