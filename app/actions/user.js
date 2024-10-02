@@ -227,3 +227,12 @@ export const addUserDiscount = async (discount, id) => {
         throw new Error(error);
     }
 };
+
+export const updateUserDiscount = async () => {
+    try {
+        const updatedUsers = await User.updateMany({ discount: 0 }, { discount: 25 });
+        return updatedUsers;
+    } catch (error) {
+        throw new Error(error);
+    }
+};
