@@ -28,9 +28,7 @@ const CreateAddPackageForm = ({ serverProfile, defaultValueData, isEditing }) =>
             packageName: defaultValueData?.packageName || '',
             profileName: defaultValueData?.profileName || '',
             price: defaultValueData?.price || '',
-            desktopPrice: defaultValueData?.desktopPrice || '',
             validity: defaultValueData?.validity || '',
-            discountPercentage: defaultValueData?.discountPercentage || '',
             speedLimit: defaultValueData?.speedLimit || '',
             hotspotServer: defaultValueData?.hotspotServer || serverProfile[0]?.name,
         }
@@ -115,16 +113,8 @@ const CreateAddPackageForm = ({ serverProfile, defaultValueData, isEditing }) =>
                     form={form}
                     isSubmitting={isSubmitting}
                     name="price"
-                    label="Mobile Price"
-                    placeholder="Mobile Price..."
-                />
-                {/* desktopPrice */}
-                <FormControl
-                    form={form}
-                    isSubmitting={isSubmitting}
-                    name="desktopPrice"
-                    label="Desktop Price"
-                    placeholder="Desktop Price..."
+                    label="Price"
+                    placeholder="Price..."
                 />
                 {/* validity */}
                 <FormControl
@@ -133,14 +123,6 @@ const CreateAddPackageForm = ({ serverProfile, defaultValueData, isEditing }) =>
                     name="validity"
                     label="Validity"
                     placeholder="Validity (days)..."
-                />
-                {/* discountPercentage */}
-                <FormControl
-                    form={form}
-                    isSubmitting={isSubmitting}
-                    name="discountPercentage"
-                    label="Discount %"
-                    placeholder="Discount %..."
                 />
                 {/* speedLimit */}
                 <FormControl

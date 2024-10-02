@@ -1,6 +1,5 @@
-import { NextResponse, userAgent } from 'next/server';
+import { NextResponse } from 'next/server';
 import { decrypt } from './lib/session';
-import { textEncrypt } from './lib/hash';
 
 const protectedRoutes = [
     '/',
@@ -18,15 +17,6 @@ export default async function middleware(req) {
     const isProtectedRoute = protectedRoutes.includes(path);
     const isPublicRoute = publicRoutes.includes(path);
 
-    // Check Device Name
-    const { device } = userAgent(req);
-    const viewport = device.type === 'mobile' ? 'mobile' : 'desktop';
-    const encryptedDeviceName = textEncrypt(viewport);
-
-    // Set the encrypted device name in cookies
-    const response = NextResponse.next();
-    response.cookies.set('device', encryptedDeviceName);
-
     const cookie = req.cookies.get('session')?.value;
     const session = await decrypt(cookie);
 
@@ -38,7 +28,7 @@ export default async function middleware(req) {
         return NextResponse.redirect(new URL(`/`, req.nextUrl));
     }
 
-    return response;
+    return NextResponse.next();
 }
 
 export const config = {

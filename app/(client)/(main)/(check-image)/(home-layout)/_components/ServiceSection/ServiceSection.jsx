@@ -1,38 +1,28 @@
-import { getDevice } from "@/lib/hash";
 import ServiceButton from "./ServiceButton";
 
 const ServiceSection = () => {
-    const device = getDevice();
 
     return (
         <div className="grid grid-cols-4 gap-4 mt-4 text-center">
             <ServiceButton
-                device={device}
-                url="https://www.google.com"
                 mobileUrl="https://www.google.com"
             >
                 <GlobeIcon className="w-8 h-8 mx-auto text-orange-500" />
                 <h4 className="mt-1 text-sm">Internet</h4>
             </ServiceButton>
             <ServiceButton
-                device={device}
-                url="https://www.youtube.com"
                 mobileUrl="vnd.youtube://"
             >
                 <YouTubeIcon className="w-8 h-8 mx-auto text-red-500" />
                 <h4 className="mt-1 text-sm">YouTube</h4>
             </ServiceButton>
             <ServiceButton
-                device={device}
-                url="https://www.facebook.com"
                 mobileUrl="fb://"
             >
                 <FacebookIcon className="w-8 h-8 mx-auto text-blue-500" />
                 <div className="mt-1 text-sm">Facebook</div>
             </ServiceButton>
             <ServiceButton
-                device={device}
-                url="https://www.tiktok.com"
                 mobileUrl="tiktok://"
             >
                 <TikTokIcon className="w-8 h-8 mx-auto text-black dark:text-white" />

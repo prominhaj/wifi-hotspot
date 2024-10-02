@@ -11,15 +11,6 @@ const packageSchema = new Schema(
             required: true,
             default: 0
         },
-        desktopPrice: {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        discountPercentage: {
-            type: Number,
-            required: false
-        },
         profileName: {
             type: String,
             required: true

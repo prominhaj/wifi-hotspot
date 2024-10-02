@@ -10,15 +10,11 @@ import BuyButton from "./BuyButton";
 import { getSessionUser } from "@/lib/dal";
 import BDTIcon from "../BDTIcon/BDTIcon";
 import { calculateDiscountedPrice } from "@/lib/convertData";
-import { getDevice } from "@/lib/hash";
 import { cn } from "@/lib/utils";
 
 const PackageCard = async ({ wifiPackage, isPopular, isDisabled, isConnected }) => {
     const user = await getSessionUser();
-    const device = getDevice();
-    const price = device === "mobile" ? wifiPackage?.price : wifiPackage?.desktopPrice;
-    const discount = user?.discount && isPopular ? user?.discount : wifiPackage?.discountPercentage;
-    const finalPrice = calculateDiscountedPrice(price, discount);
+    const finalPrice = calculateDiscountedPrice(wifiPackage?.price, user?.discount);
 
     return (
         <>
@@ -54,9 +50,9 @@ const PackageCard = async ({ wifiPackage, isPopular, isDisabled, isConnected }) 
                     <div className="pt-2.5 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                             <span className="px-1 py-0.5 text-sm text-red-600 bg-red-200 rounded">
-                                -{parseInt(discount)}%</span>
+                                -{parseInt(user?.discount)}%</span>
                             <p className="flex items-center text-base font-medium line-through opacity-60 gap-0.5">
-                                <BDTIcon /> {price} TK
+                                <BDTIcon /> {wifiPackage?.price} TK
                             </p>
                         </div>
                         <h4 className="text-lg font-medium flex items-center gap-0.5">

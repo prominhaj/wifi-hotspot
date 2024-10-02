@@ -1,13 +1,9 @@
 "use client";
 
-const ServiceButton = ({ children, device, url, mobileUrl }) => {
+const ServiceButton = ({ children, mobileUrl }) => {
 
     const handleRedirect = () => {
-        if (device === 'desktop') {
-            window.location.href = url;
-        } else {
-            window.location.href = mobileUrl;
-        }
+        window.location.href = mobileUrl;
     };
 
     return (
