@@ -43,10 +43,10 @@ export function DataTable({ columns, data, updateMac }) {
             return (
                 row.original?.hotspotUserId?.toLowerCase().includes(filterValue.toLowerCase()) ||
                 row.original?.username?.toLowerCase().includes(filterValue.toLowerCase()) ||
-                row.original?.userId.name?.toLowerCase().includes(filterValue.toLowerCase()) ||
-                row.original?.userId.phone?.includes(filterValue) ||
-                row.original?.paymentId.transactionId?.toLowerCase().includes(filterValue.toLowerCase()) ||
-                row.original?.packageId.packageName?.toLowerCase().includes(filterValue.toLowerCase()) ||
+                row.original?.userId?.name?.toLowerCase().includes(filterValue.toLowerCase()) ||
+                row.original?.userId?.phone?.includes(filterValue) ||
+                row.original?.paymentId?.transactionId?.toLowerCase().includes(filterValue.toLowerCase()) ||
+                row.original?.packageId?.packageName?.toLowerCase().includes(filterValue.toLowerCase()) ||
                 row.original?.status?.toLowerCase().includes(filterValue.toLowerCase()) ||
                 row.original?.macAddress?.toLowerCase().includes(filterValue.toLowerCase())
             );
@@ -55,7 +55,7 @@ export function DataTable({ columns, data, updateMac }) {
 
     return (
         <div>
-            <div className="flex flex-wrap items-center justify-between gap-3 py-4">
+            <div className="flex flex-col-reverse flex-wrap items-center justify-between gap-3 py-4 md:flex-row">
                 <Input
                     placeholder="Search..."
                     value={globalFilter ?? ""}
@@ -64,7 +64,7 @@ export function DataTable({ columns, data, updateMac }) {
                 />
                 {
                     updateMac && (
-                        <div className="flex flex-wrap items-center gap-3 mr-3">
+                        <div className="flex flex-wrap items-center gap-1.5 md:gap-3 mr-3">
                             <RecoverHotspotUsers />
                             <UpdateHotspotMacAddress />
                         </div>

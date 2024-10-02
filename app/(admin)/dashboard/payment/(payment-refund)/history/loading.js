@@ -1,7 +1,11 @@
-import Loading from '@/components/globals/Loading/Loading';
+import TableLoadingUI from '../../../_components/TableLoading/TableLoading';
 
 const PaymentHistoryPageLoading = () => {
-    return <Loading />;
+    return (
+        <div className='px-6 py-3'>
+            <TableLoadingUI />;
+        </div>
+    );
 };
 
 export default PaymentHistoryPageLoading;

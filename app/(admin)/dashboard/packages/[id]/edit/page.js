@@ -36,9 +36,7 @@ const PackageEditPage = async ({ params: { id } }) => {
     const modifiedPackages = {
         ...getPackage,
         price: getPackage?.price.toString(),
-        validity: getPackage?.validity.toString(),
-        desktopPrice: getPackage?.desktopPrice.toString(),
-        discountPercentage: getPackage?.discountPercentage.toString()
+        validity: getPackage?.validity.toString()
     };
 
     return (

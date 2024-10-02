@@ -71,32 +71,6 @@ export const columns = [
         },
     },
     {
-        accessorKey: "desktopPrice",
-        header: ({ column }) => (
-            <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            >
-                Desktop Price <ArrowUpDown className="w-4 h-4 ml-2" />
-            </Button>
-        ),
-        cell: ({ row }) => {
-            const desktopPrice = row.original?.desktopPrice;
-            const discountPercentage = row.original?.discountPercentage;
-            const finalPrice = calculateDiscountedPrice(desktopPrice, discountPercentage);
-
-            return (
-                <div className="ml-4">
-                    TK <span className="line-through opacity-60">{desktopPrice}</span> {
-                        discountPercentage && (
-                            <span className="text-sm font-medium">{finalPrice}</span>
-                        )
-                    }
-                </div>
-            );
-        },
-    },
-    {
         accessorKey: "profileName",
         header: ({ column }) => (
             <Button

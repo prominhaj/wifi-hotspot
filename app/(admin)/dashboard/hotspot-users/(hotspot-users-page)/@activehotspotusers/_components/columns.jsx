@@ -2,11 +2,11 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import moment from "moment";
-import { convertToUTCPlus6 } from "@/lib/convertData";
+import { convertToUTCPlus6, formatBytes } from "@/lib/convertData";
 import { cn } from "@/lib/utils";
-import DetailsButton from "../DetailsButton";
-import UserEditButton from "../UserEditButton";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import UserEditButton from "../../../_components/UserEditButton";
+import DetailsButton from "../../../_components/DetailsButton";
 
 // Column definitions
 export const columns = [
@@ -47,29 +47,33 @@ export const columns = [
         cell: ({ row }) => <div className="ml-4">{row.original?.userId?.phone}</div>,
     },
     {
-        accessorKey: "paymentId.transactionId",
+        accessorKey: "bytes_in",
         header: ({ column }) => (
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             >
-                Transaction ID <ArrowUpDown className="w-4 h-4 ml-2" />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="ml-4">{row.original?.paymentId?.transactionId}</div>,
-    },
-    {
-        accessorKey: "packageId.packageName",
-        header: ({ column }) => (
-            <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            >
-                Package Name <ArrowUpDown className="w-4 h-4 ml-2" />
+                Bytes In <ArrowUpDown className="w-4 h-4 ml-2" />
             </Button>
         ),
         cell: ({ row }) => {
-            return <div className="ml-4">{row.original?.packageId?.packageName}</div>
+            const bytesIn = formatBytes(row.original?.bytes_in);
+            return <div className="ml-4">{bytesIn}</div>
+        },
+    },
+    {
+        accessorKey: "bytes_out",
+        header: ({ column }) => (
+            <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            >
+                Bytes Out <ArrowUpDown className="w-4 h-4 ml-2" />
+            </Button>
+        ),
+        cell: ({ row }) => {
+            const bytesOut = formatBytes(row.original?.bytes_out);
+            return <div className="ml-4">{bytesOut}</div>
         }
     },
     {

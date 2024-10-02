@@ -1,28 +1,14 @@
-import { getHotspotUsers } from '@/queries/hotspotUser';
 import { DataTable } from '../../_components/Table/Table';
-import { columns } from '../../_components/Table/columns';
-import { getHotspotActionById } from '@/queries/mikrotik';
+import { getActiveHotpotUsers } from '@/queries/hotspotUser';
+import { columns } from './_components/columns';
 
-const ActiveHotspotUsersPage = async () => {
-    const activeHotspotUsers = await getHotspotUsers({ status: 'active' });
-
-    const modifiedActiveUsers = await Promise.all(
-        activeHotspotUsers?.map(async (activeUser) => {
-            const checkActiveUser = await getHotspotActionById(activeUser?.username);
-            const isHotspotActive = checkActiveUser?.success ? 'active' : 'offline';
-
-            return {
-                ...activeUser,
-                status: isHotspotActive
-            };
-        })
-    );
-
+const ActiveHotspotUsers = async () => {
+    const activeHotspotUsers = await getActiveHotpotUsers();
     return (
         <div>
-            <DataTable columns={columns} data={modifiedActiveUsers} updateMac={true} />
+            <DataTable columns={columns} data={activeHotspotUsers} />
         </div>
     );
 };
 
-export default ActiveHotspotUsersPage;
+export default ActiveHotspotUsers;

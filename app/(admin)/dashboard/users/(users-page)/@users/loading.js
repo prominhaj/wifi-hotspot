@@ -1,11 +1,7 @@
-import Spinner from '@/components/globals/Loading/Spinner';
+import TableLoadingUI from '../../../_components/TableLoading/TableLoading';
 
 const DashboardUsersUsersLoading = () => {
-    return (
-        <div className='flex items-center justify-center gap-3 my-20'>
-            <Spinner size={true} /> Loading...
-        </div>
-    );
+    return <TableLoadingUI />;
 };
 
 export default DashboardUsersUsersLoading;

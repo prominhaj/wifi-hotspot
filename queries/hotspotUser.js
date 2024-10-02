@@ -3,6 +3,7 @@ import HotspotUser from '@/modals/hotspot-user-modal';
 import Package from '@/modals/package-modal';
 import Payment from '@/modals/payment-modal';
 import User from '@/modals/user-modal';
+import { getHotspotActiveUsers } from './mikrotik';
 
 export const getHotspotUsers = async (filter) => {
     try {
@@ -43,6 +44,48 @@ export const getHotspotUserById = async (id) => {
             })
             .lean();
         return replaceMongoIdInObject(hotspotUser);
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const getActiveHotpotUsers = async () => {
+    try {
+        // Fetch all active hotspot users at once
+        const activeHotspotUsers = await getHotspotActiveUsers();
+
+        // Extract all the usernames we need to search for in a single database query
+        const usernames = activeHotspotUsers.map((user) => user?.user);
+
+        // Query the database once to find all matching users
+        const hotspotUsers = await HotspotUser.find({
+            username: { $in: usernames },
+            status: 'active'
+        })
+            .populate({
+                path: 'userId',
+                model: User
+            })
+            .lean();
+
+        // Create a map for fast lookups of hotspot users by username
+        const hotspotUserMap = new Map(hotspotUsers.map((user) => [user.username, user]));
+
+        // Prepare the modified users array
+        const modifiedUsers = activeHotspotUsers
+            .map((user) => {
+                const hotspotUser = hotspotUserMap.get(user?.user);
+                return hotspotUser
+                    ? {
+                          ...hotspotUser,
+                          bytes_in: user?.['bytes-in'],
+                          bytes_out: user?.['bytes-out']
+                      }
+                    : null;
+            })
+            .filter(Boolean);
+
+        return replaceMongoIdInArray(modifiedUsers);
     } catch (error) {
         throw new Error(error);
     }
@@ -106,6 +149,24 @@ export const updateHotspotUserById = async (id, updateIfo) => {
             success: true,
             hotspotUser: updatedHotspotUser
         };
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const totalHotspotUsers = async () => {
+    try {
+        const totalHotspotUsers = await HotspotUser.countDocuments({ status: 'active' });
+        return totalHotspotUsers;
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const totalExpiredHotspotUsers = async () => {
+    try {
+        const totalExpiredUsers = await HotspotUser.countDocuments({ status: 'expired' });
+        return totalExpiredUsers;
     } catch (error) {
         throw new Error(error);
     }

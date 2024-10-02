@@ -1,11 +1,7 @@
-import LoadingUI from '@/components/globals/Loading/LoadingUI';
+import TableLoadingUI from '../../../_components/TableLoading/TableLoading';
 
-const DashboardActiveHotspotUserLoading = () => {
-    return (
-        <div className='flex items-center justify-center gap-3 my-20'>
-            <LoadingUI />
-        </div>
-    );
+const ActiveHotspotUsersLoading = () => {
+    return <TableLoadingUI />;
 };
 
-export default DashboardActiveHotspotUserLoading;
+export default ActiveHotspotUsersLoading;

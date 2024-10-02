@@ -1,7 +1,7 @@
 import TableLoadingUI from '../../../_components/TableLoading/TableLoading';
 
-const DashboardExpiredHotspotUserLoading = () => {
+const DashboardActiveHotspotUserLoading = () => {
     return <TableLoadingUI />;
 };
 
-export default DashboardExpiredHotspotUserLoading;
+export default DashboardActiveHotspotUserLoading;
