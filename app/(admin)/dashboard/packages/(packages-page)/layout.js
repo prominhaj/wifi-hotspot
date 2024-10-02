@@ -1,8 +1,4 @@
 import BreadcrumbSection from '@/components/globals/Breadcrumb/BreadcrumbSection';
-import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
-
 // items
 const items = [
     {
@@ -20,15 +16,7 @@ const DashboardPackagesPageLayout = ({ packages }) => {
         <>
             <BreadcrumbSection items={items} />
             <div className='px-6 py-3'>
-                <div className='flex items-center justify-between gap-3'>
-                    <h1 className='text-2xl font-bold'>Packages</h1>
-                    <Link
-                        className={cn(buttonVariants({ variant: 'default' }))}
-                        href='/dashboard/packages/add'
-                    >
-                        Add Package
-                    </Link>
-                </div>
+                <h1 className='text-2xl font-bold'>Packages</h1>
                 <div>{packages}</div>
             </div>
         </>

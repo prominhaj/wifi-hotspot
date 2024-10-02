@@ -55,3 +55,5 @@ export const deletePackageById = async (packageId) => {
         throw new Error(error);
     }
 };
+
+// Recover the package in the database

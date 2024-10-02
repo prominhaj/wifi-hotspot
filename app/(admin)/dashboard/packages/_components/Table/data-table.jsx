@@ -17,9 +17,12 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import RecoverPackages from "../RecoverPackages";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export function DataTable({ columns, data }) {
     const [sorting, setSorting] = useState([]);
@@ -58,6 +61,15 @@ export function DataTable({ columns, data }) {
                     onChange={(event) => setGlobalFilter(event.target.value)}
                     className="max-w-sm"
                 />
+                <div className='flex items-center gap-3'>
+                    <RecoverPackages />
+                    <Link
+                        className={cn(buttonVariants({ variant: 'default', size: "sm" }))}
+                        href='/dashboard/packages/add'
+                    >
+                        Add Package
+                    </Link>
+                </div>
             </div>
             <div className="border rounded-md">
                 <Table>
