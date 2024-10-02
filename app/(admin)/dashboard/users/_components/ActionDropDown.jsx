@@ -8,7 +8,7 @@ import DiscountByUser from "./DiscountByUser/DiscountByUser";
 import ChangeRoleByUser from "../(users-page)/@users/_components/ChangeRoleByUser";
 import DeleteUser from "../(users-page)/@users/_components/DeleteUser";
 
-const ActionDropDown = ({ id, role }) => {
+const ActionDropDown = ({ id, role, discount }) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -19,7 +19,7 @@ const ActionDropDown = ({ id, role }) => {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-                <DiscountByUser id={id} onOpen={setOpen} />
+                <DiscountByUser id={id} onOpen={setOpen} discount={discount} />
                 {
                     role === "user" ? (
                         <>

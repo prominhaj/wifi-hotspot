@@ -117,11 +117,11 @@ export const columns = [
     {
         accessorKey: "Action",
         cell: ({ row }) => {
-            const { id, role } = row.original;
+            const { id, role, discount } = row.original;
 
             return (
                 <>
-                    <ActionDropDown id={id} role={role} />
+                    <ActionDropDown id={id} role={role} discount={discount} />
                 </>
             );
         },

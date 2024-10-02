@@ -10,7 +10,7 @@ import DiscountForm from "./DiscountForm";
 import { useState } from "react";
 import { Percent } from "lucide-react";
 
-const DiscountByUser = ({ id, onOpen }) => {
+const DiscountByUser = ({ id, onOpen, discount }) => {
     const [isOpen, setOpen] = useState(false);
 
     return (
@@ -25,7 +25,7 @@ const DiscountByUser = ({ id, onOpen }) => {
                     <DialogTitle>Add Discount by User</DialogTitle>
                 </DialogHeader>
                 {/* Discount Form */}
-                <DiscountForm onChangeOpen={setOpen} id={id} onOpen={onOpen} />
+                <DiscountForm onChangeOpen={setOpen} id={id} onOpen={onOpen} discount={discount} />
             </DialogContent>
         </Dialog>
     );

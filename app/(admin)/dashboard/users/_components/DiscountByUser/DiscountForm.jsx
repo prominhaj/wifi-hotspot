@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
-const DiscountForm = ({ onChangeOpen, id, onOpen }) => {
+const DiscountForm = ({ onChangeOpen, id, onOpen, discount }) => {
 
     const addDiscount = useCallback(async (formData) => {
         const discount = formData.get('discount');
@@ -40,7 +40,15 @@ const DiscountForm = ({ onChangeOpen, id, onOpen }) => {
         <form action={addDiscount} className="grid gap-4 mt-2">
             <div className="grid gap-1.5">
                 <Label className="block" htmlFor="discount">Discount %</Label>
-                <Input id="discount" name="discount" type="number" max="100" placeholder="Discount" required />
+                <Input
+                    id="discount"
+                    name="discount"
+                    type="number"
+                    max="100"
+                    defaultValue={discount}
+                    placeholder="Discount"
+                    required
+                />
             </div>
             <SubmitButton className="mt-2" variant="primary">
                 Save Discount
