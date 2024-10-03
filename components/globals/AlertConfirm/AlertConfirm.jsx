@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 const AlertConfirm = ({ button, className, submitButton, handleAction, open, setOpen, confirmMessage }) => {
     return (
         <AlertDialog open={open} onOpenChange={setOpen}>
-            <AlertDialogTrigger className={cn(className && className, "w-full gap-1 relative flex cursor-pointer select-none items-center rounded-sm md:px-2 md:py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:opacity-50 hover:bg-[#F3F4F6] dark:hover:bg-[#1F2937]")}>
+            <AlertDialogTrigger className={cn(className && className, "w-full gap-1 bello relative flex cursor-pointer select-none items-center rounded-sm md:px-2 md:py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:opacity-50 hover:bg-[#F3F4F6] dark:hover:bg-[#1F2937]")}>
                 {button}
             </AlertDialogTrigger>
             <AlertDialogContent>
