@@ -1,5 +1,6 @@
 "use client";
 
+import { recoverPackageInDB } from "@/app/actions/package";
 import AlertConfirm from "@/components/globals/AlertConfirm/AlertConfirm";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,6 +12,9 @@ const RecoverPackages = () => {
 
     const handleRecoverPackages = async () => {
         try {
+
+            const result = await recoverPackageInDB();
+            console.log(result);
 
         } catch (error) {
             toast.error(error.message)

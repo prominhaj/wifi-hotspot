@@ -6,6 +6,7 @@ import {
     BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
 import Link from 'next/link';
+import { Fragment } from 'react';
 
 const BreadcrumbSection = ({ items }) => {
     return (
@@ -13,8 +14,8 @@ const BreadcrumbSection = ({ items }) => {
             <BreadcrumbList>
                 {
                     items?.map((item, index) => (
-                        <>
-                            <BreadcrumbItem key={index}>
+                        <Fragment key={index}>
+                            <BreadcrumbItem>
                                 {item?.href ? (
                                     <Link href={item.href}>
                                         {item.label}
@@ -24,9 +25,9 @@ const BreadcrumbSection = ({ items }) => {
                                 )}
                             </BreadcrumbItem>
                             {
-                                !item?.current && <BreadcrumbSeparator />
+                                !item?.current && <BreadcrumbSeparator key={`sep-${index}`} />
                             }
-                        </>
+                        </Fragment>
                     ))
                 }
             </BreadcrumbList>

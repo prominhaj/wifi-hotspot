@@ -2,7 +2,9 @@
 
 import { replaceMongoIdInObject } from '@/lib/convertData';
 import Package from '@/modals/package-modal';
+import { getHotspotProfileById } from '@/queries/mikrotik';
 import { revalidatePath } from 'next/cache';
+import { createProfileInMikrotik } from './mikrotik';
 
 export const getPackageByIdInAction = async (id) => {
     try {
@@ -57,3 +59,35 @@ export const deletePackageById = async (packageId) => {
 };
 
 // Recover the package in the database
+export const recoverPackageInDB = async () => {
+    try {
+        const packages = await Package.find().lean();
+
+        await Promise.all(
+            packages.map(async (pack) => {
+                const rate_limit = `${pack.speedLimit}M/${pack.speedLimit}M`;
+
+                const hotspotProfile = await getHotspotProfileById(pack.hotspotProfileId);
+                if (!hotspotProfile?.[0]?.['.id']) {
+                    const createdProfile = await createProfileInMikrotik({
+                        name: pack.name,
+                        rate_limit
+                    });
+
+                    if (createdProfile?.[0]?.ret) {
+                        await Package.findByIdAndUpdate(pack._id, {
+                            hotspotProfileId: createdProfile[0]?.ret
+                        });
+                    }
+                }
+            })
+        );
+
+        return {
+            success: true,
+            message: 'Packages recovered successfully'
+        };
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
