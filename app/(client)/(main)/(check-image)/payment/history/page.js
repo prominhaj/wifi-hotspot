@@ -20,7 +20,7 @@ export const metadata = {
 
 const PaymentHistory = async () => {
     const sessionUser = await getSessionUser();
-    const paymentHistories = await getPaymentHistoriesByUserId(sessionUser?.id);
+    const paymentHistories = JSON.parse(await getPaymentHistoriesByUserId(sessionUser?.id));
 
     return (
         <>

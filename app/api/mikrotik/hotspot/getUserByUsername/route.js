@@ -16,7 +16,6 @@ export const GET = async (req) => {
 
         // Fetch user data by ID
         const [user] = await conn.write('/ip/hotspot/user/print', [`?name=${phone}`]);
-        // conn.close();
 
         if (!user) {
             return NextResponse.json({ success: false, message: 'User not found' });

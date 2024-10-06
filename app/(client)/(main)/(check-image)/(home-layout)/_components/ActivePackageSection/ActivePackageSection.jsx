@@ -4,9 +4,11 @@ import { getPopularPackage } from "@/queries/package";
 import { formatBytes } from "@/lib/convertData";
 import connectToRouter from "@/lib/mikrotik";
 import ActivePackage from "../Dashboard/ActivePackage/ActivePackage";
+import { userDashboardInfo } from "@/lib/helper";
 
-const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, packageInfo }) => {
+const ActivePackageSection = async () => {
     const isConnected = await connectToRouter(true);
+    const { isActive, hotspotUser, activeHotspotUser, packageInfo } = await userDashboardInfo();
 
     const popularPackage = await getPopularPackage();
     const uploadUsages = isActive && activeHotspotUser?.success && formatBytes(activeHotspotUser?.user['bytes-in']);

@@ -92,7 +92,7 @@ export const getPaymentHistoriesByUserId = async (userId) => {
             .sort({ createdAt: -1 })
             .lean();
 
-        return replaceMongoIdInArray(paymentHistories);
+        return JSON.stringify(paymentHistories);
     } catch (error) {
         throw new Error(error);
     }

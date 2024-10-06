@@ -6,9 +6,10 @@ import ConnectBtn from '../Dashboard/ConnectBtn';
 import moment from 'moment';
 import { convertToUTCPlus6 } from '@/lib/convertData';
 import Link from 'next/link';
+import { userDashboardInfo } from '@/lib/helper';
 
-const ProfileSection = async ({ user, isActive, packageInfo, isActiveHotspotUser, hotspotUser }) => {
-
+const ProfileSection = async () => {
+    const { user, isActive, hotspotUser, activeHotspotUser, packageInfo } = await userDashboardInfo();
 
     return (
         <>
@@ -40,7 +41,7 @@ const ProfileSection = async ({ user, isActive, packageInfo, isActiveHotspotUser
 
                     {isActive && hotspotUser && (
                         <>
-                            {isActiveHotspotUser ? (
+                            {activeHotspotUser?.success ? (
                                 <Button
                                     variant='primary'
                                     className='relative h-8 px-3 py-0 text-sm bg-green-900 cursor-default dark:bg-gray-800 pe-5'
