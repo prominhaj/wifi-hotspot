@@ -1,11 +1,7 @@
-import Spinner from '@/components/globals/Loading/Spinner';
+import ProfileLoadingUI from './_components/ProfileLoadingUI';
 
 const ProfileLoadingPage = () => {
-    return (
-        <div className='flex items-center gap-3 justify-center h-[50vh]'>
-            <Spinner size={true} /> Profile Loading...
-        </div>
-    );
+    return <ProfileLoadingUI />;
 };
 
 export default ProfileLoadingPage;
