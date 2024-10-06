@@ -7,7 +7,7 @@ import RecentTransactionCard from "./RecentTransactionCard";
 
 const RecentTransaction = async () => {
     const sessionUser = await getSessionUser();
-    const recentTransaction = await getRecentTransaction(sessionUser?.id);
+    const recentTransaction = JSON.parse(await getRecentTransaction(sessionUser?.id));
 
     if (!recentTransaction) return;
 

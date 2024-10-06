@@ -2,12 +2,14 @@ import BDTIcon from '@/components/globals/BDTIcon/BDTIcon';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import ConnectBtn from '../../../_components/DashboardPage/ConnectBtn';
+import ConnectBtn from '../Dashboard/ConnectBtn';
 import moment from 'moment';
 import { convertToUTCPlus6 } from '@/lib/convertData';
 import Link from 'next/link';
 
-const ProfileSection = ({ user, isActive, packageInfo, isActiveHotspotUser, hotspotUser }) => {
+const ProfileSection = async ({ user, isActive, packageInfo, isActiveHotspotUser, hotspotUser }) => {
+
+
     return (
         <>
             <div

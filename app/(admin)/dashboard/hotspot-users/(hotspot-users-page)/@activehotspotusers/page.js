@@ -3,7 +3,8 @@ import { getActiveHotpotUsers } from '@/queries/hotspotUser';
 import { columns } from './_components/columns';
 
 const ActiveHotspotUsers = async () => {
-    const activeHotspotUsers = await getActiveHotpotUsers();
+    const activeHotspotUsers = JSON.parse(await getActiveHotpotUsers());
+
     return (
         <div>
             <DataTable columns={columns} data={activeHotspotUsers} />

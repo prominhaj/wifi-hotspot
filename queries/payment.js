@@ -12,7 +12,7 @@ export const getAllPayments = async () => {
             })
             .sort({ createdAt: -1 })
             .lean();
-        return replaceMongoIdInArray(payments);
+        return JSON.stringify(payments);
     } catch (error) {
         throw new Error(error);
     }
@@ -78,7 +78,7 @@ export const getRecentTransaction = async (userId) => {
                 model: Package
             })
             .lean();
-        return replaceMongoIdInObject(recentTransaction);
+        return JSON.stringify(recentTransaction);
     } catch (error) {
         throw new Error(error);
     }

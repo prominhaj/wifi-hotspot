@@ -17,8 +17,9 @@ export const GET = async (_req) => {
         }).lean();
 
         for (const databaseHotspotUser of getDataBaseHotspotUsers) {
-            const hotspotUser = await getHotspotUserByUsername(databaseHotspotUser?.username);
+            const hotspotUser = await getHotspotUserByUsername(databaseHotspotUser?.username, true);
             const macAddress = hotspotUser?.['mac-address'];
+
             // Update the Hotspot user set macAddress in the database
             if (macAddress) {
                 await HotspotUser.findByIdAndUpdate(databaseHotspotUser._id, {

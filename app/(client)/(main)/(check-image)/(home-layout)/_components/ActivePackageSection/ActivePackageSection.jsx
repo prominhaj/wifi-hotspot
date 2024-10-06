@@ -2,8 +2,8 @@ import PackageCard from "@/components/globals/PackageCard/PackageCard";
 import { cn } from "@/lib/utils";
 import { getPopularPackage } from "@/queries/package";
 import { formatBytes } from "@/lib/convertData";
-import ActivePackage from "../../../_components/DashboardPage/ActivePackage/ActivePackage";
 import connectToRouter from "@/lib/mikrotik";
+import ActivePackage from "../Dashboard/ActivePackage/ActivePackage";
 
 const ActivePackageSection = async ({ isActive, activeHotspotUser, hotspotUser, packageInfo }) => {
     const isConnected = await connectToRouter(true);

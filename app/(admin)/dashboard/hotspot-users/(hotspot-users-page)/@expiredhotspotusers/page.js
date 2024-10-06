@@ -3,7 +3,7 @@ import { DataTable } from '../../_components/Table/Table';
 import { getHotspotUsers } from '@/queries/hotspotUser';
 
 const ExpiredHotspotUserPage = async () => {
-    const expiredHotspotUsers = await getHotspotUsers({ status: 'expired' });
+    const expiredHotspotUsers = JSON.parse(await getHotspotUsers({ status: 'expired' }));
 
     return (
         <div>

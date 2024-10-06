@@ -3,7 +3,7 @@ import { DataTable } from "./Table/data-table";
 import { columns } from "./Table/columns";
 
 const MacAddressTable = async () => {
-    const macAddresses = await getMacAddresses();
+    const macAddresses = JSON.parse(await getMacAddresses());
 
     return (
         <div className='px-6'>

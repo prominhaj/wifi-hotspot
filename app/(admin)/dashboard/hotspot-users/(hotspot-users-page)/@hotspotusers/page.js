@@ -3,7 +3,7 @@ import { DataTable } from '../../_components/Table/Table';
 import { columns } from '../../_components/Table/columns';
 
 const HotspotUsersPage = async () => {
-    const activeHotspotUsers = await getHotspotUsers({ status: 'active' });
+    const activeHotspotUsers = JSON.parse(await getHotspotUsers({ status: 'active' }));
 
     return (
         <>

@@ -53,7 +53,7 @@ export const columns = [
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             >
-                Bytes In <ArrowUpDown className="w-4 h-4 ml-2" />
+                Upload <ArrowUpDown className="w-4 h-4 ml-2" />
             </Button>
         ),
         cell: ({ row }) => {
@@ -68,7 +68,7 @@ export const columns = [
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             >
-                Bytes Out <ArrowUpDown className="w-4 h-4 ml-2" />
+                Download <ArrowUpDown className="w-4 h-4 ml-2" />
             </Button>
         ),
         cell: ({ row }) => {

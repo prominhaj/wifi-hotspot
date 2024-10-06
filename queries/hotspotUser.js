@@ -1,4 +1,4 @@
-import { replaceMongoIdInArray, replaceMongoIdInObject } from '@/lib/convertData';
+import { replaceMongoIdInObject } from '@/lib/convertData';
 import HotspotUser from '@/modals/hotspot-user-modal';
 import Package from '@/modals/package-modal';
 import Payment from '@/modals/payment-modal';
@@ -20,8 +20,9 @@ export const getHotspotUsers = async (filter) => {
                 path: 'paymentId',
                 model: Payment
             })
+            .sort({ createdAt: -1 })
             .lean();
-        return replaceMongoIdInArray(hotspotUsers);
+        return JSON.stringify(hotspotUsers);
     } catch (error) {
         throw new Error(error);
     }
@@ -85,7 +86,7 @@ export const getActiveHotpotUsers = async () => {
             })
             .filter(Boolean);
 
-        return replaceMongoIdInArray(modifiedUsers);
+        return JSON.stringify(modifiedUsers);
     } catch (error) {
         throw new Error(error);
     }
@@ -106,7 +107,7 @@ export const getHotspotUserByUserId = async (userId) => {
                 model: Payment
             })
             .lean();
-        return replaceMongoIdInObject(hotspotUser);
+        return JSON.stringify(hotspotUser);
     } catch (error) {
         throw new Error(error);
     }

@@ -22,7 +22,7 @@ const items = [
 ];
 
 const DashboardPaymentHistoryPage = async () => {
-    const payments = await getAllPayments();
+    const payments = JSON.parse(await getAllPayments());
 
     return (
         <div>

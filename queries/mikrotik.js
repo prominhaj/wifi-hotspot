@@ -52,12 +52,15 @@ export const getHotspotUsers = async (length) => {
     }
 };
 
-export const getHotspotUserByUsername = async (username) => {
+export const getHotspotUserByUsername = async (username, isClose) => {
     try {
         // Fetch user data by ID
         const conn = await connectToRouter();
         const [user] = await conn.write('/ip/hotspot/user/print', [`?name=${username}`]);
-        conn.close();
+
+        if (!isClose) {
+            conn.close();
+        }
 
         return user;
     } catch (error) {

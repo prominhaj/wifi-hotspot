@@ -7,7 +7,7 @@ import { getAllPackages } from '@/queries/package';
 const PackageList = async () => {
     const wifiPackages = await getAllPackages();
     const user = await getSessionUser();
-    const currentPlan = await getHotspotUserByUserId(user?.id);
+    const currentPlan = JSON.parse(await getHotspotUserByUserId(user?.id));
     const currentStatus = currentPlan?.status === 'active' ? true : false;
     const isConnected = await connectToRouter(true);
 

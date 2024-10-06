@@ -1,18 +1,18 @@
 import { getSessionUser } from '@/lib/dal';
-import ProfileSection from './_components/ProfileSection/ProfileSection';
-import ActivePackageSection from './_components/ActivePackageSection/ActivePackageSection';
 import { getHotspotUserByUserId } from '@/queries/hotspotUser';
 import {
     getHotspotActiveUserByPhone,
     getHotspotUserByPhone
 } from '@/lib/hotspot/dataFetching/hotspot';
 import { Suspense } from 'react';
-import ActivePackageSectionLoading from './_components/ActivePackageSection/ActivePackageSectionLoading';
+import ActivePackageSectionLoading from '../ActivePackageSection/ActivePackageSectionLoading';
+import ProfileSection from '../ProfileSection/ProfileSection';
+import ActivePackageSection from '../ActivePackageSection/ActivePackageSection';
+import { getHotspotUserByUsername } from '@/queries/mikrotik';
 
 const ActiveDashboard = async () => {
     const user = await getSessionUser();
-
-    const currentPlan = await getHotspotUserByUserId(user?.id);
+    const currentPlan = JSON.parse(await getHotspotUserByUserId(user?.id));
     const currentStatus = currentPlan?.status === 'active' ? true : false;
 
     const hotspotUser = currentStatus && (await getHotspotUserByPhone(user?.phone));
