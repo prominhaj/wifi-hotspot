@@ -101,7 +101,7 @@ export const getPaymentHistoriesByUserId = async (userId) => {
 export const getLastRecentTransaction = async () => {
     try {
         const lastRecentTransaction = await Payment.find()
-            .limit(8)
+            .limit(10)
             .populate({
                 path: 'userId',
                 model: User
