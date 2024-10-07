@@ -1,7 +1,7 @@
-
-import { Card, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import UpdatePhoto from "./ProfilePhoto/UpdatePhoto";
 import DeletePhoto from "./ProfilePhoto/DeletePhoto";
+import UserEditForm from "./UserEditForm/UserEditForm";
 
 const UserProfileCard = ({ user }) => {
     console.log(user);
@@ -16,6 +16,9 @@ const UserProfileCard = ({ user }) => {
                     </div>
                 </div>
             </CardHeader>
+            <CardContent>
+                <UserEditForm user={user} />
+            </CardContent>
         </Card>
     );
 };
