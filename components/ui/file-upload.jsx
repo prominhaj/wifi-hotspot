@@ -5,10 +5,9 @@ import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { toast } from "sonner";
-import MagicButton from "../globals/Button/MagicButton";
 import { Button } from "./button";
 import { Trash2 } from "lucide-react";
-import imageCompression from 'browser-image-compression'; // import image compression
+import imageCompression from 'browser-image-compression';
 import SubmitButton from "../globals/SubmitButton/SubmitButton";
 
 // Define allowed image types
@@ -24,8 +23,8 @@ const secondaryVariant = {
     animate: { opacity: 1 },
 };
 
-export const FileUpload = ({ onChange, onUpload }) => {
-    const [files, setFiles] = useState([]);
+export const FileUpload = ({ onChange, onUpload, defaultImage }) => {
+    const [files, setFiles] = useState(defaultImage?.url ? [{ url: defaultImage?.url, default: true }] : []);
     const fileInputRef = useRef(null);
 
     // Handle file changes and compress images
@@ -79,6 +78,9 @@ export const FileUpload = ({ onChange, onUpload }) => {
         },
     });
 
+    console.log({ files });
+
+
     return (
         <div className="w-full" {...getRootProps()}>
             <motion.div
@@ -102,7 +104,7 @@ export const FileUpload = ({ onChange, onUpload }) => {
                         Drag or drop your files here or click to upload
                     </p>
                     <div className="relative w-full mt-5 md:mt-10">
-                        {files.length > 0 &&
+                        {files?.length > 0 &&
                             files.map((file, idx) => (
                                 <motion.div
                                     key={"file" + idx}
@@ -113,7 +115,7 @@ export const FileUpload = ({ onChange, onUpload }) => {
                                     )}>
                                         <Image
                                             className="w-[15rem] flex items-center justify-center object-cover rounded-full h-[14rem]"
-                                            src={URL.createObjectURL(file)}
+                                            src={file?.default && file?.url || URL.createObjectURL(file)}
                                             width={600}
                                             height={500}
                                             alt="Selected Image"

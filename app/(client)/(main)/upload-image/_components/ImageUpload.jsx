@@ -38,6 +38,7 @@ const ImageUpload = ({ user }) => {
     return (
         <div className="flex items-center justify-center w-full bg-white border border-dashed rounded-lg dark:bg-black border-neutral-200 dark:border-neutral-800">
             <FileUpload
+                defaultImage={user?.profilePhoto}
                 onUpload={handleImageUpload}
                 onChange={handleFileUpload}
             />
