@@ -1,5 +1,7 @@
+import { redirect } from 'next/navigation';
+
 const StatisticPage = () => {
-    return <div>This is a StatisticPage</div>;
+    redirect('/');
 };
 
 export default StatisticPage;

@@ -2,7 +2,7 @@ import { getHotspotUserById } from '@/queries/hotspotUser';
 import Modal from './_components/Modal';
 
 export const generateMetadata = async ({ params: { id } }) => {
-    const editHotspotUser = await getHotspotUserById(id);
+    const editHotspotUser = JSON.parse(await getHotspotUserById(id));
 
     return {
         title: `${editHotspotUser?.userId?.name} - Wifi Hotspot`,
@@ -13,7 +13,7 @@ export const generateMetadata = async ({ params: { id } }) => {
 };
 
 const EditModalPage = async ({ params: { id } }) => {
-    const editHotspotUser = await getHotspotUserById(id);
+    const editHotspotUser = JSON.parse(await getHotspotUserById(id));
     return (
         <>
             <Modal editHotspotUser={editHotspotUser} />

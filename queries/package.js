@@ -8,7 +8,7 @@ export const getAllPackages = async () => {
                 validity: 1
             })
             .lean();
-        return replaceMongoIdInArray(packages);
+        return JSON.stringify(packages);
     } catch (error) {
         throw new Error(error);
     }

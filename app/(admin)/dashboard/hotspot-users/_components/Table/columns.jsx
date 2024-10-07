@@ -99,7 +99,7 @@ export const columns = [
     {
         accessorKey: "Action",
         cell: ({ row }) => {
-            const id = row.original?.id;
+            const id = row.original?._id;
             return (
                 <div className="flex items-center gap-1.5">
                     <DropdownMenu>

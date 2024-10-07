@@ -22,7 +22,7 @@ const EditForm = ({ editHotspotUser }) => {
                     expiredAt
                 };
                 const result = await updateHotspotUserById(
-                    editHotspotUser?.id,
+                    editHotspotUser?._id,
                     editHotspotUser?.hotspotUserId,
                     updatedInfo
                 );
@@ -36,7 +36,7 @@ const EditForm = ({ editHotspotUser }) => {
                 toast.error(error.message);
             }
         },
-        [editHotspotUser?.hotspotUserId, editHotspotUser?.id, back]
+        [editHotspotUser?.hotspotUserId, editHotspotUser?._id, back]
     );
 
     return (

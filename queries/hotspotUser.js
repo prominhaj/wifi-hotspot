@@ -44,7 +44,7 @@ export const getHotspotUserById = async (id) => {
                 model: Payment
             })
             .lean();
-        return replaceMongoIdInObject(hotspotUser);
+        return JSON.stringify(hotspotUser);
     } catch (error) {
         throw new Error(error);
     }

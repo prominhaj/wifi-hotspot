@@ -3,7 +3,7 @@ import BreadcrumbSection from '@/components/globals/Breadcrumb/BreadcrumbSection
 import HotspotUserDetailsCard from './_components/HotspotUserDetailsCard';
 
 export const generateMetadata = async ({ params: { id } }) => {
-    const hotspotUser = await getHotspotUserById(id);
+    const hotspotUser = JSON.parse(await getHotspotUserById(id));
 
     return {
         title: `${hotspotUser?.userId?.name} - Wifi Hotspot`,
@@ -14,7 +14,7 @@ export const generateMetadata = async ({ params: { id } }) => {
 };
 
 const HotspotUserDetailsPage = async ({ params: { id } }) => {
-    const hotspotUser = await getHotspotUserById(id);
+    const hotspotUser = JSON.parse(await getHotspotUserById(id));
 
     // items
     const items = [

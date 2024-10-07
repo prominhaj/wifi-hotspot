@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import DeleteHotspotUser from './DeleteHotspotUser';
 
-const HotspotUserDetailsCard = async ({ hotspotUser }) => {
+const HotspotUserDetailsCard = ({ hotspotUser }) => {
 
     return (
         <Card className='w-full max-w-6xl mx-auto bg-transparent'>

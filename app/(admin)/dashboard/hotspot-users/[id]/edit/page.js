@@ -3,7 +3,7 @@ import { getHotspotUserById } from '@/queries/hotspotUser';
 import EditForm from '../../_components/EditPage/EditForm';
 
 export const generateMetadata = async ({ params: { id } }) => {
-    const editHotspotUser = await getHotspotUserById(id);
+    const editHotspotUser = JSON.parse(await getHotspotUserById(id));
 
     return {
         title: `${editHotspotUser?.userId?.name} - Wifi Hotspot`,
@@ -14,7 +14,7 @@ export const generateMetadata = async ({ params: { id } }) => {
 };
 
 const HotSpotUserEditPage = async ({ params: { id } }) => {
-    const editHotspotUser = await getHotspotUserById(id);
+    const editHotspotUser = JSON.parse(await getHotspotUserById(id));
 
     // items
     const items = [

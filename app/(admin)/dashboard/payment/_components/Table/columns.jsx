@@ -125,7 +125,7 @@ export const columns = [
     {
         accessorKey: "Action",
         cell: ({ row }) => {
-            const { id } = row.original;
+            const id = row?.original?._id;
             return (
                 <>
                     <Link className={cn(buttonVariants({ variant: "ghost" }))} href={`/dashboard/payment/history/${id}`}>
