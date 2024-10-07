@@ -23,7 +23,7 @@ const HotspotUserDetailsCard = ({ hotspotUser }) => {
                             <div className='text-sm text-muted-foreground'>Phone No: {hotspotUser?.userId?.phone}</div>
                         </div>
                     </div>
-                    <DeleteHotspotUser id={hotspotUser?.id} />
+                    <DeleteHotspotUser id={hotspotUser?._id} />
                 </div>
             </CardHeader>
             <CardContent className='grid gap-8 p-6 pt-3 bg-background/20'>

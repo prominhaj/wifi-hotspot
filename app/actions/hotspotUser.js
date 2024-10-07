@@ -23,8 +23,6 @@ export const updateHotspotUserById = async (id, hotspotId, updateInfo) => {
 
         // Update the hotspot user with the provided username, password, and mac-address
 
-        console.log(updateInfo?.macAddress);
-
         await conn.write('/ip/hotspot/user/set', [
             `=.id=${hotspotId}`,
             `=name=${updateInfo?.username}`,

@@ -19,9 +19,11 @@ export const updateUserInfo = async (id, updateData) => {
     }
 };
 
-export const getUserById = async (id) => {
+export const getUserById = async (id, isPassword) => {
     try {
-        const user = await User.findById(id).select('-password').lean();
+        const user = await User.findById(id)
+            .select(!isPassword && '-password')
+            .lean();
         return replaceMongoIdInObject(user);
     } catch (error) {
         throw new Error(error);

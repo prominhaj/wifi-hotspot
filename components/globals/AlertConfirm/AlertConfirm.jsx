@@ -22,7 +22,7 @@ const AlertConfirm = ({ button, className, submitButton, handleAction, open, set
                 <AlertDialogHeader>
                     <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                     <AlertDialogDescription>
-                        {confirmMessage}
+                        {confirmMessage || "This action cannot be undone. This will permanently delete your account and remove your data from our servers."}
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
