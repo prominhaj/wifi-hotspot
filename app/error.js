@@ -8,7 +8,7 @@ export default function Error({ error, reset }) {
     }, [error]);
 
     return (
-        <div className='w-full flex items-center h-[70vh] justify-center'>
+        <div className='w-full flex items-center h-[70vh] justify-center bello-test'>
             <ErrorContent reset={reset} error={error} />
         </div>
     );
