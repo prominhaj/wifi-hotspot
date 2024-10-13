@@ -76,10 +76,7 @@ export const FileUpload = ({ onChange, onUpload, defaultImage }) => {
         onDropRejected: () => {
             toast.error("File rejected");
         },
-    });
-
-    console.log({ files });
-
+    })
 
     return (
         <div className="w-full" {...getRootProps()}>
@@ -92,7 +89,8 @@ export const FileUpload = ({ onChange, onUpload, defaultImage }) => {
                     type="file"
                     accept={allowedImageTypes.join(',')}
                     onChange={(e) => handleFileChange(Array.from(e.target.files || []))}
-                    className="hidden" />
+                    className="hidden"
+                />
                 <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]">
                     <GridPattern />
                 </div>
