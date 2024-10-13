@@ -9,12 +9,9 @@ const UploadImagePage = async () => {
     // }
 
     return (
-        <div>
-            <input type='file' />
             <div className='flex items-center justify-center py-8 md:py-12 lg:py-16'>
                 <ImageUpload user={sessionUser} />
             </div>
-        </div>
     );
 };
 
