@@ -25,7 +25,7 @@ export const metadata = {
 
 const HomePage = () => {
     return (
-        <div>
+        <>
             <ActiveDashboard />
             <ServiceSection />
             <RecentTransaction />
@@ -35,7 +35,7 @@ const HomePage = () => {
                     <PackageList />
                 </Suspense>
             </div>
-        </div>
+        </>
     );
 };
 
