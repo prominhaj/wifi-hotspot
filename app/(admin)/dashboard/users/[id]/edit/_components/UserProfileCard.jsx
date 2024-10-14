@@ -1,11 +1,9 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import UpdatePhoto from "./ProfilePhoto/UpdatePhoto";
 import DeletePhoto from "./ProfilePhoto/DeletePhoto";
 import UserEditForm from "./UserEditForm/UserEditForm";
+import UpdatePhoto from "@/components/globals/UploadPhoto/UpdatePhoto";
 
 const UserProfileCard = ({ user }) => {
-    console.log(user);
-
     return (
         <Card>
             <CardHeader>

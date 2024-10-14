@@ -1,4 +1,4 @@
-import ImageUpload from "@/app/(client)/(main)/upload-image/_components/ImageUpload";
+import ImageUpload from "@/components/globals/UploadPhoto/ImageUpload";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 

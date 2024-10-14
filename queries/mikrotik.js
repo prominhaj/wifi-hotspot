@@ -4,11 +4,10 @@ export const getHotspotActiveUsers = async (length) => {
     const conn = await connectToRouter();
     try {
         const users = await conn.write('/ip/hotspot/active/print');
+        conn.close();
         return length ? users?.length : users;
     } catch (error) {
         throw new Error(`Failed to fetch active users: ${error.message}`);
-    } finally {
-        conn.close();
     }
 };
 

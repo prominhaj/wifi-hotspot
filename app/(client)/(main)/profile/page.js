@@ -4,6 +4,7 @@ import Logout from '@/components/globals/Logout/Logout';
 import ProfileName from './_components/ProfileName';
 import ChangePassword from './_components/ChangePassword/ChangePassword';
 import DashboardButton from './_components/DashboardButton';
+import UpdatePhoto from '@/components/globals/UploadPhoto/UpdatePhoto';
 
 export const generateMetadata = async ({ params }) => {
     const sessionUser = await getSessionUser();
@@ -38,14 +39,20 @@ const ProfilePage = async () => {
                     <div className='mb-5 text-center'>
                         <div>
                             <div className='mx-auto cursor-pointer group size-28'>
-                                <Avatar className='w-full h-full transition-colors duration-500 shadow dark:shadow-gray-800 ring-4 ring-green-500'>
-                                    <AvatarImage
-                                        className='object-cover'
-                                        src={sessionUser?.profilePhoto?.url}
-                                        alt='profile-image'
-                                    />
-                                    <AvatarFallback>{sessionUser?.name.slice(0, 2)}</AvatarFallback>
-                                </Avatar>
+                                {!sessionUser?.profilePhoto?.url ? (
+                                    <UpdatePhoto user={sessionUser} />
+                                ) : (
+                                    <Avatar className='w-full h-full transition-colors duration-500 shadow dark:shadow-gray-800 ring-4 ring-green-500'>
+                                        <AvatarImage
+                                            className='object-cover'
+                                            src={sessionUser?.profilePhoto?.url}
+                                            alt='profile-image'
+                                        />
+                                        <AvatarFallback>
+                                            {sessionUser?.name.slice(0, 2)}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                )}
                             </div>
                             <div className='mt-4'>
                                 <ProfileName sessionUser={sessionUser} />

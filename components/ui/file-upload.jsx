@@ -5,10 +5,11 @@ import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { toast } from "sonner";
-import { Button } from "./button";
-import { Trash2 } from "lucide-react";
+import { Button, buttonVariants } from "./button";
+import { SkipBack, Trash2 } from "lucide-react";
 import imageCompression from 'browser-image-compression';
 import SubmitButton from "../globals/SubmitButton/SubmitButton";
+import Link from "next/link";
 
 // Define allowed image types
 const allowedImageTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
@@ -168,6 +169,15 @@ export const FileUpload = ({ onChange, onUpload, defaultImage }) => {
                         )}
                     </div>
                 </div>
+                {
+                    !files.length && (
+                        <div className="flex justify-end">
+                            <Link className={cn(buttonVariants({ variant: "outline", size: "sm" }), "z-30 gap-1")} href="/">
+                                <SkipBack className="w-4 h-4" /> Skip
+                            </Link>
+                        </div>
+                    )
+                }
             </motion.div>
         </div>
     );

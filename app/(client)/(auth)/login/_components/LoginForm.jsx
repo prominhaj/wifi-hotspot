@@ -35,13 +35,17 @@ const LoginForm = ({ redirectUrl }) => {
             const result = await loginUser(phone, password);
 
             if (result?.success) {
+                if (!result?.user?.profilePhoto?.url) {
+                    router.push(`/upload-image`)
+                    return;
+                }
                 if (result?.user?.role == "admin") {
                     toast.success(result.message);
-                    await redirectPath("/dashboard")
+                    router.push("/dashboard")
                 }
                 else {
                     toast.success(result.message);
-                    await redirectPath(redirectUrl || "/")
+                    router.push(redirectUrl || "/")
                 }
             } else {
                 handleErrors(result, user);
@@ -115,6 +119,7 @@ const LoginForm = ({ redirectUrl }) => {
                         )}
                     </FormControl>
                     <SubmitButton
+                        loadingText="Loading..."
                         variant="primary"
                         className="w-full tracking-wider rounded-lg"
                     >
