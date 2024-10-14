@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { convertToUTCPlus6 } from "@/lib/convertData";
+import { convertToUTCPlus6, timeAgo } from "@/lib/convertData";
 import moment from "moment";
 
 const RecentTransactionCard = ({ payment }) => {
@@ -27,7 +27,7 @@ const RecentTransactionCard = ({ payment }) => {
                     <div className='font-medium'>BDT {amount}</div>
                     <p>
                         <small>
-                            {moment(convertToUTCPlus6(createdAt)).format('MMM DD YYYY, h:mm:ss A')}
+                            {timeAgo(convertToUTCPlus6(createdAt))}
                         </small>
                     </p>
                 </div>
