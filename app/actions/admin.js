@@ -9,6 +9,9 @@ export const updateHotspotUsersMacAddress = async () => {
         const response = await fetch(`${process.env.BASE_URL}/api/update-mac-address`);
         const result = await response.json();
         if (result?.success) {
+            // revalidatePath
+            revalidatePath('/');
+
             return {
                 success: true,
                 message: result.message

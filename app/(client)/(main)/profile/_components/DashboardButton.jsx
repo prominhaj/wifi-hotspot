@@ -10,7 +10,7 @@ const DashboardButton = () => {
 
     return (
         <form className="w-full" action={dashboardAction}>
-            <SubmitButton loadingText="Dashboard" className="w-full" variant="primary">
+            <SubmitButton loadingText="Loading..." className="w-full" variant="primary">
                 Dashboard
             </SubmitButton>
         </form>

@@ -1,7 +1,6 @@
 import HotspotUser from '@/modals/hotspot-user-modal';
 import MacAddress from '@/modals/mac-address-modal';
 import { getHotspotUserByUsername } from '@/queries/mikrotik';
-import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 export const GET = async (_req) => {
@@ -22,9 +21,15 @@ export const GET = async (_req) => {
 
             // Update the Hotspot user set macAddress in the database
             if (macAddress) {
-                await HotspotUser.findByIdAndUpdate(databaseHotspotUser._id, {
-                    macAddress
-                });
+                await HotspotUser.updateOne(
+                    {
+                        _id: databaseHotspotUser._id,
+                        status: 'active'
+                    },
+                    {
+                        macAddress
+                    }
+                );
 
                 // update macAddress in this connection
                 const existingMacAddress = await MacAddress.exists({ macAddress });
@@ -37,9 +42,6 @@ export const GET = async (_req) => {
                 }
             }
         }
-
-        // revalidatePath
-        revalidatePath('/');
 
         return NextResponse.json({
             success: true,
