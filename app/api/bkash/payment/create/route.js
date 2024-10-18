@@ -6,6 +6,8 @@ export async function POST(req) {
     const { amount, userId, packageId } = await req.json();
     const authSuccess = await bkashAuth(req);
 
+    console.log({ packageId });
+
     if (!authSuccess) {
         return NextResponse.json({ success: false, error: 'Authentication failed', status: 401 });
     }

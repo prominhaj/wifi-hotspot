@@ -69,7 +69,7 @@ const PackageCard = async ({ wifiPackage, isPopular, isDisabled, isConnected }) 
                         disabled={isDisabled}
                         user={user}
                         amount={finalPrice}
-                        packageId={wifiPackage?.id}
+                        packageId={wifiPackage?._id?.toString()}
                         isConnected={isConnected}
                     />
                 </CardFooter>

@@ -59,8 +59,6 @@ export const POST = async (req) => {
                 });
             } else {
                 // Payment Refund
-                console.log(data?.trxID);
-
                 const refundPayment = await paymentRefundInBkash(data?.trxID);
                 if (refundPayment?.success) {
                     return NextResponse.json({

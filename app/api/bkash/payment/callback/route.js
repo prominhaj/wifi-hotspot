@@ -63,6 +63,9 @@ export async function GET(req) {
 
                     return NextResponse.redirect(redirectUrl);
                 } else {
+                    // Refund payment
+                    console.log({ mikrotikResponse });
+
                     return NextResponse.redirect(
                         `${process.env.BASE_URL}/payment?success=${mikrotikResponse?.success}&message=${mikrotikResponse?.message}`
                     );
