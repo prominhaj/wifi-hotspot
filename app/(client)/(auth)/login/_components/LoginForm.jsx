@@ -40,7 +40,7 @@ const LoginForm = ({ redirectUrl }) => {
         } else {
             setIsValid(null);
         }
-    }, [phone]);
+    }, [phone, errors]);
 
     const handleUserLogin = async (formData) => {
         setLoading(true)
@@ -63,13 +63,18 @@ const LoginForm = ({ redirectUrl }) => {
 
             if (result?.success) {
                 toast.success(result.message);
-                router.push(
-                    !result.user.profilePhoto?.url
-                        ? `/upload-image`
-                        : result.user.role === "admin"
-                            ? "/dashboard"
-                            : redirectUrl || "/"
-                );
+                if (!result.user.profilePhoto?.url) {
+                    router.push(`/upload-image`);
+                    return
+                }
+                else if (result.user.role === "admin") {
+                    router.push("/dashboard");
+                    return
+                }
+                else {
+                    router.push(redirectUrl || "/")
+                    return
+                }
             } else {
                 handleErrors(result, user);
             }
