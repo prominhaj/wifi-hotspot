@@ -2,29 +2,58 @@
 import { loginUser } from "@/app/actions/auth";
 import { getUserByPhone } from "@/app/actions/user";
 import FormControl from "@/components/globals/FormControl/FormControl";
+import Spinner from "@/components/globals/Loading/Spinner";
 import SubmitButton from "@/components/globals/SubmitButton/SubmitButton";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { KeyRound, Phone } from "lucide-react";
+import { CircleCheck, CircleX, KeyRound, Phone } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const LoginForm = ({ redirectUrl }) => {
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [phone, setPhone] = useState("");
+    const [isValid, setIsValid] = useState(null);
     const router = useRouter();
 
+    useEffect(() => {
+        const validatePhone = async () => {
+            try {
+                const response = await fetch(
+                    `${process.env.NEXT_PUBLIC_BASE_URL}/api/phone/isValid?phone=${phone}`
+                );
+                const { isValid } = await response.json();
+                if (isValid) {
+                    setErrors({ ...errors, phone: null })
+                }
+                setIsValid(isValid);
+            } catch (error) {
+                console.error("Phone validation failed:", error);
+            }
+        };
+
+        if (phone.length === 11) {
+            validatePhone();
+        } else {
+            setIsValid(null);
+        }
+    }, [phone]);
+
     const handleUserLogin = async (formData) => {
+        setLoading(true)
         setErrors({});
         const phone = formData.get("phone");
         const password = formData.get("password");
 
         if (!phone || !password) {
             setErrors({
-                phone: ["Please enter a phone number"],
-                password: ["Password number is required"],
+                phone: !phone ? ["Please enter a phone number"] : [],
+                password: !password ? ["Password is required"] : [],
             });
+            setLoading(false)
             return;
         }
 
@@ -33,33 +62,32 @@ const LoginForm = ({ redirectUrl }) => {
             const result = await loginUser(phone, password);
 
             if (result?.success) {
-                if (!result?.user?.profilePhoto?.url) {
-                    router.push(`/upload-image`)
-                    return;
-                }
-                if (result?.user?.role == "admin") {
-                    toast.success(result.message);
-                    router.push("/dashboard")
-                }
-                else {
-                    toast.success(result.message);
-                    router.push(redirectUrl || "/")
-                }
+                toast.success(result.message);
+                router.push(
+                    !result.user.profilePhoto?.url
+                        ? `/upload-image`
+                        : result.user.role === "admin"
+                            ? "/dashboard"
+                            : redirectUrl || "/"
+                );
             } else {
                 handleErrors(result, user);
             }
-        } catch (err) {
-            toast.error(err.message);
+        } catch (error) {
+            toast.error(error.message);
+        }
+        finally {
+            setLoading(false)
         }
     };
 
     const handleErrors = (result, user) => {
-        if (result.phone || result.password) {
-            setErrors({
-                phone: result.phone ? [result.message] : undefined,
-                password: result.password ? [result.message] : undefined,
-            });
-        } else if (result.verified) {
+        setErrors({
+            phone: result.phone ? [result.message] : [],
+            password: result.password ? [result.message] : [],
+        });
+
+        if (result.verified) {
             router.push(`/register/verify?id=${user?.id}`);
         }
         toast.error(result.message);
@@ -68,32 +96,41 @@ const LoginForm = ({ redirectUrl }) => {
     return (
         <div>
             <h4 className="text-xl font-semibold tracking-wider text-center">লগইন</h4>
-            <form className="pt-5" action={handleUserLogin}>
+            <form className="pt-5" onSubmit={(e) => { e.preventDefault(); handleUserLogin(new FormData(e.target)); }}>
                 <div className="space-y-4">
-                    <FormControl
-                        name="phone"
-                        label="ফোন নাম্বার"
-                        type="tel"
-                        maxLength={11}
-                        minLength={11}
-                        pattern="\d{11}"
-                        title="Please enter a valid 11-digit phone number"
-                        icon={<Phone className="w-4 h-4" />}
-                        placeholder="01786XXXXXX"
-                        error={errors.phone}
-                    >
+                    <div className="relative">
+                        <FormControl
+                            name="phone"
+                            label="ফোন নাম্বার"
+                            type="tel"
+                            maxLength={11}
+                            minLength={11}
+                            pattern="\d{11}"
+                            title="Please enter a valid 11-digit phone number"
+                            icon={<Phone className="w-4 h-4" />}
+                            placeholder="01786XXXXXX"
+                            error={errors.phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                        />
                         {errors?.phone && (
-                            <p className="flex flex-col items-start justify-start gap-0.5 text-red-500">
-                                {
-                                    errors?.phone.map((mess, i) => (
-                                        <small key={i}>
-                                            {mess}
-                                        </small>
-                                    ))
-                                }
+                            <p className="text-red-500">
+                                {errors.phone.map((mess, i) => (
+                                    <small key={i}>{mess}</small>
+                                ))}
                             </p>
                         )}
-                    </FormControl>
+                        <span className="absolute right-2 top-10">
+                            {phone.length === 11 && (isValid === null ? (
+                                <Spinner />
+                            ) : isValid ? (
+                                <CircleCheck className="w-5 h-5 text-green-500" />
+                            ) : (
+                                <p className="text-red-500">
+                                    <CircleX className="w-5 h-5" />
+                                </p>
+                            ))}
+                        </span>
+                    </div>
                     <FormControl
                         name="password"
                         label="পাসওয়ার্ড"
@@ -103,20 +140,9 @@ const LoginForm = ({ redirectUrl }) => {
                         icon={<KeyRound className="w-4 h-4" />}
                         placeholder="********"
                         error={errors.password}
-                    >
-                        {errors?.password && (
-                            <p className="flex flex-col items-start justify-start gap-0.5 text-red-500">
-                                {
-                                    errors?.password.map((mess, i) => (
-                                        <small key={i}>
-                                            {mess}
-                                        </small>
-                                    ))
-                                }
-                            </p>
-                        )}
-                    </FormControl>
+                    />
                     <SubmitButton
+                        loading={loading}
                         loadingText="Loading..."
                         variant="primary"
                         className="w-full tracking-wider rounded-lg"
