@@ -1,6 +1,4 @@
 "use client";
-
-import { redirectPath } from "@/app/actions";
 import { loginUser } from "@/app/actions/auth";
 import { getUserByPhone } from "@/app/actions/user";
 import FormControl from "@/components/globals/FormControl/FormControl";
