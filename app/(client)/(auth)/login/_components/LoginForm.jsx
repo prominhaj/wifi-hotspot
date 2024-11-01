@@ -1,4 +1,5 @@
 "use client";
+import { redirectPath } from "@/app/actions";
 import { loginUser } from "@/app/actions/auth";
 import { getUserByPhone } from "@/app/actions/user";
 import FormControl from "@/components/globals/FormControl/FormControl";
@@ -40,7 +41,7 @@ const LoginForm = ({ redirectUrl }) => {
         } else {
             setIsValid(null);
         }
-    }, [phone, errors]);
+    }, [phone]);
 
     const handleUserLogin = async (formData) => {
         setLoading(true)
@@ -63,18 +64,14 @@ const LoginForm = ({ redirectUrl }) => {
 
             if (result?.success) {
                 toast.success(result.message);
-                if (!result.user.profilePhoto?.url) {
-                    router.push(`/upload-image`);
-                    return
-                }
-                else if (result.user.role === "admin") {
-                    router.push("/dashboard");
-                    return
-                }
-                else {
-                    router.push(redirectUrl || "/")
-                    return
-                }
+                await redirectPath(
+                    !result.user.profilePhoto?.url
+                        ? `/upload-image`
+                        : result.user.role === "admin"
+                            ? "/dashboard"
+                            : redirectUrl || "/"
+                );
+                return;
             } else {
                 handleErrors(result, user);
             }
