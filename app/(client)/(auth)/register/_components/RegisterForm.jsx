@@ -21,14 +21,14 @@ const RegisterForm = ({ redirectUrl }) => {
         setErrors({});
         try {
             const signUp = await userValidation(formData);
-            if (signUp.errors) {
+            if (signUp?.errors) {
                 setErrors(signUp.errors);
                 return;
             }
             if (signUp.success) {
-                const result = await createAccount(signUp.data);
+                const result = await createAccount(signUp?.data);
                 if (result?.success) {
-                    toast.success(result.message);
+                    toast.success(result?.message);
                     push(`/register/verify?id=${result?.user?._id}${redirectUrl ? `&redirectUrl=${redirectUrl}` : ''}`);
                 } else {
                     setErrors({ phone: result?.phone ? [result?.message] : [] });

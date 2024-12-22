@@ -26,7 +26,8 @@ export const createAccount = async (data) => {
 
         // Send OTP Code
         const sendOTP = await generateOTP(phone);
-        if (sendOTP.success) {
+
+        if (sendOTP?.success) {
             // Store other user details in DataBase
             const createdUser = await User.create({ name, phone, password });
 
@@ -38,7 +39,7 @@ export const createAccount = async (data) => {
         } else {
             return {
                 success: false,
-                message: sendOTP.message,
+                message: sendOTP?.message,
                 phone: true
             };
         }
