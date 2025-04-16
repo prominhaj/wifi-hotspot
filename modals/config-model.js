@@ -19,6 +19,18 @@ const ConfigSchema = new Schema(
             type: Number,
             default: 8728,
         },
+        useTLS: {
+            type: Boolean,
+            default: false,
+        },
+        timeout: {
+            type: Number,
+            default: 30,
+        },
+        keepalive: {
+            type: Boolean,
+            default: false,
+        },
     },
   },
 );

@@ -15,6 +15,9 @@ export const getMikrotikConfig = async (forceRefresh = false) => {
         user: cachedConfig.user,
         password: cachedConfig.password,
         port: cachedConfig.port || 8728,
+        timeout: cachedConfig.timeout || 30,
+        useTLS: cachedConfig.useTLS || false,
+        keepalive: cachedConfig.keepalive || false,
       };
     }
 
@@ -30,6 +33,9 @@ export const getMikrotikConfig = async (forceRefresh = false) => {
       user: config.mikrotikConfig.user,
       password: config.mikrotikConfig.password,
       port: config.mikrotikConfig.port || 8728,
+      timeout: config.mikrotikConfig.timeout || 30,
+      useTLS: config.mikrotikConfig.useTLS || false,
+      keepalive: config.mikrotikConfig.keepalive || false,
     });
 
     return {
@@ -37,6 +43,9 @@ export const getMikrotikConfig = async (forceRefresh = false) => {
       user: config.mikrotikConfig.user,
       password: config.mikrotikConfig.password,
       port: config.mikrotikConfig.port || 8728,
+      timeout: config.mikrotikConfig.timeout || 30,
+      useTLS: config.mikrotikConfig.useTLS || false,
+      keepalive: config.mikrotikConfig.keepalive || false,
     };
   } catch (error) {
     return {
