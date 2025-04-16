@@ -72,16 +72,16 @@ const VerifyOTP = ({ id, redirectUrl }) => {
         try {
             const verify = await verifyOtp(otp, id);
             if (verify?.success) {
-                toast.success(verify.message);
-                router.push(redirectUrl || '/');
+                toast.success(verify?.message);
+                router.push('/');
             } else {
                 if (!verify?.otpVerify) {
-                    setError(verify.message);
-                    toast.error(verify.message);
+                    setError(verify?.message);
+                    toast.error(verify?.message);
                     setOtp('')
                     return;
                 }
-                toast.error(verify.message);
+                toast.error(verify?.message);
             }
         } catch (error) {
             toast.error(error.message);

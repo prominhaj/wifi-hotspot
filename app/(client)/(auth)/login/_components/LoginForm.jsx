@@ -41,7 +41,7 @@ const LoginForm = ({ redirectUrl }) => {
         } else {
             setIsValid(null);
         }
-    }, [phone]);
+    }, [phone, errors]);
 
     const handleUserLogin = async (formData) => {
         setLoading(true)
@@ -160,7 +160,7 @@ const LoginForm = ({ redirectUrl }) => {
                     buttonVariants({ variant: "destructive" }),
                     "w-full font-semibold tracking-wider rounded-lg dark:bg-purple-500/75"
                 )}
-                href={`/register?redirectUrl=${redirectUrl}`}
+                href={`/register`}
             >
                 রেজিস্টার
             </Link>
