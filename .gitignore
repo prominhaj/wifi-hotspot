@@ -36,3 +36,10 @@ sw.js.map
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+swe-worker-development.js
+workbox-7144475a.js
+workbox-7144475a.js
+workbox-7144475a.js.map
+sw.js
