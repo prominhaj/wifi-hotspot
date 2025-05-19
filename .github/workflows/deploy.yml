@@ -22,10 +22,6 @@ jobs:
           echo "BKASH_REFUND_TRANSACTION_URL=${{ secrets.BKASH_REFUND_TRANSACTION_URL }}" >> .env
           echo "BKASH_SECRET_KEY=${{ secrets.BKASH_SECRET_KEY }}" >> .env
           echo "BKASH_USERNAME=${{ secrets.BKASH_USERNAME }}" >> .env
-          echo "MIKROTIK_HOST=${{ secrets.MIKROTIK_HOST }}" >> .env
-          echo "MIKROTIK_PASSWORD=${{ secrets.MIKROTIK_PASSWORD }}" >> .env
-          echo "MIKROTIK_PORT=${{ secrets.MIKROTIK_PORT }}" >> .env
-          echo "MIKROTIK_USER=${{ secrets.MIKROTIK_USER }}" >> .env
           echo "MONGO_URL=${{ secrets.MONGO_URL }}" >> .env
           echo "NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}" >> .env
           echo "SMS_API_KEY=${{ secrets.SMS_API_KEY }}" >> .env
