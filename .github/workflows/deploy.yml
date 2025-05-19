@@ -50,7 +50,7 @@ jobs:
         run: docker push prominhaj/wifi-hotspot:latest
 
       - name: Upload environment file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: env-file
           path: env.tar.gz
@@ -60,7 +60,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Download environment file
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: env-file
           path: .
@@ -79,8 +79,7 @@ jobs:
           fi
 
       - name: Remove old Docker images
-        run: |
-          docker rmi -f $(docker images -q) || true
+        run: docker rmi -f $(docker images -q) || true
 
       - name: Free up Docker space
         run: |
